@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 function Login() {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
@@ -25,8 +25,8 @@ function Login() {
 
                 <div className="inputs-login">
                     <div className="input-login">
-                        <img src='/assets/email.png' alt="" />
-                        <input type="email" placeholder='E-mail' onChange={e => setEmail(e.target.value)}/>
+                        <img src='/assets/person.png' alt="" />
+                        <input type="username" placeholder='Username' onChange={e => setUsername(e.target.value)}/>
                     </div>
 
                     <div className="input-login">
@@ -45,15 +45,18 @@ function Login() {
 
                     <div className='submit-login' 
                         onClick={async () => {
-                            const token = btoa(`${email}:${password}`); // Base64 encode the email and password
                             try {
-                                const response = await fetch('http://localhost:8080/authentication/api/check-authentication', {
-                                    method: 'GET',
+                                const response = await fetch('http://localhost:8080/Login', {
+                                    method: 'POST',
                                     headers: {
-                                        'Authorization': token,
+                                        'Content-Type': 'application/json',
                                     },
+                                    body: JSON.stringify({ username, password }), // send the email and password as JSON
                                 });
+
                                 if (response.ok) {
+                                    const { token } = await response.json(); // extract the token from the response
+                                    localStorage.setItem('token', token); // store the token in local storage
                                     router.push('/Hub'); // navigate to /hub route if login is successful
                                 }
                             } catch (error) {

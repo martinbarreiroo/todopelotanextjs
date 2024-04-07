@@ -9,7 +9,7 @@ export const Signup = () => {
     const [email, setEmail] = useState('')
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState('')  
-    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [description, setDescription] = useState('')
     const [position, setPosition] = useState('')
     const router = useRouter();
@@ -30,7 +30,7 @@ export const Signup = () => {
                     
                     <div className="input">
                         <img src='/assets/person.png' alt="" />
-                        <input type="text" placeholder='Name'onChange={e => setName(e.target.value)}/>
+                        <input type="text" placeholder='Username'onChange={e => setUsername(e.target.value)}/>
                     </div>
 
                     <div className="input">
@@ -69,18 +69,17 @@ export const Signup = () => {
                     </Link>
                 </div>
                 
-                <div className="submit-container">
-                    <div className= 'submit'
+                <div className='submit'
                         onClick={async ()=>{
                             setAction('Sign Up');
-                            const user ={name,email,password, description, position}
+                            const user ={username, email, password, description, position}
                             try {
-                                const response = await fetch('http://localhost:8080/user/add', {
+                                const response = await fetch('http://localhost:8080/Signup', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
                                     },
-                                    body: JSON.stringify(user),
+                                    body: JSON.stringify(user), 
                                 });
 
                                 if (!response.ok) {
@@ -88,16 +87,16 @@ export const Signup = () => {
                                 }
 
                                 else if (response.ok) {
+                                    const { token } = await response.json(); // extract the token from the response
+                                    localStorage.setItem('token', token); // store the token in local storage
                                     router.push('/Hub'); // navigate to /hub route if sign up is successful
                                 }
                             } catch (error) {
                                 console.error('There was a problem with the fetch operation: ', error);
                             }
                         }}
-                        style={{backgroundColor: action === 'Sign Up' ? 'gray' : '#729560'}}
-                    >
-                        Sign Up
-                    </div>
+                >
+                    Sign Up
                 </div>
             </div>
         </div>

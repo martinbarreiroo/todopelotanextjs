@@ -1,18 +1,26 @@
-// withAuth.js
+import React from 'react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
-export default function withAuth(Component) {
-    return function ProtectedRoute({...props}) {
-        const router = useRouter();
-        const user = null; // replace null with your method of getting the current user
+const withAuth = (WrappedComponent) => {
+    return (props) => {
+        if (typeof window !== 'undefined') {
+            const router = useRouter();
 
-        useEffect(() => {
-            if (!user) {
-                router.replace('/Login'); // redirect to login if user is not authenticated
+            const token = localStorage.getItem('token');
+
+            // If there's no token, redirect to login page.
+            if (!token) {
+                router.replace('/');
+                return null;
             }
-        }, [user, router]);
 
-        return <Component {...props} />;
-    }
-}
+            // If there is a token, render the wrapped component.
+            return <WrappedComponent {...props} />;
+        }
+
+        // If we're on server side, just render the component.
+        return <WrappedComponent {...props} />;
+    };
+};
+
+export default withAuth;

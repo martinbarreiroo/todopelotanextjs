@@ -1,6 +1,6 @@
 import React from 'react';
 import './Hub.css';
-import withAuth from '../components/withAuth/withAuth';
+import withAuth from '../../components/withAuth/withAuth';
 
 import Link from 'next/link';
 
@@ -11,7 +11,7 @@ export const Hub = () => {
 
             <Link href="/">
                 <div className="logout-container">
-                    <button className="logout-button">Log Out</button>
+                    <button className="logout-button" onClick={localStorage.removeItem('token')}>Log Out</button>
                 </div>
             </Link>
 
