@@ -1,5 +1,6 @@
 import React from 'react';
 import './Hub.css';
+import withAuth from '../components/withAuth/withAuth';
 
 import Link from 'next/link';
 
@@ -35,4 +36,4 @@ export const Hub = () => {
     );
 }
 
-export default Hub;
+export default withAuth(Hub);
