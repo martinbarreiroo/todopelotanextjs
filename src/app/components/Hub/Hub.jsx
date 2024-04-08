@@ -32,10 +32,15 @@ export const Hub = () => {
                 <button className="home-button">Mis Estadísticas
                     <img src='/assets/estadistica.png' alt="estadistica" className="estadistica" />
                 </button>
-                    
-                <button className="home-button">Crear Torneo
+                
+                    <button className="home-button"
+                        onClick={() => {
+                            window.location.href = '/Hub/CrearTorneo';
+                        }}
+                    >Crear Torneo
                         <img src='/assets/plus.png' alt="trofeo" className="estadistica" />
                     </button>
+                
                     <button className="home-button">Perfil
                         <img src='/assets/person.png' alt="name" className="name" />
                     </button>
