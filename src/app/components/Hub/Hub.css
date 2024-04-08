@@ -36,11 +36,26 @@
     transition: background-color 0.8s ease, color 0.8s ease, border 0.8s ease;
 }
 
-.Logout-button:hover {
+.logout-button:hover {
     background-color: #abcd99; 
     color: black;    
 }
 
+
+.username-display {
+    position: absolute;
+    top: 1%;
+    right: 20%;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.username {
+    text-decoration: underline;
+    color: black;
+    font-weight: 800;
+  }
 
 .hub-container {
    

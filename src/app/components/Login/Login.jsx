@@ -57,6 +57,7 @@ function Login() {
                                 if (response.ok) {
                                     const { token } = await response.json(); // extract the token from the response
                                     localStorage.setItem('token', token); // store the token in local storage
+                                    localStorage.setItem('username', username); // store the username in local storage
                                     router.push('/Hub'); // navigate to /hub route if login is successful
                                 }
                             } catch (error) {

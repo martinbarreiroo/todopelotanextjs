@@ -5,15 +5,24 @@ import withAuth from '../../components/withAuth/withAuth';
 import Link from 'next/link';
 
 export const Hub = () => {
+    const username = localStorage.getItem('username');
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+    }
+
     return (
         <div className="hub-container">
             <img src='/assets/logo.png' alt="Logo" className="logo-hub" />
 
             <Link href="/">
                 <div className="logout-container">
-                    <button className="logout-button" onClick={localStorage.removeItem('token')}>Log Out</button>
+                    <button className="logout-button" onClick={handleLogout}>Log Out</button>
                 </div>
             </Link>
+
+            <span className="username-display">Logged in as <span className="username">'{username}'</span></span>
 
             <div className="home-menu">
                 <button className="home-button">Mis Torneos
