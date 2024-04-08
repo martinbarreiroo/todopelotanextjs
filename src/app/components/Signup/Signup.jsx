@@ -63,8 +63,8 @@ export const Signup = () => {
                     </div>
                 </div>
 
-                <div className="footer-login">Don't have an account?
-                    <Link href='/' className='click-here-login'>
+                <div className="footer-signup">Already have an account?
+                    <Link href='/' className='click-here-signup'>
                         <span> Click Here!</span>
                     </Link>
                 </div>
@@ -89,6 +89,7 @@ export const Signup = () => {
                                 else if (response.ok) {
                                     const { token } = await response.json(); // extract the token from the response
                                     localStorage.setItem('token', token); // store the token in local storage
+                                    localStorage.setItem('username', username); // store the username in local storage
                                     router.push('/Hub'); // navigate to /hub route if sign up is successful
                                 }
                             } catch (error) {
