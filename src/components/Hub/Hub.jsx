@@ -1,17 +1,25 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import './Hub.css';
 import withAuth from '../withAuth/withAuth';
-
 import Link from 'next/link';
 
 export const Hub = () => {
-    const username = localStorage.getItem('username');
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUsername = localStorage.getItem('username');
+            if (storedUsername) {
+                setUsername(storedUsername);
+            }
+        }
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
     }
-
     return (
         <div className="hub-container">
             <img src='/assets/logo.png' alt="Logo" className="logo-hub" />
