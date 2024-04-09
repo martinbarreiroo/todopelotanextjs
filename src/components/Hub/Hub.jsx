@@ -16,7 +16,7 @@ export const Hub = () => {
         <div className="hub-container">
             <img src='/assets/logo.png' alt="Logo" className="logo-hub" />
 
-            <Link href="/public">
+            <Link href="/">
                 <div className="logout-container">
                     <button className="logout-button" onClick={handleLogout}>Log Out</button>
                 </div>

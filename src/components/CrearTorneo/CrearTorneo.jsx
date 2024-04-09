@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import withAuth from "@/components/withAuth/withAuth";
 
 function CrearTorneo() {
     const [name, setName] = useState('');
@@ -38,4 +39,4 @@ function CrearTorneo() {
     );
 }
 
-export default CrearTorneo;
+export default withAuth(CrearTorneo);
