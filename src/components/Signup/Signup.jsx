@@ -64,7 +64,7 @@ export const Signup = () => {
                 </div>
 
                 <div className="footer-signup">Already have an account?
-                    <Link href='/' className='click-here-signup'>
+                    <Link href='/public' className='click-here-signup'>
                         <span> Click Here!</span>
                     </Link>
                 </div>

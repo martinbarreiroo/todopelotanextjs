@@ -1,4 +1,4 @@
-import Login from '../src/app/components/Login/Login.jsx';
+import Login from '@/components/Login/Login.jsx';
 
 export default function HomePage() {
     return <Login />;

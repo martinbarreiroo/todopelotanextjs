@@ -1,6 +1,6 @@
 import React from 'react';
 import './Hub.css';
-import withAuth from '../../components/withAuth/withAuth';
+import withAuth from '../withAuth/withAuth';
 
 import Link from 'next/link';
 
@@ -16,7 +16,7 @@ export const Hub = () => {
         <div className="hub-container">
             <img src='/assets/logo.png' alt="Logo" className="logo-hub" />
 
-            <Link href="/">
+            <Link href="/public">
                 <div className="logout-container">
                     <button className="logout-button" onClick={handleLogout}>Log Out</button>
                 </div>
