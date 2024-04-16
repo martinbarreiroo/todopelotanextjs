@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Login.css';
+import styles from './Login.module.css';
 
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -12,24 +12,24 @@ function Login() {
 
     return (
         <div className=''>
-            <div className="logo-login">
+            <div className={styles.logo_login}>
                 <img src='/assets/logo.png' alt="" /> 
             </div>
-            <div className='container-login'>
-                <div className="header-login">
+            <div className={styles.container_login}>
+                <div className={styles.header_login}>
 
-                    <div className="text-login">Log In</div>
-                    <div className="underline-login"></div>
+                    <div className={styles.text_login}>Log In</div>
+                    <div className={styles.underline_login}></div>
 
                 </div>
 
-                <div className="inputs-login">
-                    <div className="input-login">
+                <div className={styles.inputs_login}>
+                    <div className={styles.input_login}>
                         <img src='/assets/person.png' alt="" />
                         <input type="username" placeholder='Username' onChange={e => setUsername(e.target.value)}/>
                     </div>
 
-                    <div className="input-login">
+                    <div className={styles.input_login}>
                         <img src='/assets/password.png' alt="" />
                         <input 
                             type={showPassword ? 'text' : 'password'} 
@@ -43,7 +43,7 @@ function Login() {
                         />
                     </div>
 
-                    <div className='submit-login' 
+                    <div className={styles.submit_login} 
                         onClick={async () => {
                             try {
                                 const response = await fetch('http://localhost:8080/Login', {
@@ -69,8 +69,8 @@ function Login() {
                     </div>
                 </div>
                                 
-                <div className="footer-login">Don't have an account?
-                    <Link href='/Signup' className='click-here-login'>
+                <div className={styles.footer_login}>Don't have an account?
+                    <Link href='/Signup' className={styles.click_here_login}>
                         <span> Click Here!</span>
                     </Link>
                 </div>

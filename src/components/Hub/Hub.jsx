@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import './Hub.css';
+import styles from './Hub.module.css';
 import withAuth from '../withAuth/withAuth';
 import Link from 'next/link';
 
@@ -21,36 +21,36 @@ export const Hub = () => {
         localStorage.removeItem('username');
     }
     return (
-        <div className="hub-container">
-            <img src='/assets/logo.png' alt="Logo" className="logo-hub" />
+        <div className={styles.hub_container}>
+            <img src='/assets/logo.png' alt="Logo" className={styles.logo_hub} />
 
             <Link href="/">
-                <div className="logout-container">
-                    <button className="logout-button" onClick={handleLogout}>Log Out</button>
+                <div className={styles.logout_container}>
+                    <button className={styles.logout_button} onClick={handleLogout}>Log Out</button>
                 </div>
             </Link>
 
-            <span className="username-display">Logged in as <span className="username">'{username}'</span></span>
+            <span className={styles.username_display}>Logged in as <span className={styles.username}>'{username}'</span></span>
 
-            <div className="home-menu">
-                <button className="home-button">Mis Torneos
-                    <img src='/assets/trofeo.png' alt="trofeo" className="trofeo" />
+            <div className={styles.home_menu}>
+                <button className={styles.home_button}>Mis Torneos
+                    <img src='/assets/trofeo.png' alt="trofeo"/>
                 </button>
                     
-                <button className="home-button">Mis Estadísticas
-                    <img src='/assets/estadistica.png' alt="estadistica" className="estadistica" />
+                <button className={styles.home_button}>Mis Estadísticas
+                    <img src='/assets/estadistica.png' alt="estadistica"/>
                 </button>
                 
-                    <button className="home-button"
+                    <button className={styles.home_button}
                         onClick={() => {
                             window.location.href = '/Hub/CrearTorneo';
                         }}
                     >Crear Torneo
-                        <img src='/assets/plus.png' alt="trofeo" className="estadistica" />
+                        <img src='/assets/plus.png' alt="trofeo"/>
                     </button>
                 
-                    <button className="home-button">Perfil
-                        <img src='/assets/person.png' alt="name" className="name" />
+                    <button className={styles.home_button}>Perfil
+                        <img src='/assets/person.png' alt="name"/>
                     </button>
                         
                 </div>

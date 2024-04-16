@@ -1,7 +1,50 @@
 import React, { useState } from 'react';
-import './Signup.css';
+import styles from './Signup.module.css';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
+const positions = [
+    {
+        id: "PO",
+        name: "PO"
+    },
+    {
+        id: "DFC",
+        name: "DFC"
+    },
+    {
+        id: "DFI",
+        name: "DFI"
+    },
+    {
+        id: "DFD",
+        name: "DFD"
+    },
+    {
+        id: "MC",
+        name: "MC"
+    },
+    {
+        id: "MCO",
+        name: "MCO"
+    },
+    {
+        id: "MCD",
+        name: "MCD"
+    },
+    {
+        id: "EI",
+        name: "ED"
+    },
+    {
+        id: "ED",
+        name: "ED"
+    },
+    {
+        id: "DC",
+        name: "DC"
+    }
+]
 
 export const Signup = () => {
 
@@ -16,29 +59,29 @@ export const Signup = () => {
 
     return (
         <div className=''>
-            <div className="logo-signup">
+            <div className={styles.logo_signup}>
                 <img src='/assets/logo.png' alt="" /> 
             </div>
-            <div className='container'>
-                <div className="header"></div>
+            <div className={styles.container}>
+                <div className={styles.header}></div>
                 <div>
-                    <div className="text">{action}</div>
-                    <div className="underline"></div>
+                    <div className={styles.text}>{action}</div>
+                    <div className={styles.underline}></div>
                 </div>
             
-                <div className="inputs">
+                <div className={styles.inputs}>
                     
-                    <div className="input">
+                    <div className={styles.input}>
                         <img src='/assets/person.png' alt="" />
                         <input type="text" placeholder='Username'onChange={e => setUsername(e.target.value)}/>
                     </div>
 
-                    <div className="input">
+                    <div className={styles.input}>
                       <img src='/assets/email.png' alt="" />
                       <input type="email" placeholder='E-mail' onChange={e => setEmail(e.target.value)}/>
                     </div>
 
-                    <div className="input">
+                    <div className={styles.input}>
                         <img src='/assets/password.png' alt="" />
                         <input 
                             type={showPassword ? 'text' : 'password'} 
@@ -52,24 +95,30 @@ export const Signup = () => {
                         />
                     </div>
 
-                    <div className="input">
+                    <div className={styles.input}>
                       <img src='/assets/description.png' alt="" />
                       <input type="description" placeholder='Description' onChange={e => setDescription(e.target.value)}/>        
                     </div>
 
-                    <div className="input">
+                    <div className={styles.input}>
                       <img src='/assets/position.png' alt="" />
-                      <input type="position" placeholder='Position' onChange={e => setPosition(e.target.value)}/>        
+                      <select> 
+                        {positions.map(position => (
+                            <option key={position.id} value={position.id}>
+                                {position.name}
+                            </option>
+                        ))}
+                      </select>        
                     </div>
                 </div>
 
-                <div className="footer-signup">Already have an account?
-                    <Link href='/' className='click-here-signup'>
+                <div className={styles.footer_signup}>Already have an account?
+                    <Link href='/' className={styles.click_here_signup}>
                         <span> Click Here!</span>
                     </Link>
                 </div>
                 
-                <div className='submit'
+                <div className={styles.submit}
                         onClick={async ()=>{
                             setAction('Sign Up');
                             const user ={username, email, password, description, position}

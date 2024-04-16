@@ -1,4 +1,4 @@
-.logo-hub {
+.logo_hub {
     width: 100px; /* set a specific width */
     height: 100px; /* set a specific height */
     display: flex;
@@ -11,14 +11,14 @@
     transform: translate(-50%, -50%);
 }
 
-.logout-container {
+.logout_container {
     position: absolute;
     top: 0;
     right: 5%;
     padding: 10px;
   }
   
-.logout-button {
+.logout_button {
     background-color: #729560; /* Green */
     border: none;
     color: black;
@@ -36,13 +36,13 @@
     transition: background-color 0.8s ease, color 0.8s ease, border 0.8s ease;
 }
 
-.logout-button:hover {
+.logout_button:hover {
     background-color: #abcd99; 
     color: black;    
 }
 
 
-.username-display {
+.username_display {
     position: absolute;
     top: 1%;
     right: 20%;
@@ -57,7 +57,7 @@
     font-weight: 800;
   }
 
-.hub-container {
+.hub_container {
    
     margin-top: 13%;
     width: 100%;
@@ -68,7 +68,7 @@
 }
 
 
-.home-menu {
+.home_menu {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -78,7 +78,7 @@
     color : #729560;
 }
 
-.home-button {
+.home_button {
     background-color: #729560; /* Green */
     border: none;
     color: black;
@@ -96,13 +96,13 @@
     transition: background-color 0.8s ease, color 0.8s ease, border 0.8s ease;
 }
 
-.home-button:hover {
+.home_button:hover {
     background-color: #abcd99; 
     color: black; 
     ;
 }
 
-.home-button img {
+.home_button img {
     width: 60px;
     height: 50px;
     margin-top: 15px;
