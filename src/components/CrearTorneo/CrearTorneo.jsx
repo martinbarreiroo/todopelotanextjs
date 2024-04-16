@@ -3,6 +3,21 @@ import { useState } from 'react';
 import withAuth from "@/components/withAuth/withAuth";
 import { useRouter } from 'next/router';
 
+const types = [
+    {
+        id: "F5",
+        name: "F5"
+    },
+    {
+        id: "F8",
+        name: "F8"
+    },
+    {
+        id: "F11",
+        name: "F11"
+    }
+]
+
 async function create(name, players, type, description, router) {
     
     try {
@@ -49,7 +64,13 @@ function CrearTorneo() {
                     <input type="text" placeholder='Number of Players' onChange={e => setPlayers(e.target.value)} className="w-full h-full bg-transparent outline-none"/>
                 </div>
                 <div className="w-80 h-16 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
-                    <input type="text" placeholder='Type' onChange={e => setType(e.target.value)} className="w-full h-full bg-transparent outline-none"/>
+                      <select className="w-full h-full bg-transparent outline-none"  onChange={e => setType(e.target.value)}> 
+                        {types.map(type => (
+                            <option key={type.id} value={type.id}>
+                                {type.name}
+                            </option>
+                        ))}
+                      </select> 
                 </div>
                 <div className="w-80 h-16 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
                     <input type="text" placeholder='Brief description' onChange={e => setDescription(e.target.value)} className="w-full h-full bg-transparent outline-none"/>

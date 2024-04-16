@@ -102,7 +102,7 @@ export const Signup = () => {
 
                     <div className={styles.input}>
                       <img src='/assets/position.png' alt="" />
-                      <select> 
+                      <select className="w-97% h-full bg-transparent outline-none"  onChange={e => setPosition(e.target.value)}> 
                         {positions.map(position => (
                             <option key={position.id} value={position.id}>
                                 {position.name}
