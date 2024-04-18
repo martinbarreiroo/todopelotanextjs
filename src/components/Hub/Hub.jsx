@@ -19,6 +19,7 @@ export const Hub = () => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
+        localStorage.removeItem('userId');
     }
     return (
         <div className={styles.hub_container}>

@@ -5,6 +5,11 @@ import { useRouter } from 'next/router';
 
 const positions = [
     {
+        id: "Selct",
+        name: "Select a position"
+
+    }, 
+    {
         id: "PO",
         name: "PO"
     },
