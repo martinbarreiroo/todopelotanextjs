@@ -33,11 +33,19 @@ export const Hub = () => {
             <span className={styles.username_display}>Logged in as <span className={styles.username}>'{username}'</span></span>
 
             <div className={styles.home_menu}>
-                <button className={styles.home_button}>Mis Torneos
+                <button className={styles.home_button}
+                    onClick={() => {
+                        window.location.href = '/Hub/MisTorneos';
+                    }}
+                >Mis Torneos
                     <img src='/assets/trofeo.png' alt="trofeo"/>
                 </button>
                     
-                <button className={styles.home_button}>Mis Estadísticas
+                <button className={styles.home_button}
+                    onClick={() => {
+                        window.location.href = '/Hub/MisEstadisticas';
+                    }}
+                >Mis Estadísticas
                     <img src='/assets/estadistica.png' alt="estadistica"/>
                 </button>
                 
@@ -49,7 +57,11 @@ export const Hub = () => {
                         <img src='/assets/plus.png' alt="trofeo"/>
                     </button>
                 
-                    <button className={styles.home_button}>Perfil
+                    <button className={styles.home_button}
+                        onClick={() => {
+                            window.location.href = '/Hub/Perfil';
+                        }}
+                    >Perfil
                         <img src='/assets/person.png' alt="name"/>
                     </button>
                         

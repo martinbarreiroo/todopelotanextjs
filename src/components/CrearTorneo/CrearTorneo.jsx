@@ -76,7 +76,7 @@ function CrearTorneo() {
                       </select> 
                 </div>
                 <div className="w-80 h-16 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
-                    <input type="text" placeholder='Brief description' onChange={e => setDescription(e.target.value)} className="w-full h-full bg-transparent outline-none"/>
+                    <input type="text" placeholder='Brief description' onChange={e => setDescription(e.target.value)} className="w-full h-90% bg-transparent outline-none"/>
                 </div>
                 <button className=" text-white font-bold py-2 px-4 rounded"
                     onClick={() => create(name, players, type, description, router)}
