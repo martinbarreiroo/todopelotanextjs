@@ -16,6 +16,20 @@ export const Hub = () => {
         }
     }, []);
 
+    // Inside your Hub component
+    useEffect(() => {
+        const handlePopstate = () => {
+            localStorage.removeItem('token');
+        };
+
+        window.addEventListener('popstate', handlePopstate);
+
+    // Cleanup function
+    return () => {
+        window.removeEventListener('popstate', handlePopstate);
+    };
+}, []);
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('username');
