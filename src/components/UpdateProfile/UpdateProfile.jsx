@@ -2,7 +2,7 @@ import React from 'react';
 import withAuth from "@/components/withAuth/withAuth";
 import { useState } from 'react';
 
-function Perfil() {
+function UpdateProfile() {
 
   const positions = [
     {
@@ -130,4 +130,4 @@ function Perfil() {
     );
 }
 
-export default withAuth(Perfil);
+export default withAuth(UpdateProfile);

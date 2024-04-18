@@ -1,4 +1,4 @@
-import Perfil  from '@/components/Perfil/Perfil.jsx';
+import Perfil  from '@/components/UpdateProfile/UpdateProfile.jsx';
 
 export default function PerfilPage() {
   return <Perfil />;
