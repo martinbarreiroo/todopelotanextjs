@@ -3,7 +3,7 @@ import withAuth from "@/components/withAuth/withAuth";
 
 function Profile() {
 
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({  username: '', email: '', description: '', position: '' });
     
     useEffect(() => {
         const fetchUser = async () => {
@@ -18,8 +18,8 @@ function Profile() {
       });
     
       if (response.ok) {
-        const data = await response.json();
-        setUser(data);
+        const user = await response.json();
+        setUser(user);
         } else {
           console.error('Failed to fetch user');
         }
@@ -38,10 +38,11 @@ function Profile() {
               style={{backgroundColor: '#729560'}}
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
-            > 
+> 
               <img src='/assets/hub.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
             </button>
             <h1>{user.username}</h1>
+            <p>{user.email}</p>
             <p>{user.position}</p>
             <p>{user.description}</p>
             
