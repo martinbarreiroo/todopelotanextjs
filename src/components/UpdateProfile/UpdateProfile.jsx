@@ -116,15 +116,15 @@ function UpdateProfile() {
                    Update Profile
                 </button>
             </form>
-            <button className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
+            <button className="absolute top-4 right-4 font-bold py-4 px-4 rounded"
               onClick={() => {
-                window.location.href = '/Hub';
+                window.location.href = '/Hub/Profile';
               }}
               style={{backgroundColor: '#729560'}}
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
             > 
-              <img src='/assets/hub.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
+              <img src='/assets/back-arrow.png' alt="Return to Profile" className="w-10 h-8 object-cover" />
             </button>
         </div>
     );

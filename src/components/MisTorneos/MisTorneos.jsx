@@ -23,7 +23,8 @@ function MisTorneos() {
           const text = await response.text();
           console.log(text);
           const data = JSON.parse(text);
-          setTournaments(data);
+          const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+          setTournaments(sortedData);
       } else {
           console.error('Failed to fetch tournaments');
       }
@@ -46,15 +47,22 @@ function MisTorneos() {
               <img src='/assets/hub.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
             </button>
 
-            <div style={{ height: '450px', width: '550px', overflowY: 'auto', backgroundColor: '#729560', borderRadius: '10px'}}>
-                {tournaments.filter(tournament => typeof tournament === 'object' && tournament !== null).map((tournament, index) => (
-                    <div key={tournament.id || index}
-                     className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer">
-                        <h2 className="text-xl font-bold">{tournament.name}</h2>
-                        <p>{tournament.description}</p>
-                        {/* Add more tournament details here */}
-                    </div>
-                ))}
+            <div style={{ maxHeight: '550px', width: '550px', overflowY: 'auto', backgroundColor: '#729560', borderRadius: '10px', marginTop: "100px"}}>
+                { tournaments.length === 0 ? 
+                    <div className="p-10">
+                        <h2 className="text-3xl font-serif font-extrabold antialiased text-center animate-fadeIn">You are not participating in any tournaments, YET</h2>
+                    </div> :
+                    tournaments.filter(tournament => typeof tournament === 'object' && tournament !== null).map((tournament, index) => (
+                        <div key={tournament.id || index}
+                        className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn">
+                            <h2 className="text-xl font-bold">{tournament.name}</h2>
+                            <p>{tournament.description}</p>
+                            <div className="flex justify-end">
+                                <p>{tournament.type}</p>
+                            </div>
+                      </div>
+                    ))
+                }
             </div>
         </div>
     );

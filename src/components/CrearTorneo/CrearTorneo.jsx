@@ -45,6 +45,8 @@ async function create(name, players, type, description, router) {
     }
 }
 
+
+
 function CrearTorneo() {
     const [name, setName] = useState('');
     const [players, setPlayers] = useState('');
@@ -66,13 +68,13 @@ function CrearTorneo() {
                 <img src='/assets/hub.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
             </button>
             <div className="w-full flex flex-col items-center justify-between space-y-10 mt-24">
-                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
+                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
                     <input type="text" placeholder='Name' onChange={e => setName(e.target.value)} className="w-full h-full bg-transparent outline-none"/>
                 </div>
-                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
+                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
                     <input type="text" placeholder='Number of Players' onChange={e => setPlayers(e.target.value)} className="w-full h-full bg-transparent outline-none"/>
                 </div>
-                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
+                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
                       <select className="w-full h-90% bg-transparent outline-none"  onChange={e => setType(e.target.value)}> 
                         {types.map(type => (
                             <option key={type.id} value={type.id}>
@@ -81,7 +83,7 @@ function CrearTorneo() {
                         ))}
                       </select> 
                 </div>
-                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
+                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
                     <input type="text" placeholder='Brief description' onChange={e => setDescription(e.target.value)} className="w-full h-90% bg-transparent outline-none"/>
                 </div>
                 <button className="text-white font-bold py-2 px-4 rounded"

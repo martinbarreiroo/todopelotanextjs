@@ -29,25 +29,35 @@ function Profile() {
 }, []); 
 
     return (
-        <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
-            <img src='/assets/logo.png' alt="Logo" className="w-24 h-24 absolute top-1/8 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-            <button className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
-              onClick={() => {
-                window.location.href = '/Hub';
-              }}
-              style={{backgroundColor: '#729560'}}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
-              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
-> 
-              <img src='/assets/hub.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
-            </button>
-            <h1>{user.username}</h1>
-            <p>{user.email}</p>
-            <p>{user.position}</p>
-            <p>{user.description}</p>
-            
+      <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
+        <img src='/assets/logo.png' alt="Logo" className="w-24 h-24 absolute top-1/8 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+        <button className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
+          onClick={() => {
+            window.location.href = '/Hub';
+          }}
+          style={{backgroundColor: '#729560'}}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
+        > 
+          <img src='/assets/hub.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
+        </button>
+        <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn">
+          User:<h1 className="text-2xl font-bold mb-2">{user.username}</h1>
+          Email:<p className="text-gray-700 mb-2">{user.email}</p>
+          Position:<p className="text-gray-700 mb-2">{user.position}</p>
+          Description:<p className="text-gray-700 mb-2">{user.description}</p>
         </div>
-        
+        <button className="font-bold py-3 px-3 rounded animate-fadeIn"
+          onClick={() => {
+            window.location.href = '/Hub/Profile/UpdateProfile';
+          }}
+          style={{backgroundColor: '#729560'}}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
+        >
+          Update your Profile
+        </button>
+      </div>
     );
 }
 
