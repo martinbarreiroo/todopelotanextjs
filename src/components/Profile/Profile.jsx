@@ -38,7 +38,7 @@ function Profile() {
               style={{backgroundColor: '#729560'}}
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
-            > 
+> 
               <img src='/assets/hub.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
             </button>
             <h1>{user.username}</h1>
