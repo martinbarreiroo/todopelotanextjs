@@ -28,7 +28,7 @@ async function create(name, players, type, description, router) {
     
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/tournaments', {
+        const response = await fetch('http://localhost:8080/tournaments/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
