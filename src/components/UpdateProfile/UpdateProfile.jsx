@@ -40,7 +40,7 @@ function UpdateProfile() {
     },
     {
         id: "EI",
-        name: "ED"
+        name: "EI"
     },
     {
         id: "ED",
@@ -66,7 +66,7 @@ function UpdateProfile() {
     
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    const response = await fetch('http://localhost:8080/update_profile', {
+    const response = await fetch('http://localhost:8080/profile/update', {
       method: 'PUT',
       headers: {
           'Content-Type': 'application/json',

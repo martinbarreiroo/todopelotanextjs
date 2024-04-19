@@ -74,7 +74,7 @@ export const Hub = () => {
                 
                     <button className={styles.home_button}
                         onClick={() => {
-                            window.location.href = '/Hub/Perfil';
+                            window.location.href = '/Hub/Profile';
                         }}
                     >Perfil
                         <img src='/assets/person.png' alt="name"/>
