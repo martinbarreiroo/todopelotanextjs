@@ -57,7 +57,12 @@ function MisTorneos() {
                     </div> :
                     tournaments.filter(tournament => typeof tournament === 'object' && tournament !== null).map((tournament, index) => (
                         <div key={tournament.id || index}
-                        className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn">
+                        className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn"
+                        onClick={() => {
+                          localStorage.setItem('tournamentId', tournament.id);
+                          window.location.href = `/Hub/MisTorneos/Torneo`;
+                        }}
+                        >
                             <h2 className="text-xl font-bold">{tournament.name}</h2>
                             <p>{tournament.description}</p>
                             <div className="flex justify-end">

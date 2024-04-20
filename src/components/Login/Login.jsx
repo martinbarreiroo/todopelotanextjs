@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 
-async function handleLogin(username, password, router) {
+async function handleLogin(username, password, router, setLoginError) {
     
     try {
         const response = await fetch('http://localhost:8080/Login', {
@@ -22,6 +22,8 @@ async function handleLogin(username, password, router) {
             localStorage.setItem('username', username); // store the username in local storage
             localStorage.setItem('userId', userId); // store the userId in local storage
             router.push('/Hub'); // navigate to /hub route if login is successful
+        } else {
+            setLoginError('Incorrect username or password'); // set login error to true if the response is not ok
         }
     } catch (error) {
         console.error(error);
@@ -30,6 +32,8 @@ async function handleLogin(username, password, router) {
 
 
 function Login() {
+
+    const [loginError, setLoginError] = useState(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -57,8 +61,10 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            handleLogin(username, password, router);
+        const isValidForm = validateForm();
+    
+        if (isValidForm && !errors.username && !errors.password) {
+            handleLogin(username, password, router, setLoginError);
         }
     }
 
@@ -108,14 +114,14 @@ function Login() {
                                 
                             </div>
                             {errors.password && <p style={{color: 'red', marginLeft: '50px', marginTop: '10px'}}>{errors.password}</p>}
+                            {loginError && <p style={{color: 'red', marginLeft: '50px', marginTop: '10px'}}>{loginError}</p>}
                         </div>
+                        
                     </div>
 
                 
             
-                    <button className={styles.submit_login} type="submit" onClick={() => (handleLogin(username, password, router))}>   
-                        Log In 
-                    </button>
+                    <button className={styles.submit_login} type="submit">Log In</button>
                 
                 </form>
                 

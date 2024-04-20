@@ -56,6 +56,7 @@ function UpdateProfile() {
   if (typeof window !== 'undefined') {
       actualUsername = localStorage.getItem('username');
   }
+  const [password, setPassword] = useState('');
   const [username, setUsername] = useState(actualUsername);
   const [position, setPosition] = useState('');
   const [description, setDescription] = useState('');
@@ -72,7 +73,7 @@ function UpdateProfile() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({ userId, username, position, description}),
+      body: JSON.stringify({ userId, username, password, position, description}),
     });
 
     if (!response.ok) {
@@ -91,10 +92,16 @@ function UpdateProfile() {
 };
     return (
         <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
+            <div className="absolute top-0 left-0 w-full h-[12.5%]"
+              style={{ backgroundColor: "#729560" }}
+      ></div>
             <img src='/assets/logo.png' alt="Logo" className="w-24 h-24 absolute top-1/8 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
             <form onSubmit={handleSubmit} className="space-y-10">
                 <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
                     <input type="text" value = {username} onChange={e => setUsername(e.target.value)} className="w-full h-full bg-transparent outline-none"/>
+                </div>
+                <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
+                    <input type="text" placeholder='Change yor Password' value = {password} onChange={e => setPassword(e.target.value)} className="w-full h-full bg-transparent outline-none"/>
                 </div>
                 <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
                       <select className="w-full h-90% bg-transparent outline-none" value = {position} onChange={e => setPosition(e.target.value)}> 
