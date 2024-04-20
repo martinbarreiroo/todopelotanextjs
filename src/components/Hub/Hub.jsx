@@ -37,7 +37,10 @@ export const Hub = () => {
     }
     return (
         <div className={styles.hub_container}>
-            <img src='/assets/logo.png' alt="Logo" className={styles.logo_hub} />
+            <div className="absolute top-0 left-0 w-full h-[12.5%]"
+                style={{ backgroundColor: "#729560" }}
+            ></div>
+            <img src='/assets/logo.png' alt="Logo" className={styles.logo_hub} />   
 
             <Link href="/">
                 <div className={styles.logout_container}>

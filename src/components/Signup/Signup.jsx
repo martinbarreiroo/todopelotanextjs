@@ -129,9 +129,12 @@ export const Signup = () => {
 
     return (
         <div className=''>
-            <div className={styles.logo_signup}>
-                <img src='/assets/logo.png' alt="" /> 
-            </div>
+            <div className="absolute top-0 left-0 w-full h-[12.5%]"
+                style={{ backgroundColor: "#729560" }}
+            ></div>
+            
+            <img src='/assets/logo.png' alt="Logo" className={styles.logo_signup} />
+
             <div className={styles.container}>
                 <div className={styles.header}></div>
                 <div>

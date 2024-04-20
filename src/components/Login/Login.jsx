@@ -64,9 +64,12 @@ function Login() {
 
     return (
         <div className=''>
-            <div className={styles.logo_login}>
-                <img src='/assets/logo.png' alt="" /> 
-            </div>
+            <div className="absolute top-0 left-0 w-full h-[12.5%]"
+                style={{ backgroundColor: "#729560" }}
+            ></div>
+            
+            <img src='/assets/logo.png' alt="Logo" className={styles.logo_login} />
+
             <div className={styles.container_login}>
                 <div className={styles.header_login}>
 

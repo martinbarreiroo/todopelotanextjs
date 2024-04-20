@@ -21,6 +21,7 @@ module.exports = {
       'input-gray': '#d1d1d1',
       'custom-gray': '#B5C0D0',
       'custom-green': '#abcd99',
+      'dark-green': '729560',
     },
     keyframes: {
       fadeIn: {
@@ -39,5 +40,15 @@ module.exports = {
     }
   },
   plugins: [],
+  mode: 'jit',
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {
+      spacing: {
+        '1/2': '50%', // Add this line
+      },
+    },
+  },
 }
 };
