@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import withAuth from "@/components/withAuth/withAuth";
+import Link from 'next/link';
 
 
 
@@ -67,19 +68,15 @@ function MisTorneos() {
                         <h2 className="text-3xl font-serif font-extrabold antialiased text-center animate-fadeIn">You are not participating in any tournaments, YET</h2>
                     </div> :
                     tournaments.filter(tournament => typeof tournament === 'object' && tournament !== null).map((tournament, index) => (
-                        <div key={tournament.id || index}
-                        className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn"
-                        onClick={() => {
-                          localStorage.setItem('tournamentId', tournament.id);
-                          window.location.href = `/Hub/MisTorneos/Torneo`;
-                        }}
-                        >
+                      <Link href={`/Hub/MisTorneos/${tournament.id}`} key={tournament.id || index}>
+                        <div className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn">
                             <h2 className="text-xl font-bold">{tournament.name}</h2>
                             <p>{tournament.description}</p>
                             <div className="flex justify-end">
                                 <p>{tournament.type}</p>
                             </div>
-                      </div>
+                        </div>
+                      </Link>      
                     ))
                 }
             </div>
