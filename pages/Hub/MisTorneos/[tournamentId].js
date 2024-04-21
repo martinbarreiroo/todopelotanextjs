@@ -64,7 +64,6 @@ function Tournament() {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
-
           },
         }
       );
@@ -73,6 +72,7 @@ function Tournament() {
         const data = await response.json();
         console.log(data);
         localStorage.setItem("tournamentName", data.name); // Store the tournamentId in local storage
+        localStorage.setItem("tournamentId", data.id); // Store the tournamentId in local storage
         setTournament(data);
       } else {
         console.error("Failed to fetch tournament");
@@ -99,7 +99,8 @@ function Tournament() {
         alt="Logo"
         className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
-      <Link href={"/Hub/MisTorneos"}
+      <Link
+        href={"/Hub/MisTorneos"}
         className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
@@ -108,7 +109,7 @@ function Tournament() {
         <img
           src="/assets/back-arrow.png"
           alt="Return to Hub"
-          className="w-8 h-8 object-cover"
+          className="w-8 h-8"
         />
       </Link>
       <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn mt-20 mb-5">
@@ -131,7 +132,8 @@ function Tournament() {
         Schedule a New Match
       </Link>
 
-      <Link href={`/Hub/MisTorneos/Torneo/Matches`}
+      <Link
+        href={`/Hub/MisTorneos/Torneo/Matches`}
         className="font-bold py-3 px-3 rounded mt-4"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
