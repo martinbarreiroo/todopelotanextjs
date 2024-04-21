@@ -104,5 +104,6 @@
 .home_button img {
     width: 60px;
     height: 50px;
+    object-fit: contain;
     margin-top: 15px;
 }
