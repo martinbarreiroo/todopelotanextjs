@@ -1,8 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import withAuth from "@/components/withAuth/withAuth";
 
+async function inviteUserToTournament(userName, tournamentId) {
+  try {
+    const token = localStorage.getItem('token');
+    const senderName = localStorage.getItem('username'); // Get the userId from local storage
+    const response = await fetch('http://localhost:8080/invitations/send-invitation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        senderName,
+        userName,
+        tournamentId,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.id) {
+      alert('User invited successfully!');
+    } else {
+      alert('Failed to invite user.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
 function Tournament() {
   const [tournament, setTournament] = useState({  name: '', description: '', maxParticipants: '', type: '' });
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     const fetchTournament = async () => {
@@ -19,6 +53,7 @@ function Tournament() {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
+        localStorage.setItem('tournamentName', data.name); // Store the tournamentId in local storage
         setTournament(data);
       } else {
         console.error('Failed to fetch tournament');
@@ -28,8 +63,14 @@ function Tournament() {
     fetchTournament(); // Call the fetchTournament function
   }, []); // Pass an empty array as the second argument to useEffect
 
+  const handleInviteUser = () => {
+    if (userName) {
+      inviteUserToTournament(userName, tournament.id);
+    }
+  };
+
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
+    <div className="relative flex flex-col items-center justify-center h-screen">
       <div className="absolute top-0 left-0 w-full h-[12.5%]"
               style={{ backgroundColor: "#729560" }}
       ></div>
@@ -44,13 +85,59 @@ function Tournament() {
       > 
         <img src='/assets/back-arrow.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
       </button>
-      <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn">
+      <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn mt-20 mb-5">
         Tournament Name:<h1 className="text-2xl font-bold mb-2">{tournament.name}</h1>
         Description:<p className="text-gray-700 mb-2">{tournament.description}</p>
         Max Participants:<p className="text-gray-700 mb-2">{tournament.maxParticipants}</p>
         Type:<p className="text-gray-700 mb-2">{tournament.type}</p>
       </div>
+
+        <button className="font-bold py-3 px-3 rounded mt-4"
+          onClick={() => {
+            window.location.href = `/Hub/MisTorneos/Torneo/CreateMatch`;
+          }}
+          style={{backgroundColor: '#729560'}}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
+        >
+          Schedule a New Match
+        </button>
+
+        <button className="font-bold py-3 px-3 rounded mt-4"
+          onClick={() => {
+            window.location.href = `/Hub/MisTorneos/Torneo/Matches`;
+          }}
+          style={{backgroundColor: '#729560'}}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
+        >
+          Matches
+        </button>
+
+        <label>
+          Invite User:   
+          <input
+            className="border-2 border-gray-300 p-2 w-full rounded"
+            type="text"
+            value={userName}
+            onChange={e => setUserName(e.target.value)}
+            placeholder=" Enter user name"
+          />
+        </label>
+
+        <button className="font-bold py-3 px-3 rounded mt-4"
+          onClick={() => {
+            handleInviteUser();
+          }}
+          style={{backgroundColor: '#729560'}}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
+        >
+          Invite User
+        </button>
+      
     </div>
+    
   );
 }
 

@@ -50,6 +50,17 @@ function MisTorneos() {
               <img src='/assets/hub.png' alt="Return to Hub" className="w-8 h-8 object-cover" />
             </button>
 
+            <button className="absolute top-4 left-10 font-bold py-3 px-3 rounded"
+              onClick={() => {
+                window.location.href = '/Hub/MisTorneos/MyInvitations';
+              }}
+              style={{backgroundColor: '#729560'}}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
+              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
+            > 
+              My Invitations
+            </button>
+
             <div style={{ maxHeight: '550px', width: '550px', overflowY: 'auto', backgroundColor: '#729560', borderRadius: '10px', marginTop: "100px"}}>
                 { tournaments.length === 0 ? 
                     <div className="p-10">

@@ -19,9 +19,11 @@ module.exports = {
     },
     colors: {
       'input-gray': '#d1d1d1',
-      'custom-gray': '#B5C0D0',
+      'custom-green2': '#B5C0D0',
       'custom-green': '#abcd99',
+      'custom-green3': '#87A922',
       'dark-green': '729560',
+      'rejection-red': '#E72929',
     },
     keyframes: {
       fadeIn: {
@@ -30,7 +32,7 @@ module.exports = {
       },
     },
     animation: {
-      fadeIn: 'fadeIn 1s ease-in-out',
+      fadeIn: 'fadeIn 1.5s ease-in-out',
     },
     
   },

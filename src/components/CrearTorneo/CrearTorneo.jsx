@@ -54,6 +54,39 @@ function CrearTorneo() {
     const [description, setDescription] = useState('');
     const router = useRouter();
 
+    const validateName = (name) => {
+        // Add your name validation logic here
+        // For example, check if the name is not empty
+        return name !== '';
+      };
+      
+      const validatePlayers = (players) => {
+        // Add your players validation logic here
+        // For example, check if the players is not empty and is a number
+        return players !== '' && !isNaN(players);
+      };
+      
+      const validateType = (type) => {
+        // Add your type validation logic here
+        // For example, check if the type is not empty
+        return type !== '';
+      };
+      
+      const validateDescription = (description) => {
+        // Add your description validation logic here
+        // For example, check if the description is not empty
+        return description !== '';
+      };
+      
+      const handleCreateTournament = () => {
+        if (!validateName(name) || !validatePlayers(players) || !validateType(type) || !validateDescription(description)) {
+          alert('Please fill in all fields correctly');
+          return;
+        }
+      
+        else {create(name, players, type, description, router);}
+      };
+
     return (
         <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
             <div className="absolute top-0 left-0 w-full h-[12.5%]"
@@ -90,7 +123,7 @@ function CrearTorneo() {
                     <input type="text" placeholder='Brief description' onChange={e => setDescription(e.target.value)} className="w-full h-90% bg-transparent outline-none"/>
                 </div>
                 <button className="text-white font-bold py-2 px-4 rounded"
-                    onClick={() => create(name, players, type, description, router)}
+                    onClick={() => handleCreateTournament()}
                     style={{backgroundColor: '#729560'}}
                     onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#abcd99'}
                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#729560'}
