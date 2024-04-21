@@ -81,6 +81,12 @@ async function handleSignup(
       localStorage.setItem("userId", userId); // store the userId in local storage
       router.push("/Hub"); // navigate to /hub route if login is successful
     }
+
+    else {
+      const data = await response.json();
+      alert(data.message);
+    }
+
   } catch (error) {
     console.error(error);
   }
@@ -211,23 +217,7 @@ export const Signup = () => {
                 )}
               </span>
             </div>
-            <div className={styles.inputContainer}>
-              <div className={styles.input}>
-                <img src="/assets/description.png" alt="" />
-                <input
-                  type="description"
-                  placeholder="Description"
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-              <span>
-                {errors.description && (
-                  <p style={{ color: "red", marginLeft: "40px" }}>
-                    {errors.description}
-                  </p>
-                )}
-              </span>
-            </div>
+
             <div className={styles.inputContainer}>
               <div className={styles.input}>
                 <img src="/assets/position.png" alt="" />
@@ -250,9 +240,31 @@ export const Signup = () => {
                 )}
               </span>
             </div>
+
+            <div className={styles.inputContainer}>
+              <div className={styles.input}>
+                <img src="/assets/description.png" alt="" />
+                <input
+                  type="description"
+                  placeholder="Description"
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+              <span>
+                {errors.description && (
+                  <p style={{ color: "red", marginLeft: "40px" }}>
+                    {errors.description}
+                  </p>
+                )}
+              </span>
+            </div>
+
+            
+
             <button className={styles.submit} type="submit">
               Sign Up
             </button>
+
           </div>
         </form>
 
