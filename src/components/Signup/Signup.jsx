@@ -39,7 +39,7 @@ const positions = [
     },
     {
         id: "EI",
-        name: "ED"
+        name: "EI"
     },
     {
         id: "ED",

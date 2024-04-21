@@ -95,7 +95,7 @@ function UpdateProfile() {
             <div className="absolute top-0 left-0 w-full h-[12.5%]"
               style={{ backgroundColor: "#729560" }}
       ></div>
-            <img src='/assets/logo.png' alt="Logo" className="w-24 h-24 absolute top-1/8 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+            <img src='/assets/logo.png' alt="Logo" className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2" />
             <form onSubmit={handleSubmit} className="space-y-10">
                 <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded" style={{backgroundColor: '#d1d1d1'}}>
                     <input type="text" value = {username} onChange={e => setUsername(e.target.value)} className="w-full h-full bg-transparent outline-none"/>

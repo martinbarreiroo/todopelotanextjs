@@ -11,6 +11,7 @@ module.exports = {
         '1/10' : '10%',
         '1/5' : '20%',
         '1/8' : '12.5%',
+        '1/9' : '11.1%',
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
