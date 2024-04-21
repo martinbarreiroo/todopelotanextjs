@@ -6,6 +6,7 @@ function MyApp({ Component, pageProps }) {
     <div className="app-background">
       <Head>
         <link rel="icon" href="/favicon/favicon.ico" />
+        <title>TodoPelota</title>
       </Head>
       <Component {...pageProps} />
     </div>
