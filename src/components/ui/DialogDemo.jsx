@@ -15,7 +15,7 @@ function DialogDemo({ userName, setUserName, handleInviteUser }) {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <Button className = 'bg-dark-green' variant="outline">Invite</Button>
+          <Button className = 'bg-dark-green hover:bg-custom-green' variant="outline">Invite</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -38,7 +38,7 @@ function DialogDemo({ userName, setUserName, handleInviteUser }) {
             </div>
           </div>
           <DialogFooter>
-            <Button className= 'bg-dark-green' type="submit" onClick={handleInviteUser}>Invite</Button>
+            <Button className= 'bg-dark-green hover:bg-custom-green' type="submit" onClick={handleInviteUser}>Invite</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
