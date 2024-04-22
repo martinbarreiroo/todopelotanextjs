@@ -46,6 +46,7 @@ function Tournament() {
     maxParticipants: "",
     type: "",
     adminId: "",
+    participants: "",
   });
   const [userId, setUserId] = useState(""); // Get the userId from local storage
   const [userName, setUserName] = useState("");
@@ -112,8 +113,8 @@ function Tournament() {
           className="w-8 h-8"
         />
       </Link>
-      <div className="w-full max-w-md p-4 relative bg-custom-green rounded shadow-md animate-fadeIn mb-5 "
-        style={{ marginTop: '200px' }}
+      <div className="w-full max-w-md px-4 py-4 relative bg-custom-green rounded shadow-md animate-fadeIn mb-5 "
+        style={{ marginTop: '150px' }}
       >
         Tournament Name:
         <h1 className="text-xl font-bold mb-5 border-b pb-5">{tournament.name}</h1>
@@ -123,8 +124,10 @@ function Tournament() {
         <p className="text-gray-700 mb-5 border-b pb-5">{tournament.adminUsername}</p>
         Max Participants:
         <p className="text-gray-700 mb-5 border-b pb-5">{tournament.maxParticipants}</p>
+        Joined Participants:
+        <p className="text-gray-700 mb-5 border-b pb-5">{tournament.participants.replace(/[\[\]']+/g,'')}</p>
         Type:
-        <p className="text-gray-700 mb-5">{tournament.type}</p>
+        <p className="text-gray-700 mb-2">{tournament.type}</p>
       </div>
 
       <Link

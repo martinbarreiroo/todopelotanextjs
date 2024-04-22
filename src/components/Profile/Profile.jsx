@@ -60,10 +60,10 @@ function Profile() {
         />
       </Link>
       <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn">
-        User:<h1 className="text-2xl font-bold mb-2">{user.username}</h1>
-        Email:<p className="text-gray-700 mb-2">{user.email}</p>
-        Position:<p className="text-gray-700 mb-2">{user.position}</p>
-        Description:<p className="text-gray-700 mb-2">{user.description}</p>
+        User:<h1 className="text-2xl font-bold border-b mb-2">{user.username}</h1>
+        Email:<p className="text-gray-700 border-b mb-2">{user.email}</p>
+        Position:<p className="text-gray-700 border-b mb-2">{user.position}</p>
+        Description:<p className="text-gray-700 border-b mb-2">{user.description}</p>
       </div>
       <Link href={"/Hub/Profile/UpdateProfile"}
         className="font-bold py-3 px-3 rounded animate-fadeIn"
