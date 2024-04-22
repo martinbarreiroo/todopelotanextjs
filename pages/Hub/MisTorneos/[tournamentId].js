@@ -52,7 +52,7 @@ function Tournament() {
   const router = useRouter();
   console.log(router.query.tournamentId);
   const tournamentId = router.query.tournamentId;
-
+  
   useEffect(() => {
     setUserId(localStorage.getItem("userId")); // Get the userId from local storage
     const fetchTournament = async () => {
@@ -89,7 +89,7 @@ function Tournament() {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
+    <div className="relative flex flex-col items-center justify-center h-screen ">
       <div
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
@@ -97,7 +97,7 @@ function Tournament() {
       <img
         src="/assets/logo.png"
         alt="Logo"
-        className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+        className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
       <Link
         href={"/Hub/MisTorneos"}
@@ -112,7 +112,9 @@ function Tournament() {
           className="w-8 h-8"
         />
       </Link>
-      <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn mt-20 mb-5">
+      <div className="w-full max-w-md p-4 relative bg-custom-green rounded shadow-md animate-fadeIn mb-5 "
+        style={{ marginTop: '200px' }}
+      >
         Tournament Name:
         <h1 className="text-xl font-bold mb-5 border-b pb-5">{tournament.name}</h1>
         Description:
@@ -127,7 +129,7 @@ function Tournament() {
 
       <Link
         href={`/Hub/MisTorneos/Torneo/CreateMatch`}
-        className="font-bold py-3 px-3 rounded mt-4 animate-fadeIn"
+        className=" font-bold py-3 px-3 rounded animate-fadeIn mt-2"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
