@@ -117,6 +117,8 @@ function Tournament() {
         <h1 className="text-2xl font-bold mb-2">{tournament.name}</h1>
         Description:
         <p className="text-gray-700 mb-2">{tournament.description}</p>
+        Tournament Admin:
+        <p className="text-gray-700 mb-2">{tournament.adminUsername}</p>
         Max Participants:
         <p className="text-gray-700 mb-2">{tournament.maxParticipants}</p>
         Type:<p className="text-gray-700 mb-2">{tournament.type}</p>

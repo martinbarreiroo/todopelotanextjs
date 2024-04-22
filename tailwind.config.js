@@ -7,6 +7,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+
+      borderradius : {
+        '8': '2rem',
+
+      },
+      
       spacing: {
         '1/10' : '10%',
         '1/5' : '20%',

@@ -57,7 +57,7 @@ function Matches() {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
+    <div className="relative flex flex-col items-center justify-center h-screen">
       <div
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
@@ -65,7 +65,7 @@ function Matches() {
       <img
         src="/assets/logo.png"
         alt="Logo"
-        className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+        className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
       <Link
         href={`/Hub/MisTorneos/${tournamentId}`}
@@ -84,14 +84,7 @@ function Matches() {
         <h3 style={{ fontSize: "2em" }}> {tournamentName}'s Matches </h3>
       </div>
       <div
-        style={{
-          maxHeight: "400px",
-          width: "550px",
-          overflowY: "auto",
-          backgroundColor: "#729560",
-          borderRadius: "10px",
-          marginTop: "20px",
-        }}
+        className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5"
       >
         {matches.length === 0 ? (
           <div className="p-10">

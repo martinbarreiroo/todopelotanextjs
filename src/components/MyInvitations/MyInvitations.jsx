@@ -56,14 +56,7 @@ function MyInvitations() {
       </Link>
       <div className="relative flex flex-col items-center justify-center h-screen ">
         <div
-          style={{
-            maxHeight: "400px",
-            width: "550px",
-            overflowY: "auto",
-            backgroundColor: "#729560",
-            borderRadius: "10px",
-            marginTop: "20px",
-          }}
+          className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5"
         >
           {invitations.length === 0 ? (
             <div className="p-10">

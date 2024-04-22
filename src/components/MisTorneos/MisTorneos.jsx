@@ -35,7 +35,7 @@ function MisTorneos() {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
+    <div className="relative flex flex-col items-center justify-center h-screen">
       <div
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
@@ -43,11 +43,11 @@ function MisTorneos() {
       <img
         src="/assets/logo.png"
         alt="Logo"
-        className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+        className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
       <Link
         href={"/Hub"}
-        className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
+        className="absolute top-4 right-4 font-bold py-3 px-3 rounded mt-4"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
@@ -61,7 +61,7 @@ function MisTorneos() {
 
       <Link
         href={"/Hub/MisTorneos/MyInvitations"}
-        className="absolute top-4 left-10 font-bold py-3 px-3 rounded"
+        className="absolute top-4 left-10 font-bold py-3 px-3 rounded mt-4"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
@@ -70,14 +70,7 @@ function MisTorneos() {
       </Link>
 
       <div
-        style={{
-          maxHeight: "550px",
-          width: "550px",
-          overflowY: "auto",
-          backgroundColor: "#729560",
-          borderRadius: "10px",
-          marginTop: "100px",
-        }}
+        className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5"
       >
         {tournaments.length === 0 ? (
           <div className="p-10">
@@ -96,7 +89,7 @@ function MisTorneos() {
                 href={`/Hub/MisTorneos/${tournament.id}`}
                 key={tournament.id || index}
               >
-                <div className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn">
+                <div className="p-7 border-b border-gray-200 transform transition duration-500 hover:rounded-lg hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn">
                   <h2 className="text-xl font-bold">{tournament.name}</h2>
                   <p>{tournament.description}</p>
                   <div className="flex justify-end">
