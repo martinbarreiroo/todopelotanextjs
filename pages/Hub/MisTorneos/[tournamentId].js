@@ -114,19 +114,20 @@ function Tournament() {
       </Link>
       <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn mt-20 mb-5">
         Tournament Name:
-        <h1 className="text-2xl font-bold mb-2">{tournament.name}</h1>
+        <h1 className="text-xl font-bold mb-5 border-b pb-5">{tournament.name}</h1>
         Description:
-        <p className="text-gray-700 mb-2">{tournament.description}</p>
+        <p className="text-gray-700 mb-5 border-b pb-5">{tournament.description}</p>
         Tournament Admin:
-        <p className="text-gray-700 mb-2">{tournament.adminUsername}</p>
+        <p className="text-gray-700 mb-5 border-b pb-5">{tournament.adminUsername}</p>
         Max Participants:
-        <p className="text-gray-700 mb-2">{tournament.maxParticipants}</p>
-        Type:<p className="text-gray-700 mb-2">{tournament.type}</p>
+        <p className="text-gray-700 mb-5 border-b pb-5">{tournament.maxParticipants}</p>
+        Type:
+        <p className="text-gray-700 mb-5">{tournament.type}</p>
       </div>
 
       <Link
         href={`/Hub/MisTorneos/Torneo/CreateMatch`}
-        className="font-bold py-3 px-3 rounded mt-4"
+        className="font-bold py-3 px-3 rounded mt-4 animate-fadeIn"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
@@ -136,7 +137,7 @@ function Tournament() {
 
       <Link
         href={`/Hub/MisTorneos/Torneo/Matches`}
-        className="font-bold py-3 px-3 rounded mt-4"
+        className="font-bold py-3 px-3 rounded mt-4 animate-fadeIn"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
