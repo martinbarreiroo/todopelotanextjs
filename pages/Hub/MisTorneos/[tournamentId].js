@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import withAuth from "@/components/withAuth/withAuth";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { DialogDemo } from "@/components/ui/DialogDemo";
 
 async function inviteUserToTournament(userName, tournamentId) {
   try {
@@ -113,19 +114,20 @@ function Tournament() {
           className="w-8 h-8"
         />
       </Link>
-      <div className="w-full max-w-md px-4 py-4 relative bg-custom-green rounded shadow-md animate-fadeIn mb-5 "
+
+      <div className="w-full max-w-md px-4 py-4 relative bg-custom-green rounded shadow-md animate-fadeIn mb-5 font-bold"
         style={{ marginTop: '150px' }}
       >
         Tournament Name:
-        <h1 className="text-xl font-bold mb-5 border-b pb-5">{tournament.name}</h1>
+        <h1 className="text-xl font-bold mb-2 border-b pb-5">{tournament.name}</h1>
         Description:
-        <p className="text-gray-700 mb-5 border-b pb-5">{tournament.description}</p>
+        <p className="text-gray-700 mb-2 border-b pb-5">{tournament.description}</p>
         Tournament Admin:
-        <p className="text-gray-700 mb-5 border-b pb-5">{tournament.adminUsername}</p>
+        <p className="text-gray-700 mb-2 border-b pb-5">{tournament.adminUsername}</p>
         Max Participants:
-        <p className="text-gray-700 mb-5 border-b pb-5">{tournament.maxParticipants}</p>
+        <p className="text-gray-700 mb-2 border-b pb-5">{tournament.maxParticipants}</p>
         Joined Participants:
-        <p className="text-gray-700 mb-5 border-b pb-5">{tournament.participants.replace(/[\[\]']+/g,'')}</p>
+        <p className="text-gray-700 mb-2 border-b pb-5">{tournament.participants.replace(/[\[\]']+/g,'')}</p>
         Type:
         <p className="text-gray-700 mb-2">{tournament.type}</p>
       </div>
@@ -150,35 +152,11 @@ function Tournament() {
         Matches
       </Link>
       {tournament.adminId == userId && (
-        <>
-          <label>
-            Invite User:
-            <input
-              className="border-2 border-gray-300 p-2 w-full rounded"
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              placeholder=" Enter user name"
-            />
-          </label>
-
-          <button
-            className="font-bold py-3 px-3 rounded mt-4"
-            onClick={() => {
-              handleInviteUser();
-            }}
-            style={{ backgroundColor: "#729560" }}
-            onMouseOver={(e) =>
-              (e.currentTarget.style.backgroundColor = "#abcd99")
-            }
-            onMouseOut={(e) =>
-              (e.currentTarget.style.backgroundColor = "#729560")
-            }
-          >
-            Invite User
-          </button>
-        </>
+        <div className="fixed top-40 left-10">
+          <DialogDemo userName={userName} setUserName={setUserName} handleInviteUser={handleInviteUser} />
+        </div>
       )}
+
     </div>
   );
 }
