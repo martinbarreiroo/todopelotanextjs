@@ -63,6 +63,11 @@ function UpdateProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!username || !password || !position || !description) {
+      alert("All fields must be filled out");
+      return;
+    }
+
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
     const response = await fetch("http://localhost:8080/profile/update", {

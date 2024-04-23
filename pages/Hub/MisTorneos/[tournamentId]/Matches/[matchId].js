@@ -110,17 +110,13 @@ function MatchPage() {
       </div>
 
       <SonnerDemo
-       result={result} 
-       yellowCards={yellowCards} 
-       redCards={redCards} 
-       goals={goals} 
-       assists={assists}
+        result={result}
+        yellowCards={yellowCards}
+        redCards={redCards}
+        goals={goals}
+        assists={assists}
       >
-        <Button
-          className="w-80"
-        >
-          Update Match
-        </Button>
+        <Button className="w-80">Update Match</Button>
       </SonnerDemo>
     </div>
   );
