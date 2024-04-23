@@ -4,7 +4,6 @@ import withAuth from "@/components/withAuth/withAuth";
 import { useRouter, router } from "next/router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { SonnerDemo } from "@/components/ui/SonnerDemo";
 
 function MatchPage() {

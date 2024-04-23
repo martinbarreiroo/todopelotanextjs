@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 
 export function SonnerDemo(props) {
   const today = new Date();
-  const dateString = today.toLocaleDateString();
+  const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+  const dateString = today.toLocaleDateString(undefined, options);
+  const timeString = today.toLocaleTimeString();
   const { result, yellowCards, redCards, goals, assists } = props;
   const [match, setmatch] = useState([]);
 
@@ -57,7 +59,7 @@ export function SonnerDemo(props) {
 
         if (updateSuccessful) {
           toast("Updated succesfully", {
-            description: dateString,
+            description: dateString + " " + timeString,
             action: {
               label: "Close",
               onClick: () => toast.dismiss(),
