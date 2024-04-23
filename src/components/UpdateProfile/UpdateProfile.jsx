@@ -126,7 +126,7 @@ function UpdateProfile() {
           style={{ backgroundColor: "#d1d1d1" }}
         >
           <input
-            type="text"
+            type="password"
             placeholder="Change yor Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

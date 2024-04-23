@@ -36,6 +36,36 @@ function Profile() {
     fetchUser();
   }, []);
 
+  const handleDeleteUser = async () => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/profile/delete/${userId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete user");
+      } else {
+        window.location.href = "/";
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("userId");
+        console.log("User deleted successfully");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
       <div
@@ -47,25 +77,28 @@ function Profile() {
         alt="Logo"
         className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
-      <Link href={"/Hub"}
+      <Link
+        href={"/Hub"}
         className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
       >
-        <img
-          src="/assets/hub.png"
-          alt="Return to Hub"
-          className="w-8 h-8"
-        />
+        <img src="/assets/hub.png" alt="Return to Hub" className="w-8 h-8" />
       </Link>
       <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn font-bold">
-        User:<h1 className="text-2xl font-bold border-b mt-4 mb-4">{user.username}</h1>
+        User:
+        <h1 className="text-2xl font-bold border-b mt-4 mb-4">
+          {user.username}
+        </h1>
         Email:<p className="text-gray-700 border-b mt-4 mb-4">{user.email}</p>
-        Position:<p className="text-gray-700 border-b mt-4 mb-4">{user.position}</p>
-        Description:<p className="text-gray-700 border-b mt-4 mb-4">{user.description}</p>
+        Position:
+        <p className="text-gray-700 border-b mt-4 mb-4">{user.position}</p>
+        Description:
+        <p className="text-gray-700 border-b mt-4 mb-4">{user.description}</p>
       </div>
-      <Link href={"/Hub/Profile/UpdateProfile"}
+      <Link
+        href={"/Hub/Profile/UpdateProfile"}
         className="font-bold py-3 px-3 rounded animate-fadeIn"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
@@ -73,6 +106,15 @@ function Profile() {
       >
         Update your Profile
       </Link>
+
+      <div className="fixed top-28 right-0 p-4">
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handleDeleteUser}
+        >
+          Delete User
+        </button>
+      </div>
     </div>
   );
 }
