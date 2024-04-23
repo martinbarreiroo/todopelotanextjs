@@ -35,7 +35,8 @@ async function inviteUserToTournament(userName, tournamentId) {
     } else {
       alert("Failed to invite user.");
     }
-  } catch (error) {
+  } 
+  catch (error) {
     console.error("Error:", error);
   }
 }
@@ -49,7 +50,7 @@ function Tournament() {
     adminId: "",
     participants: "",
   });
-  const [userId, setUserId] = useState(""); // Get the userId from local storage
+  const [userId, setUserId] = useState(""); 
   const [userName, setUserName] = useState("");
   const router = useRouter();
   console.log(router.query.tournamentId);
@@ -73,7 +74,7 @@ function Tournament() {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        localStorage.setItem("tournamentName", data.name); // Store the tournamentId in local storage
+        localStorage.setItem("tournamentName", data.name); // Store the tournamentName in local storage
         localStorage.setItem("tournamentId", data.id); // Store the tournamentId in local storage
         setTournament(data);
       } else {
@@ -133,7 +134,7 @@ function Tournament() {
       </div>
 
       <Link
-        href={`/Hub/MisTorneos/Torneo/CreateMatch`}
+        href={`/Hub/MisTorneos/${tournamentId}/CreateMatch`}
         className=" font-bold py-3 px-3 rounded animate-fadeIn mt-2"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
@@ -143,7 +144,7 @@ function Tournament() {
       </Link>
 
       <Link
-        href={`/Hub/MisTorneos/Torneo/Matches`}
+        href={`/Hub/MisTorneos/${tournamentId}/Matches`}
         className="font-bold py-3 px-3 rounded mt-4 animate-fadeIn"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}

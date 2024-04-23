@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import withAuth from "../withAuth/withAuth";
 
 function formatDate(dateString) {
   const date = new Date(dateString);
-  const day = String(date.getDate() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
   const year = date.getFullYear();
 
@@ -33,13 +34,11 @@ function Matches() {
 
       if (response.ok) {
         let data = await response.json();
-
         // Sort matches by date
         data.sort((a, b) => {
-          const [aYear, aMonth, aDay] = a.date.split('-').map(Number);
-          const [bYear, bMonth, bDay] = b.date.split('-').map(Number);
-        
-          return new Date(aYear, aMonth - 1, aDay) - new Date(bYear, bMonth - 1, bDay);
+          const aDate = new Date(a.date);
+          const bDate = new Date(b.date);
+          return aDate - bDate;
         });
 
         setMatches(data);
@@ -83,9 +82,7 @@ function Matches() {
       <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn font-extrabold relative flex flex-col items-center justify-center mt-10 mb-10">
         <h3 style={{ fontSize: "2em" }}> {tournamentName}'s Matches </h3>
       </div>
-      <div
-        className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5"
-      >
+      <div className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5">
         {matches.length === 0 ? (
           <div className="p-10">
             <h2 className="text-3xl font-serif font-extrabold antialiased text-center animate-fadeIn">
@@ -94,17 +91,19 @@ function Matches() {
           </div>
         ) : (
           matches.map((match, index) => (
-            <div
-              key={match.id || index}
-              className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn"
-            >
-              <h2 className="text-xl font-bold">{match.location}</h2>
-              <p>{formatDate(match.date)}</p>
-              <p>{match.description}</p>
-              <div className="flex justify-end">
-                <p>{match.type}</p>
+            <Link href={`/Hub/MisTorneos/${tournamentId}/Matches/${match.id}`}>
+              <div
+                key={match.id || index}
+                className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn"
+              >
+                <h2 className="text-xl font-bold">{match.location}</h2>
+                <p>{formatDate(match.date)}</p>
+                <p>{match.description}</p>
+                <div className="flex justify-end">
+                  <p>{match.type}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))
         )}
       </div>
@@ -112,4 +111,4 @@ function Matches() {
   );
 }
 
-export default Matches;
+export default withAuth(Matches);

@@ -1,5 +1,7 @@
+import { Toaster } from 'sonner';
 import '../styles/global.css'
 import Head from 'next/head';
+
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -9,6 +11,7 @@ function MyApp({ Component, pageProps }) {
         <title>TodoPelota</title>
       </Head>
       <Component {...pageProps} />
+      <Toaster />
     </div>
   )
 }
