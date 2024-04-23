@@ -35,8 +35,7 @@ async function inviteUserToTournament(userName, tournamentId) {
     } else {
       alert("Failed to invite user.");
     }
-  } 
-  catch (error) {
+  } catch (error) {
     console.error("Error:", error);
   }
 }
@@ -50,12 +49,12 @@ function Tournament() {
     adminId: "",
     participants: "",
   });
-  const [userId, setUserId] = useState(""); 
+  const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const router = useRouter();
   console.log(router.query.tournamentId);
   const tournamentId = router.query.tournamentId;
-  
+
   useEffect(() => {
     setUserId(localStorage.getItem("userId")); // Get the userId from local storage
     const fetchTournament = async () => {
@@ -91,6 +90,34 @@ function Tournament() {
     }
   };
 
+  const handleDeleteTournament = async () => {
+    const token = localStorage.getItem("token");
+    const tournamentId = localStorage.getItem("tournamentId");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/tournaments/delete/${tournamentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete user");
+      } else {
+        router.push("/Hub/MisTorneos");
+        console.log("Tournament deleted successfully");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   return (
     <div className="relative flex flex-col items-center justify-center h-screen ">
       <div
@@ -116,19 +143,30 @@ function Tournament() {
         />
       </Link>
 
-      <div className="w-full max-w-md px-4 py-4 relative bg-custom-green rounded shadow-md animate-fadeIn mb-5 font-bold"
-        style={{ marginTop: '150px' }}
+      <div
+        className="w-full max-w-md px-4 py-4 relative bg-custom-green rounded shadow-md animate-fadeIn mb-5 font-bold"
+        style={{ marginTop: "150px" }}
       >
         Tournament Name:
-        <h1 className="text-xl font-bold mb-2 border-b pb-5">{tournament.name}</h1>
+        <h1 className="text-xl font-bold mb-2 border-b pb-5">
+          {tournament.name}
+        </h1>
         Description:
-        <p className="text-gray-700 mb-2 border-b pb-5">{tournament.description}</p>
+        <p className="text-gray-700 mb-2 border-b pb-5">
+          {tournament.description}
+        </p>
         Tournament Admin:
-        <p className="text-gray-700 mb-2 border-b pb-5">{tournament.adminUsername}</p>
+        <p className="text-gray-700 mb-2 border-b pb-5">
+          {tournament.adminUsername}
+        </p>
         Max Participants:
-        <p className="text-gray-700 mb-2 border-b pb-5">{tournament.maxParticipants}</p>
+        <p className="text-gray-700 mb-2 border-b pb-5">
+          {tournament.maxParticipants}
+        </p>
         Joined Participants:
-        <p className="text-gray-700 mb-2 border-b pb-5">{tournament.participants.replace(/[\[\]']+/g,'')}</p>
+        <p className="text-gray-700 mb-2 border-b pb-5">
+          {tournament.participants.replace(/[\[\]']+/g, "")}
+        </p>
         Type:
         <p className="text-gray-700 mb-2">{tournament.type}</p>
       </div>
@@ -154,10 +192,22 @@ function Tournament() {
       </Link>
       {tournament.adminId == userId && (
         <div className="fixed top-40 left-10">
-          <DialogDemo userName={userName} setUserName={setUserName} handleInviteUser={handleInviteUser} />
+          <DialogDemo
+            userName={userName}
+            setUserName={setUserName}
+            handleInviteUser={handleInviteUser}
+          />
         </div>
       )}
 
+      <div className="fixed top-28 right-0 p-4">
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handleDeleteTournament}
+        >
+          Delete Tournament
+        </button>
+      </div>
     </div>
   );
 }
