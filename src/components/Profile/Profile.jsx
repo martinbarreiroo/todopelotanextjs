@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import withAuth from "@/components/withAuth/withAuth";
 import Link from "next/link";
+import { DialogDeleteUser } from "../ui/DialogDeleteUser";
 
 function Profile() {
   const [user, setUser] = useState({
@@ -67,7 +68,10 @@ function Profile() {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
+    <div
+      className="relative flex flex-col items-center justify-center h-screen
+    "
+    >
       <div
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
@@ -75,18 +79,18 @@ function Profile() {
       <img
         src="/assets/logo.png"
         alt="Logo"
-        className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+        className="w-24 h-24 flex justify-center mt-4 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
       <Link
         href={"/Hub"}
-        className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
+        className="absolute top-4 right-4 font-bold py-3 px-3 mt-4 rounded"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
       >
         <img src="/assets/hub.png" alt="Return to Hub" className="w-8 h-8" />
       </Link>
-      <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn font-bold">
+      <div className="w-full max-w-md p-4 bg-custom-green rounded mt-9 shadow-md animate-fadeIn font-bold">
         User:
         <h1 className="text-2xl font-bold border-b mt-4 mb-4">
           {user.username}
@@ -99,7 +103,7 @@ function Profile() {
       </div>
       <Link
         href={"/Hub/Profile/UpdateProfile"}
-        className="font-bold py-3 px-3 rounded animate-fadeIn"
+        className="font-bold py-3 px-3 rounded mt-9 animate-fadeIn"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
@@ -107,13 +111,10 @@ function Profile() {
         Update your Profile
       </Link>
 
-      <div className="fixed top-28 right-0 p-4">
-        <button
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-          onClick={handleDeleteUser}
-        >
-          Delete User
-        </button>
+      <div>
+        <div className="absolute top-40 right-10">
+          <DialogDeleteUser handleDeleteUser={handleDeleteUser} />
+        </div>
       </div>
     </div>
   );

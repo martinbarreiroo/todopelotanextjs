@@ -5,6 +5,7 @@ import { useRouter, router } from "next/router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SonnerDemo } from "@/components/ui/SonnerDemo";
+import { DialogDeleteMatch } from "@/components/ui/DialogDeleteMatch";
 
 function MatchPage() {
   const [match, setmatch] = useState([]);
@@ -46,6 +47,37 @@ function MatchPage() {
       fetchMatch();
     }
   }, [matchId]);
+
+  const handleDeleteMatch = async () => {
+    const token = localStorage.getItem("token");
+    const matchId = localStorage.getItem("matchId");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/matches/delete/${matchId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete user");
+      } else {
+        localStorage.removeItem("matchId");
+        router.push({
+          pathname: "/Hub/MisTorneos/[tournamentId]/Matches",
+          query: { tournamentId: tournamentId },
+        });
+        console.log("Tournament deleted successfully");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="relative flex flex-col items-center justify-center h-screen">
@@ -116,8 +148,14 @@ function MatchPage() {
         goals={goals}
         assists={assists}
       >
-        <Button className="w-80">Update Match</Button>
+        <Button className="w-80"></Button>
       </SonnerDemo>
+
+      <div>
+        <div className="absolute top-40 right-10">
+          <DialogDeleteMatch handleDeleteMatch={handleDeleteMatch} />
+        </div>
+      </div>
     </div>
   );
 }
