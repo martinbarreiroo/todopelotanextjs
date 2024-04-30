@@ -52,13 +52,18 @@ function UpdateProfile() {
   ];
 
   let actualUsername = "";
+  let actualDescription = "";
+  let actualPosition = "";
   if (typeof window !== "undefined") {
     actualUsername = localStorage.getItem("username");
+    actualDescription = localStorage.getItem("description");
+    actualPosition = localStorage.getItem("position");
   }
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState(actualUsername);
-  const [position, setPosition] = useState("");
-  const [description, setDescription] = useState("");
+  const [position, setPosition] = useState(actualPosition);
+  const [description, setDescription] = useState(actualDescription);
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -155,7 +160,6 @@ function UpdateProfile() {
         >
           <input
             type="text"
-            placeholder="Brief description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="w-full h-90% bg-transparent outline-none"

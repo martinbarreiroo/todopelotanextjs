@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import withAuth from "@/components/withAuth/withAuth";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const types = [
   {
@@ -81,7 +82,7 @@ function CrearTorneo() {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen space-y-4">
+    <div className="relative flex flex-col items-center justify-center h-screen">
       <div
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
@@ -89,13 +90,12 @@ function CrearTorneo() {
       <img
         src="/assets/logo.png"
         alt="Logo"
-        className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+        className="w-24 h-24 flex justify-center mt-4 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
-      <button
-        className="absolute top-4 right-4 font-bold py-2 px-4 rounded"
-        onClick={() => {
-          window.location.href = "/Hub";
-        }}
+
+      <Link
+        href={"/Hub"}
+        className="absolute top-4 right-4 font-bold py-3 px-3 rounded mt-4"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
@@ -105,9 +105,13 @@ function CrearTorneo() {
           alt="Return to Hub"
           className="w-8 h-8"
         />
-      </button>
-      <div className="w-full flex flex-col items-center justify-between space-y-10 mt-24">
-        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+      </Link>
+
+      <div className="w-full flex flex-col items-center justify-between mt-24">
+
+        <h1 className="text-2xl font-bold">Create a Tournament</h1>
+
+        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
           <input
             type="text"
             placeholder="Name"
@@ -115,7 +119,7 @@ function CrearTorneo() {
             className="w-full h-full bg-transparent outline-none"
           />
         </div>
-        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
+        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
           <input
             type="text"
             placeholder="Number of Players"
@@ -123,7 +127,7 @@ function CrearTorneo() {
             className="w-full h-full bg-transparent outline-none"
           />
         </div>
-        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
+        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
           <select
             className="w-full h-90% bg-transparent outline-none"
             onChange={(e) => setType(e.target.value)}
@@ -135,7 +139,7 @@ function CrearTorneo() {
             ))}
           </select>
         </div>
-        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
+        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
           <input
             type="text"
             placeholder="Brief description"

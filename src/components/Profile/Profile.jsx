@@ -29,6 +29,8 @@ function Profile() {
       if (response.ok) {
         const user = await response.json();
         setUser(user);
+        localStorage.setItem("position", user.position);
+        localStorage.setItem("description", user.description);
       } else {
         console.error("Failed to fetch user");
       }

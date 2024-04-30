@@ -9,11 +9,11 @@ import { DialogDeleteMatch } from "@/components/ui/DialogDeleteMatch";
 
 function MatchPage() {
   const [match, setmatch] = useState([]);
-  const [result, setResult] = useState(null);
-  const [yellowCards, setYellowCards] = useState(null);
-  const [redCards, setRedCards] = useState(null);
-  const [goals, setGoals] = useState(null);
-  const [assists, setAssists] = useState(null);
+  const [result, setResult] = useState("");
+  const [yellowCards, setYellowCards] = useState("");
+  const [redCards, setRedCards] = useState("");
+  const [goals, setGoals] = useState("");
+  const [assists, setAssists] = useState("");
   const router = useRouter();
   const matchId = router.query.matchId;
   const tournamentId = router.query.tournamentId;
@@ -38,6 +38,12 @@ function MatchPage() {
         console.log(data);
         localStorage.setItem("matchId", data.id);
         setmatch(data);
+        setResult(data.result);
+        setYellowCards(data.yellowCards);
+        setRedCards(data.redCards);
+        setGoals(data.goals);
+        setAssists(data.assists);
+
       } else {
         console.error("Failed to fetch match");
       }
@@ -103,42 +109,57 @@ function MatchPage() {
           className="w-8 h-8"
         />
       </Link>
-      <div className="flex flex-col items-center justify-center w-96 h-96 bg-custom-green rounded-md shadow-md space-y-10">
-        <Input
-          className="w-80"
-          type="text"
-          value={result}
-          onChange={(e) => setResult(e.target.value)}
-          placeholder="Result"
-        />
-        <Input
-          className="w-80"
-          type="number"
-          value={yellowCards}
-          onChange={(e) => setYellowCards(e.target.value)}
-          placeholder="Yellow Cards"
-        />
-        <Input
-          className="w-80"
-          type="number"
-          value={redCards}
-          onChange={(e) => setRedCards(e.target.value)}
-          placeholder="Red Cards"
-        />
-        <Input
-          className="w-80"
-          type="number"
-          value={goals}
-          onChange={(e) => setGoals(e.target.value)}
-          placeholder="Goals"
-        />
-        <Input
-          className="w-80"
-          type="number"
-          value={assists}
-          onChange={(e) => setAssists(e.target.value)}
-          placeholder="Assists"
-        />
+      <div className="flex flex-col items-center justify-center w-96 h-[430px] bg-custom-green rounded-md shadow-md mt-40 gap-3">
+        <div className="text-black font-bold text-2xl"> Match Result
+          <Input
+            className="w-80"
+            type="text"
+            value={result}
+            onChange={(e) => setResult(e.target.value)}
+            placeholder="Result"
+          />
+        </div>
+
+        <div className="text-black font-bold text-lg"> Yellow Cards
+          <Input
+            className="w-80"
+            type="number"
+            value={yellowCards}
+            onChange={(e) => setYellowCards(e.target.value)}
+            placeholder="Yellow Cards"
+          />
+        </div>
+
+        <div className="text-black font-bold text-lg"> Red Cards
+          <Input
+            className="w-80"
+            type="number"
+            value={redCards}
+            onChange={(e) => setRedCards(e.target.value)}
+            placeholder="Red Cards"
+          />
+        </div>
+
+        <div className="text-black font-bold text-lg"> Goals
+          <Input
+            className="w-80"
+            type="number"
+            value={goals}
+            onChange={(e) => setGoals(e.target.value)}
+            placeholder="Goals"
+          />
+        </div>
+
+        <div className="text-black font-bold text-lg"> Assists
+          <Input
+            className="w-80"
+            type="number"
+            value={assists}
+            onChange={(e) => setAssists(e.target.value)}
+            placeholder="Assists"
+          />
+        </div>  
+        
       </div>
 
       <SonnerDemo
