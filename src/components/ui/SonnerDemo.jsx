@@ -7,10 +7,10 @@ export function SonnerDemo(props) {
   const options = { day: "2-digit", month: "2-digit", year: "numeric" };
   const dateString = today.toLocaleDateString(undefined, options);
   const timeString = today.toLocaleTimeString();
-  const { result, yellowCards, redCards, goals, assists } = props;
+  const { team1Score, team2Score, yellowCards, redCards, goals, assists } = props;
   const [match, setmatch] = useState([]);
 
-  const updateMatch = async (result, yellowCards, redCards, goals, assists) => {
+  const updateMatch = async (team1Score, team2Score, yellowCards, redCards, goals, assists) => {
     try {
       const token = localStorage.getItem("token");
       const matchId = localStorage.getItem("matchId");
@@ -23,7 +23,8 @@ export function SonnerDemo(props) {
         },
         body: JSON.stringify({
           matchId: matchId,
-          result: result,
+          result1: team1Score,
+          result2: team2Score,
           yellowCards: yellowCards,
           redCards: redCards,
           goals: goals,
@@ -50,7 +51,8 @@ export function SonnerDemo(props) {
       variant="outline"
       onClick={async () => {
         const updateSuccessful = await updateMatch(
-          result,
+          team1Score,
+          team2Score,
           yellowCards,
           redCards,
           goals,

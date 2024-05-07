@@ -9,7 +9,8 @@ import { DialogDeleteMatch } from "@/components/ui/DialogDeleteMatch";
 
 function MatchPage() {
   const [match, setmatch] = useState([]);
-  const [result, setResult] = useState("");
+  const [team1Score, setTeam1Score] = useState("");
+  const [team2Score, setTeam2Score] = useState("");
   const [yellowCards, setYellowCards] = useState("");
   const [redCards, setRedCards] = useState("");
   const [goals, setGoals] = useState("");
@@ -38,12 +39,12 @@ function MatchPage() {
         console.log(data);
         localStorage.setItem("matchId", data.id);
         setmatch(data);
-        setResult(data.result);
+        setTeam1Score(data.result1);
+        setTeam2Score(data.result2);
         setYellowCards(data.yellowCards);
         setRedCards(data.redCards);
         setGoals(data.goals);
         setAssists(data.assists);
-
       } else {
         console.error("Failed to fetch match");
       }
@@ -109,18 +110,40 @@ function MatchPage() {
           className="w-8 h-8"
         />
       </Link>
-      <div className="flex flex-col items-center justify-center w-96 h-[430px] bg-custom-green rounded-md shadow-md mt-40 gap-3">
-        <div className="text-black font-bold text-2xl"> Match Result
-          <Input
-            className="w-80"
-            type="text"
-            value={result}
-            onChange={(e) => setResult(e.target.value)}
-            placeholder="Result"
-          />
+      <div className="flex flex-col items-center justify-center w-96 h-[500px] bg-custom-green rounded-md shadow-md mt-40 gap-3">
+        <div className="text-black font-bold text-2xl"> Match Results </div>
+        <div className="flex justify-between w-80">
+          <div className="flex flex-col items-center w-1/2">
+            <label htmlFor="team1Score" className="mb-2 font-bold">
+              Team 1 Score
+            </label>
+            <Input
+              id="team1Score"
+              className="w-full"
+              type="number"
+              value={team1Score}
+              onChange={(e) => setTeam1Score(e.target.value)}
+              placeholder="Score"
+            />
+          </div>
+          <div className="flex flex-col items-center w-1/2">
+            <label htmlFor="team2Score" className="mb-2 font-bold">
+              Team 2 Score
+            </label>
+            <Input
+              id="team2Score"
+              className="w-full ml-4"
+              type="number"
+              value={team2Score}
+              onChange={(e) => setTeam2Score(e.target.value)}
+              placeholder="Score"
+            />
+          </div>
         </div>
 
-        <div className="text-black font-bold text-lg"> Yellow Cards
+        <div className="text-black font-bold text-lg">
+          {" "}
+          Yellow Cards
           <Input
             className="w-80"
             type="number"
@@ -130,7 +153,9 @@ function MatchPage() {
           />
         </div>
 
-        <div className="text-black font-bold text-lg"> Red Cards
+        <div className="text-black font-bold text-lg">
+          {" "}
+          Red Cards
           <Input
             className="w-80"
             type="number"
@@ -140,7 +165,9 @@ function MatchPage() {
           />
         </div>
 
-        <div className="text-black font-bold text-lg"> Goals
+        <div className="text-black font-bold text-lg">
+          {" "}
+          Goals
           <Input
             className="w-80"
             type="number"
@@ -150,7 +177,9 @@ function MatchPage() {
           />
         </div>
 
-        <div className="text-black font-bold text-lg"> Assists
+        <div className="text-black font-bold text-lg">
+          {" "}
+          Assists
           <Input
             className="w-80"
             type="number"
@@ -158,12 +187,12 @@ function MatchPage() {
             onChange={(e) => setAssists(e.target.value)}
             placeholder="Assists"
           />
-        </div>  
-        
+        </div>
       </div>
 
       <SonnerDemo
-        result={result}
+        team1Score={team1Score}
+        team2Score={team2Score}
         yellowCards={yellowCards}
         redCards={redCards}
         goals={goals}

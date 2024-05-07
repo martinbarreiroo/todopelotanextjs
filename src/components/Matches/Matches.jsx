@@ -68,14 +68,14 @@ function Matches() {
       />
       <Link
         href={`/Hub/MisTorneos/${tournamentId}`}
-        className="absolute top-4 right-4 font-bold py-3 px-4 rounded"
+        className="absolute top-4 right-4 font-bold py-3 px-3 rounded mt-4"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
       >
         <img
           src="/assets/back-arrow.png"
-          alt="Return to Hub"
+          alt="Return to Tournaments"
           className="w-8 h-8"
         />
       </Link>
@@ -94,14 +94,21 @@ function Matches() {
             <Link href={`/Hub/MisTorneos/${tournamentId}/Matches/${match.id}`}>
               <div
                 key={match.id || index}
-                className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn"
+                className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn flex justify-between"
               >
-                <h2 className="text-xl font-bold">{match.location}</h2>
-                <p>{formatDate(match.date)}</p>
-                <p>{match.description}</p>
-                <div className="flex justify-end">
-                  <p>{match.type}</p>
+                <div>
+                  <h2 className="text-xl font-bold">{match.location}</h2>
+                  <p>{formatDate(match.date)}</p>
+                  <p>{match.description}</p>
+                  <div className="flex justify-end">
+                    <p>{match.type}</p>
+                  </div>
                 </div>
+                {match.result1 !== null && match.result2 !== null && (
+                  <div className="self-center">
+                    <p>Result: {match.result1} - {match.result2}</p>
+                  </div>
+                )}
               </div>
             </Link>
           ))

@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   prefix: "",
   theme: {
@@ -17,14 +17,13 @@ module.exports = {
       },
     },
     extend: {
-
       colors: {
-        'input-gray': '#d1d1d1',
-        'custom-green2': '#B5C0D0',
-        'custom-green': '#abcd99',
-        'custom-green3': '#87A922',
-        'dark-green': '#729560',
-        'rejection-red': '#E72929',
+        "input-gray": "#d1d1d1",
+        "custom-green2": "#B5C0D0",
+        "custom-green": "#abcd99",
+        "custom-green3": "#87A922",
+        "dark-green": "#729560",
+        "rejection-red": "#E72929",
       },
 
       keyframes: {
@@ -40,9 +39,13 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        fadeIn: 'fadeIn 1.5s ease-in-out',
+        fadeIn: "fadeIn 1.5s ease-in-out",
+      },
+
+      width: {
+        160: "40rem", // 40rem = 640px
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

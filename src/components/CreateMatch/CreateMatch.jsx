@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useEffect } from "react";
 
-async function createMatch(date, location, description, router) {
+async function createMatch(date, location, description, team1, team2, router) {
   try {
     const token = localStorage.getItem("token");
     const tournamentId = localStorage.getItem("tournamentId");
@@ -14,7 +14,7 @@ async function createMatch(date, location, description, router) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ date, location, description, tournamentId }),
+      body: JSON.stringify({ date, location, description, team1, team2, tournamentId }),
     });
 
     if (response.ok) {
@@ -40,7 +40,6 @@ function CreateMatch() {
   const handleAddPlayerToTeam1 = (player) => {
     if (player !== "Select a player") {
       setTeam1([...team1, player]);
-      setPlayers(players.filter((p) => p !== player));
       setSelectedPlayer1("Select a player");
     }
   };
@@ -48,7 +47,6 @@ function CreateMatch() {
   const handleAddPlayerToTeam2 = (player) => {
     if (player !== "Select a player") {
       setTeam2([...team2, player]);
-      setPlayers(players.filter((p) => p !== player));
       setSelectedPlayer2("Select a player");
     }
   };
@@ -69,13 +67,23 @@ function CreateMatch() {
     if (
       !validateDate(date) ||
       !validateLocation(location) ||
-      !validateDescription(description)
+      !validateDescription(description)||
+      team1.length === 0 ||
+      team2.length === 0
     ) {
       alert("Please fill in all fields correctly");
       return;
     } else {
-      createMatch(date, location, description, router);
+      createMatch(date, location, description, team1, team2, router);
     }
+  };
+
+  const handleRemovePlayerFromTeam1 = (player) => {
+    setTeam1(team1.filter((p) => p !== player));
+  };
+
+  const handleRemovePlayerFromTeam2 = (player) => {
+    setTeam2(team2.filter((p) => p !== player));
   };
 
   useEffect(() => {
@@ -134,48 +142,91 @@ function CreateMatch() {
           className="w-8 h-8"
         />
       </Link>
-      <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+
+      <div className="flex justify-center mt-5">
+        <div className="w-80 h-18 flex flex-col items-center justify-center mx-2 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+          Team 1:
+          <div className="ml-4">
+            <select
+              className="rounded"
+              value={selectedPlayer1}
+              onChange={(e) =>
+                e.target.value && handleAddPlayerToTeam1(e.target.value)
+              }
+            >
+              <option value="Select a player">Select a player</option>
+              {players.map((player, index) => (
+                <option
+                  key={index}
+                  value={player}
+                  disabled={team1.includes(player) || team2.includes(player)}
+                >
+                  {player}
+                </option>
+              ))}
+            </select>
+          </div>
+          <p>
+            {team1.map((player, index) => (
+              <span key={index}>
+                {player}
+                <button
+                  onClick={() => handleRemovePlayerFromTeam1(player)}
+                  className="bg-transparent text-red-500 hover:text-red-700 active:text-red-900 font-bold py-2 px-1 mr-2 rounded inline-flex items-center"
+                >
+                  <span>x</span>
+                </button>
+              </span>
+            ))}
+          </p>
+        </div>
+        <div className="w-80 h-18 flex flex-col items-center justify-center mx-2 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+          Team 2:
+          <div className="ml-4">
+            <select
+              className="rounded"
+              value={selectedPlayer2}
+              onChange={(e) =>
+                e.target.value && handleAddPlayerToTeam2(e.target.value)
+              }
+            >
+              <option value="Select a player">Select a player</option>
+              {players.map((player, index) => (
+                <option
+                  key={index}
+                  value={player}
+                  disabled={team1.includes(player) || team2.includes(player)}
+                >
+                  {player}
+                </option>
+              ))}
+            </select>
+          </div>
+          <p>
+            {team2.map((player, index) => (
+              <span key={index}>
+                {player}
+                <button
+                  onClick={() => handleRemovePlayerFromTeam2(player)}
+                  className="bg-transparent text-red-500 hover:text-red-700 active:text-red-900 font-bold py-2 px-1 mr-2 rounded inline-flex items-center"
+                >
+                  <span>x</span>
+                </button>
+              </span>
+            ))}
+          </p>
+        </div>
+      </div>
+
+      <div className="w-160 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
         <input
           type="date"
           onChange={(e) => setDate(e.target.value)}
           className="w-full h-full bg-transparent outline-none"
         />
       </div>
-      <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
-        Team 1:
-        <select
-          value={selectedPlayer1}
-          onChange={(e) =>
-            e.target.value && handleAddPlayerToTeam1(e.target.value)
-          }
-        >
-          <option value="Select a player">Select a player</option>
-          {players.map((player, index) => (
-            <option key={index} value={player}>
-              {player}
-            </option>
-          ))}
-        </select>
-      </div>
-      <p>{team1.join(", ")}</p>
-      <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
-        Team 2:
-        <select
-          value={selectedPlayer2}
-          onChange={(e) =>
-            e.target.value && handleAddPlayerToTeam2(e.target.value)
-          }
-        >
-          <option value="Select a player">Select a player</option>
-          {players.map((player, index) => (
-            <option key={index} value={player}>
-              {player}
-            </option>
-          ))}
-        </select>
-      </div>
-      <p>{team2.join(", ")}</p>
-      <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+
+      <div className="w-160 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
         <input
           type="text"
           placeholder="Location"
@@ -183,7 +234,8 @@ function CreateMatch() {
           className="w-full h-full bg-transparent outline-none"
         />
       </div>
-      <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+
+      <div className="w-160 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
         <input
           type="text"
           placeholder="Description"
