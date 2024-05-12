@@ -5,6 +5,7 @@ import { useRouter, router } from "next/router";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SonnerDemo } from "@/components/ui/SonnerDemo";
+import { DialogViewTeams } from "@/components/ui/DialogViewTeams";
 import { DialogDeleteMatch } from "@/components/ui/DialogDeleteMatch";
 
 function MatchPage() {
@@ -15,6 +16,8 @@ function MatchPage() {
   const [redCards, setRedCards] = useState("");
   const [goals, setGoals] = useState("");
   const [assists, setAssists] = useState("");
+  const [team1Composition, setTeam1Composition] = useState([]);
+  const [team2Composition, setTeam2Composition] = useState([]);
   const router = useRouter();
   const matchId = router.query.matchId;
   const tournamentId = router.query.tournamentId;
@@ -45,6 +48,8 @@ function MatchPage() {
         setRedCards(data.redCards);
         setGoals(data.goals);
         setAssists(data.assists);
+        setTeam1Composition(data.team1);
+        setTeam2Composition(data.team2);
       } else {
         console.error("Failed to fetch match");
       }
@@ -113,7 +118,7 @@ function MatchPage() {
       <div className="flex flex-col items-center justify-center w-96 h-[500px] bg-custom-green rounded-md shadow-md mt-40 gap-3">
         <div className="text-black font-bold text-2xl"> Match Results </div>
         <div className="flex justify-between w-80">
-          <div className="flex flex-col items-center w-1/2">
+          <div className="flex flex-col items-center w-1/2 font-bold">
             <label htmlFor="team1Score" className="mb-2 font-bold">
               Team 1 Score
             </label>
@@ -121,12 +126,13 @@ function MatchPage() {
               id="team1Score"
               className="w-full"
               type="number"
+              min="0"
               value={team1Score}
               onChange={(e) => setTeam1Score(e.target.value)}
               placeholder="Score"
             />
           </div>
-          <div className="flex flex-col items-center w-1/2">
+          <div className="flex flex-col items-center w-1/2 font-bold">
             <label htmlFor="team2Score" className="mb-2 font-bold">
               Team 2 Score
             </label>
@@ -134,6 +140,7 @@ function MatchPage() {
               id="team2Score"
               className="w-full ml-4"
               type="number"
+              min="0"
               value={team2Score}
               onChange={(e) => setTeam2Score(e.target.value)}
               placeholder="Score"
@@ -147,6 +154,7 @@ function MatchPage() {
           <Input
             className="w-80"
             type="number"
+            min="0"
             value={yellowCards}
             onChange={(e) => setYellowCards(e.target.value)}
             placeholder="Yellow Cards"
@@ -159,6 +167,7 @@ function MatchPage() {
           <Input
             className="w-80"
             type="number"
+            min="0"
             value={redCards}
             onChange={(e) => setRedCards(e.target.value)}
             placeholder="Red Cards"
@@ -171,6 +180,7 @@ function MatchPage() {
           <Input
             className="w-80"
             type="number"
+            min="0"
             value={goals}
             onChange={(e) => setGoals(e.target.value)}
             placeholder="Goals"
@@ -183,6 +193,7 @@ function MatchPage() {
           <Input
             className="w-80"
             type="number"
+            min="0"
             value={assists}
             onChange={(e) => setAssists(e.target.value)}
             placeholder="Assists"
@@ -201,6 +212,14 @@ function MatchPage() {
         <Button className="w-80"></Button>
       </SonnerDemo>
 
+      <div>
+        <div className="absolute top-40 left-10">
+          <DialogViewTeams
+            team1Composition={team1Composition}
+            team2Composition={team2Composition}
+          />
+        </div>
+      </div>
       <div>
         <div className="absolute top-40 right-10">
           <DialogDeleteMatch handleDeleteMatch={handleDeleteMatch} />

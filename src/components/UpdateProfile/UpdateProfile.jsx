@@ -2,6 +2,7 @@ import React from "react";
 import withAuth from "@/components/withAuth/withAuth";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function UpdateProfile() {
   const positions = [
@@ -63,6 +64,7 @@ function UpdateProfile() {
   const [username, setUsername] = useState(actualUsername);
   const [position, setPosition] = useState(actualPosition);
   const [description, setDescription] = useState(actualDescription);
+  const router = useRouter();
  
 
   const handleSubmit = async (e) => {
@@ -75,6 +77,7 @@ function UpdateProfile() {
 
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
+    console.log(userId);
     const response = await fetch("http://localhost:8080/profile/update", {
       method: "PUT",
       headers: {
@@ -97,10 +100,13 @@ function UpdateProfile() {
       // Handle success
 
       console.log("Profile updated successfully");
-      window.location.href = "/";
-      localStorage.removeItem("token");
+      const data = await response.json();
+      const updatedToken = data.token;
+      localStorage.setItem("token", updatedToken);
       localStorage.removeItem("username");
-      localStorage.removeItem("userId");
+      localStorage.setItem("username", username);
+      router.push("/Hub/Profile");
+      
     }
   };
   return (

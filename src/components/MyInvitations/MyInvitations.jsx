@@ -4,6 +4,15 @@ import Link from "next/link";
 
 function MyInvitations() {
   const [invitations, setInvitations] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowMessage(true);
+    }, 100); // Delay of 3 seconds
+
+    return () => clearTimeout(timer); // Clean up on component unmount
+  }, []);
 
   useEffect(() => {
     const fetchInvitations = async () => {
@@ -42,7 +51,8 @@ function MyInvitations() {
         alt="Logo"
         className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
-      <Link href={'/Hub/MisTorneos'}
+      <Link
+        href={"/Hub/MisTorneos"}
         className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
@@ -55,10 +65,8 @@ function MyInvitations() {
         />
       </Link>
       <div className="relative flex flex-col items-center justify-center h-screen ">
-        <div
-          className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5"
-        >
-          {invitations.length === 0 ? (
+        <div className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5">
+          {invitations.length === 0 && showMessage ? (
             <div className="p-10">
               <h2 className="text-3xl font-serif font-extrabold antialiased text-center animate-fadeIn">
                 No invitations found

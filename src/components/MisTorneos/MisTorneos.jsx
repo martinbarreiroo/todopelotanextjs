@@ -4,6 +4,15 @@ import Link from "next/link";
 
 function MisTorneos() {
   const [tournaments, setTournaments] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowMessage(true);
+    }, 300); // Delay of 3 seconds
+
+    return () => clearTimeout(timer); // Clean up on component unmount
+  }, []);
 
   useEffect(() => {
     const fetchTournaments = async () => {
@@ -52,11 +61,7 @@ function MisTorneos() {
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
       >
-        <img
-          src="/assets/hub.png"
-          alt="Return to Hub"
-          className="w-8 h-8"
-        />
+        <img src="/assets/hub.png" alt="Return to Hub" className="w-8 h-8" />
       </Link>
 
       <Link
@@ -69,10 +74,8 @@ function MisTorneos() {
         My Invitations
       </Link>
 
-      <div
-        className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5"
-      >
-        {tournaments.length === 0 ? (
+      <div className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5">
+        {tournaments.length === 0 && showMessage ? (
           <div className="p-10">
             <h2 className="text-3xl font-serif font-extrabold antialiased text-center animate-fadeIn">
               You are not participating in any tournaments, YET

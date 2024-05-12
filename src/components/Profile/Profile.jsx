@@ -15,6 +15,7 @@ function Profile() {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
+      console.log(userId);
       const response = await fetch(
         `http://localhost:8080/profile/get/${userId}`,
         {
@@ -97,7 +98,8 @@ function Profile() {
         <h1 className="text-2xl font-bold border-b mt-4 mb-4">
           {user.username}
         </h1>
-        Email:<p className="text-gray-700 border-b mt-4 mb-4">{user.email}</p>
+        Email:
+        <p className="text-gray-700 border-b mt-4 mb-4">{user.email}</p>
         Position:
         <p className="text-gray-700 border-b mt-4 mb-4">{user.position}</p>
         Description:
