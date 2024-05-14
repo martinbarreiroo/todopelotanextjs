@@ -7,14 +7,25 @@ export function SonnerDemo(props) {
   const options = { day: "2-digit", month: "2-digit", year: "numeric" };
   const dateString = today.toLocaleDateString(undefined, options);
   const timeString = today.toLocaleTimeString();
-  const { team1Score, team2Score, yellowCards, redCards, goals, assists } = props;
+  const { team1Score, team2Score, yellowCards, redCards, goals, assists, team1Points, team2Points } = props;
   const [match, setmatch] = useState([]);
 
-  const updateMatch = async (team1Score, team2Score, yellowCards, redCards, goals, assists) => {
+  const updateMatch = async (team1Score, team2Score, yellowCards, redCards, goals, assists, team1Points, team2Points) => {
     try {
       const token = localStorage.getItem("token");
       const matchId = localStorage.getItem("matchId");
       console.log(matchId);
+      // Calculate points based on scores
+      let team1Points = 0;
+      let team2Points = 0;
+      if (team1Score > team2Score) {
+        team1Points = 3; // team 1 wins
+      } else if (team1Score < team2Score) {
+        team2Points = 3; // team 2 wins
+      } else {
+        team1Points = 1; // tie
+        team2Points = 1; // tie
+      }
       const response = await fetch(`http://localhost:8080/matches/update`, {
         method: "PUT",
         headers: {
@@ -29,6 +40,8 @@ export function SonnerDemo(props) {
           redCards: redCards,
           goals: goals,
           assists: assists,
+          team1Points: team1Points,
+          team2Points: team2Points,
         }),
       });
 
@@ -56,7 +69,9 @@ export function SonnerDemo(props) {
           yellowCards,
           redCards,
           goals,
-          assists
+          assists,
+          team1Points,
+          team2Points
         );
 
         if (updateSuccessful) {

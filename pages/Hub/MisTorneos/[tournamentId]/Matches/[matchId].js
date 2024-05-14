@@ -18,6 +18,8 @@ function MatchPage() {
   const [assists, setAssists] = useState("");
   const [team1Composition, setTeam1Composition] = useState([]);
   const [team2Composition, setTeam2Composition] = useState([]);
+  const [team1Points, setTeam1Points] = useState(0);
+  const [team2Points, setTeam2Points] = useState(0);
   const router = useRouter();
   const matchId = router.query.matchId;
   const tournamentId = router.query.tournamentId;
@@ -208,6 +210,8 @@ function MatchPage() {
         redCards={redCards}
         goals={goals}
         assists={assists}
+        team1Points={team1Points}
+        team2Points={team2Points}
       >
         <Button className="w-80"></Button>
       </SonnerDemo>
