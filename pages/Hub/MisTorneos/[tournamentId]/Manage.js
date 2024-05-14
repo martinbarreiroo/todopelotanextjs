@@ -230,7 +230,7 @@ function manageTournament() {
       </div>
 
       <Link
-        href={`/Hub/MisTorneos/${tournamentId}/CreateMatch`}
+        href={`/Hub/MisTorneos/${tournamentId}/Manage/CreateMatch`}
         className=" font-bold py-3 px-3 rounded animate-fadeIn mt-2"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
@@ -240,7 +240,7 @@ function manageTournament() {
       </Link>
 
       <Link
-        href={`/Hub/MisTorneos/${tournamentId}/Matches`}
+        href={`/Hub/MisTorneos/${tournamentId}/Manage/Matches`}
         className="font-bold py-3 px-3 rounded mt-4 animate-fadeIn"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}

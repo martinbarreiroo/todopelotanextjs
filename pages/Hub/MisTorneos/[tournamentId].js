@@ -5,6 +5,7 @@ import withAuth from "@/components/withAuth/withAuth";
 
 function Tournament() {
   const [tournamentPositions, setTournamentPositions] = useState([]);
+  const sortedTournamentPositions = [...tournamentPositions].sort((a, b) => b.points - a.points);
   const router = useRouter();
   const tournamentId = router.query.tournamentId;
 
@@ -82,7 +83,7 @@ function Tournament() {
             </tr>
           </thead>
           <tbody>
-            {tournamentPositions.map((position, index) => (
+            {sortedTournamentPositions.map((position, index) => (
               <tr key={index} className={index % 2 === 0 ? "bg-gray-200" : ""}>
                 <td className="border px-4 py-2">{position.user.username}</td>
                 <td className="border px-4 py-2">{position.points}</td>

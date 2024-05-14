@@ -130,7 +130,7 @@ function CreateMatch() {
         className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
       />
       <Link
-        href={`/Hub/MisTorneos/${tournamentId}`}
+        href={`/Hub/MisTorneos/${tournamentId}/Manage`}
         className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
