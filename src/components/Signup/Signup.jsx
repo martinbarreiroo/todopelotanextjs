@@ -80,13 +80,10 @@ async function handleSignup(
       localStorage.setItem("username", username); // store the username in local storage
       localStorage.setItem("userId", userId); // store the userId in local storage
       router.push("/Hub"); // navigate to /hub route if login is successful
-    }
-
-    else {
+    } else {
       const data = await response.json();
       alert(data.message);
     }
-
   } catch (error) {
     console.error(error);
   }
@@ -149,9 +146,11 @@ export const Signup = () => {
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
       ></div>
-
-      <img src="/assets/logo.png" alt="Logo" className={styles.logo_signup} />
-
+      <img
+        src="/assets/logo.png"
+        alt="Logo"
+        className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+      />
       <div className={styles.container}>
         <div className={styles.header}></div>
         <div>
@@ -259,12 +258,9 @@ export const Signup = () => {
               </span>
             </div>
 
-            
-
             <button className={styles.submit} type="submit">
               Sign Up
             </button>
-
           </div>
         </form>
 

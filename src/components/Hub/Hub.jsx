@@ -41,8 +41,11 @@ export const Hub = () => {
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
       ></div>
-      <img src="/assets/logo.png" alt="Logo" className={styles.logo_hub} />
-
+      <img
+        src="/assets/logo.png"
+        alt="Logo"
+        className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+      />
       <Link href="/">
         <div className={styles.logout_container}>
           <button className={styles.logout_button} onClick={handleLogout}>

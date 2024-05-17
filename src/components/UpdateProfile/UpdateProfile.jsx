@@ -65,7 +65,6 @@ function UpdateProfile() {
   const [position, setPosition] = useState(actualPosition);
   const [description, setDescription] = useState(actualDescription);
   const router = useRouter();
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,7 +105,6 @@ function UpdateProfile() {
       localStorage.removeItem("username");
       localStorage.setItem("username", username);
       router.push("/Hub/Profile");
-      
     }
   };
   return (
@@ -115,11 +113,13 @@ function UpdateProfile() {
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
       ></div>
-      <img
-        src="/assets/logo.png"
-        alt="Logo"
-        className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
-      />
+      <Link href={"/Hub"}>
+        <img
+          src="/assets/logo.png"
+          alt="Logo"
+          className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+        />
+      </Link>
       <form onSubmit={handleSubmit} className="space-y-10">
         <div
           className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded"

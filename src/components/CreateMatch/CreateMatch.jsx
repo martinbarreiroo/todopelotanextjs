@@ -14,7 +14,14 @@ async function createMatch(date, location, description, team1, team2, router) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ date, location, description, team1, team2, tournamentId }),
+      body: JSON.stringify({
+        date,
+        location,
+        description,
+        team1,
+        team2,
+        tournamentId,
+      }),
     });
 
     if (response.ok) {
@@ -67,7 +74,7 @@ function CreateMatch() {
     if (
       !validateDate(date) ||
       !validateLocation(location) ||
-      !validateDescription(description)||
+      !validateDescription(description) ||
       team1.length === 0 ||
       team2.length === 0
     ) {
@@ -124,11 +131,13 @@ function CreateMatch() {
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
       ></div>
-      <img
-        src="/assets/logo.png"
-        alt="Logo"
-        className="w-24 h-24 flex justify-center mt-12 mb-32 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
-      />
+      <Link href={"/Hub"}>
+        <img
+          src="/assets/logo.png"
+          alt="Logo"
+          className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+        />
+      </Link>
       <Link
         href={`/Hub/MisTorneos/${tournamentId}/Manage`}
         className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
