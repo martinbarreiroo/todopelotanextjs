@@ -10,10 +10,12 @@ function Tournament() {
   );
   const router = useRouter();
   const tournamentId = router.query.tournamentId;
+  const [tournamentName, setTournamentName] = useState("");
 
   useEffect(() => {
     const fetchTournamentPositions = async () => {
       const token = localStorage.getItem("token");
+      setTournamentName(localStorage.getItem("tournamentName"));
       const response = await fetch(
         `http://localhost:8080/tournaments/positions/${tournamentId}`,
         {
@@ -71,7 +73,7 @@ function Tournament() {
       </Link>
 
       <div className="relative flex flex-col items-center justify-center h-screen ">
-        <h1 className="text-xl font-bold mb-2">Tournament Positions</h1>
+        <h1 className="text-4xl font-bold mb-16">{tournamentName} Positions</h1>
         <table className="table-auto">
           <thead>
             <tr>

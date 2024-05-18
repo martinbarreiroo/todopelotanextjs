@@ -25,7 +25,7 @@ async function createMatch(date, location, description, team1, team2, router) {
     });
 
     if (response.ok) {
-      router.push(`/Hub/MisTorneos/${tournamentId}/Matches`);
+      router.push(`/Hub/MisTorneos/${tournamentId}/Manage/Matches`);
     }
   } catch (error) {
     console.error(error);

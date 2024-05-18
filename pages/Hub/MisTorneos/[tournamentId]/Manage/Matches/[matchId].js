@@ -12,10 +12,10 @@ function MatchPage() {
   const [match, setmatch] = useState([]);
   const [team1Score, setTeam1Score] = useState("");
   const [team2Score, setTeam2Score] = useState("");
-  const [yellowCards, setYellowCards] = useState("");
-  const [redCards, setRedCards] = useState("");
-  const [goals, setGoals] = useState("");
-  const [assists, setAssists] = useState("");
+  const [yellowCards, setYellowCards] = useState([]);
+  const [redCards, setRedCards] = useState([]);
+  const [goals, setGoals] = useState([]);
+  const [assists, setAssists] = useState([]);
   const [team1Composition, setTeam1Composition] = useState([]);
   const [team2Composition, setTeam2Composition] = useState([]);
   const [team1Points, setTeam1Points] = useState(0);
@@ -23,6 +23,102 @@ function MatchPage() {
   const router = useRouter();
   const matchId = router.query.matchId;
   const tournamentId = router.query.tournamentId;
+
+  const [selectedPlayer, setSelectedPlayer] = useState("");
+  const [numberOfGoals, setNumberOfGoals] = useState("");
+  const [numberOfAssists, setNumberOfAssists] = useState("");
+  const [numberOfYellowCards, setNumberOfYellowCards] = useState("");
+  const [numberOfRedCards, setNumberOfRedCards] = useState("");
+
+  const allPlayers = [...team1Composition, ...team2Composition];
+
+  const handleAddStats = () => {
+    if (parseInt(numberOfGoals) > 0 && selectedPlayer !== "") {
+      setGoals((prevGoals) => {
+        const playerIndex = prevGoals.findIndex(
+          (goal) => goal.player === selectedPlayer
+        );
+        if (playerIndex !== -1) {
+          const newGoals = [...prevGoals];
+          newGoals[playerIndex] = {
+            player: selectedPlayer,
+            stat: numberOfGoals,
+          };
+          return newGoals;
+        } else {
+          return [
+            ...prevGoals,
+            { player: selectedPlayer, stat: numberOfGoals },
+          ];
+        }
+      });
+    }
+    if (parseInt(numberOfAssists) > 0 && selectedPlayer !== "") {
+      setAssists((prevAssists) => {
+        const playerIndex = prevAssists.findIndex(
+          (assist) => assist.player === selectedPlayer
+        );
+        if (playerIndex !== -1) {
+          const newAssists = [...prevAssists];
+          newAssists[playerIndex] = {
+            player: selectedPlayer,
+            stat: numberOfAssists,
+          };
+          return newAssists;
+        } else {
+          return [
+            ...prevAssists,
+            { player: selectedPlayer, stat: numberOfAssists },
+          ];
+        }
+      });
+    }
+    if (parseInt(numberOfYellowCards) > 0 && selectedPlayer !== "") {
+      setYellowCards((prevCards) => {
+        const playerIndex = prevCards.findIndex(
+          (card) => card.player === selectedPlayer
+        );
+        if (playerIndex !== -1) {
+          const newCards = [...prevCards];
+          newCards[playerIndex] = {
+            player: selectedPlayer,
+            stat: numberOfYellowCards,
+          };
+          return newCards;
+        } else {
+          return [
+            ...prevCards,
+            { player: selectedPlayer, stat: numberOfYellowCards },
+          ];
+        }
+      });
+    }
+    if (parseInt(numberOfRedCards) > 0 && selectedPlayer !== "") {
+      setRedCards((prevCards) => {
+        const playerIndex = prevCards.findIndex(
+          (card) => card.player === selectedPlayer
+        );
+        if (playerIndex !== -1) {
+          const newCards = [...prevCards];
+          newCards[playerIndex] = {
+            player: selectedPlayer,
+            stat: numberOfRedCards,
+          };
+          return newCards;
+        } else {
+          return [
+            ...prevCards,
+            { player: selectedPlayer, stat: numberOfRedCards },
+          ];
+        }
+      });
+    }
+    setSelectedPlayer("");
+    setNumberOfGoals("");
+    setNumberOfAssists("");
+    setNumberOfYellowCards("");
+    setNumberOfRedCards("");
+  };
 
   useEffect(() => {
     const fetchMatch = async () => {
@@ -83,7 +179,7 @@ function MatchPage() {
       } else {
         localStorage.removeItem("matchId");
         router.push({
-          pathname: "/Hub/MisTorneos/[tournamentId]/Matches",
+          pathname: "/Hub/MisTorneos/[tournamentId]/Manage/Matches",
           query: { tournamentId: tournamentId },
         });
         console.log("Tournament deleted successfully");
@@ -107,7 +203,7 @@ function MatchPage() {
         />
       </Link>
       <Link
-        href={`/Hub/MisTorneos/${tournamentId}/Matches`}
+        href={`/Hub/MisTorneos/${tournamentId}/Manage/Matches`}
         className="absolute top-4 right-4 font-bold py-3 px-3 rounded mt-4"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
@@ -119,92 +215,158 @@ function MatchPage() {
           className="w-8 h-8"
         />
       </Link>
-      <div className="flex flex-col items-center justify-center w-96 h-[500px] bg-custom-green rounded-md shadow-md mt-40 gap-3">
-        <div className="text-black font-bold text-2xl"> Match Results </div>
-        <div className="flex justify-between w-80">
-          <div className="flex flex-col items-center w-1/2 font-bold">
-            <label htmlFor="team1Score" className="mb-2 font-bold">
-              Team 1 Score
-            </label>
+      <div className="flex justify-between items-center gap-5">
+        <div className="flex flex-col items-center justify-center w-96 h-[500px] bg-custom-green rounded-md shadow-md mt-40 gap-3">
+          <div className="text-black font-bold text-2xl"> Match Results </div>
+          <div className="flex justify-between w-80">
+            <div className="flex flex-col items-center w-1/2 font-bold">
+              <label htmlFor="team1Score" className="mb-2 font-bold">
+                Team 1 Score
+              </label>
+              <Input
+                id="team1Score"
+                className="w-full"
+                type="number"
+                min="0"
+                value={team1Score}
+                onChange={(e) => setTeam1Score(e.target.value)}
+                placeholder="Score"
+              />
+            </div>
+            <div className="flex flex-col items-center w-1/2 font-bold">
+              <label htmlFor="team2Score" className="mb-2 font-bold">
+                Team 2 Score
+              </label>
+              <Input
+                id="team2Score"
+                className="w-full ml-4"
+                type="number"
+                min="0"
+                value={team2Score}
+                onChange={(e) => setTeam2Score(e.target.value)}
+                placeholder="Score"
+              />
+            </div>
+          </div>
+
+          <div className="text-black font-bold text-lg">
+            {" "}
+            Yellow Cards
             <Input
-              id="team1Score"
-              className="w-full"
-              type="number"
-              min="0"
-              value={team1Score}
-              onChange={(e) => setTeam1Score(e.target.value)}
-              placeholder="Score"
+              className="w-80"
+              type="text"
+              value={yellowCards
+                .map((card) => `${card.player}: ${card.stat} `)
+                .join(", ")}
+              placeholder="Yellow Cards"
             />
           </div>
-          <div className="flex flex-col items-center w-1/2 font-bold">
-            <label htmlFor="team2Score" className="mb-2 font-bold">
-              Team 2 Score
-            </label>
+
+          <div className="text-black font-bold text-lg">
+            {" "}
+            Red Cards
             <Input
-              id="team2Score"
-              className="w-full ml-4"
-              type="number"
-              min="0"
-              value={team2Score}
-              onChange={(e) => setTeam2Score(e.target.value)}
-              placeholder="Score"
+              className="w-80"
+              type="text"
+              value={redCards
+                .map((card) => `${card.player}: ${card.stat} `)
+                .join(", ")}
+              placeholder="Red Cards"
+            />
+          </div>
+
+          <div className="text-black font-bold text-lg">
+            {" "}
+            Goals
+            <Input
+              className="w-80"
+              type="text"
+              value={goals
+                .map((goal) => `${goal.player}: ${goal.stat} `)
+                .join(", ")}
+              placeholder="Goals"
+            />
+          </div>
+
+          <div className="text-black font-bold text-lg">
+            {" "}
+            Assists
+            <Input
+              className="w-80"
+              type="text"
+              value={assists
+                .map((assist) => `${assist.player}: ${assist.stat} `)
+                .join(", ")}
+              placeholder="Assists"
             />
           </div>
         </div>
 
-        <div className="text-black font-bold text-lg">
-          {" "}
-          Yellow Cards
-          <Input
-            className="w-80"
-            type="number"
-            min="0"
-            value={yellowCards}
-            onChange={(e) => setYellowCards(e.target.value)}
-            placeholder="Yellow Cards"
-          />
-        </div>
-
-        <div className="text-black font-bold text-lg">
-          {" "}
-          Red Cards
-          <Input
-            className="w-80"
-            type="number"
-            min="0"
-            value={redCards}
-            onChange={(e) => setRedCards(e.target.value)}
-            placeholder="Red Cards"
-          />
-        </div>
-
-        <div className="text-black font-bold text-lg">
-          {" "}
-          Goals
-          <Input
-            className="w-80"
-            type="number"
-            min="0"
-            value={goals}
-            onChange={(e) => setGoals(e.target.value)}
-            placeholder="Goals"
-          />
-        </div>
-
-        <div className="text-black font-bold text-lg">
-          {" "}
-          Assists
-          <Input
-            className="w-80"
-            type="number"
-            min="0"
-            value={assists}
-            onChange={(e) => setAssists(e.target.value)}
-            placeholder="Assists"
-          />
+        <div className="align-middle justify-center">
+          <div className="flex flex-col items-center justify-center w-96 h-[500px] bg-custom-green rounded-md shadow-md mt-40">
+            <div className="text-black font-bold text-2xl mb-8">
+              {" "}
+              Player Stats Setter
+            </div>
+            <div className="flex flex-col items-center justify-center w-96 mt-3">
+              <div className="flex flex-col items-center w-full font-bold">
+                <div className="flex flex-col">
+                  <select
+                    className="mb-6 form-field text-black font-bold text-lg rounded h-10"
+                    value={selectedPlayer}
+                    onChange={(e) => setSelectedPlayer(e.target.value)}
+                  >
+                    <option value="">Select player</option>
+                    {allPlayers.map((player) => (
+                      <option key={player} value={player}>
+                        {player}
+                      </option>
+                    ))}
+                  </select>
+                  <Input
+                    className="text-black font-bold text-lg mb-6 w-80"
+                    type="number"
+                    min="0"
+                    value={numberOfGoals}
+                    placeholder="Number of goals"
+                    onChange={(e) => setNumberOfGoals(e.target.value)}
+                  />
+                  <Input
+                    className="text-black font-bold text-lg mb-6"
+                    type="number"
+                    min="0"
+                    value={numberOfAssists}
+                    placeholder="Number of assists"
+                    onChange={(e) => setNumberOfAssists(e.target.value)}
+                  />
+                  <Input
+                    className="text-black font-bold text-lg mb-6"
+                    type="number"
+                    min="0"
+                    value={numberOfYellowCards}
+                    placeholder="Number of Yellow Cards"
+                    onChange={(e) => setNumberOfYellowCards(e.target.value)}
+                  />
+                  <Input
+                    className="text-black font-bold text-lg mb-6"
+                    type="number"
+                    min="0"
+                    value={numberOfRedCards}
+                    placeholder="Number of Red Cards"
+                    onChange={(e) => setNumberOfRedCards(e.target.value)}
+                  />
+                  <button
+                    className="w-full py-2 bg-dark-green text-white form-button rounded"
+                    onClick={handleAddStats}
+                  >
+                    Add Stats
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
       <SonnerDemo
         team1Score={team1Score}
         team2Score={team2Score}

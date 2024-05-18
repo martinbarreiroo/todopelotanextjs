@@ -93,7 +93,7 @@ function Matches() {
           </div>
         ) : (
           matches.map((match, index) => (
-            <Link href={`/Hub/MisTorneos/${tournamentId}/Matches/${match.id}`}>
+            <Link href={`/Hub/MisTorneos/${tournamentId}/Manage/Matches/${match.id}`}>
               <div
                 key={match.id || index}
                 className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn flex justify-between"
