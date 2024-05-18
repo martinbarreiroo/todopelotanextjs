@@ -3,6 +3,8 @@ import withAuth from "@/components/withAuth/withAuth";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { DialogChangePassword } from "../ui/DialogChangePassword";
+import { Button } from "../ui/button";
 
 function UpdateProfile() {
   const positions = [
@@ -66,10 +68,41 @@ function UpdateProfile() {
   const [description, setDescription] = useState(actualDescription);
   const router = useRouter();
 
+  const handleUpdatePassword = async () => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    const response = await fetch(
+      "http://localhost:8080/profile/update-password",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          userId,
+          password,
+        }),
+      }
+    );
+    if (!response.ok) {
+      // Handle error
+      console.error("Failed to update profile");
+    } else {
+      // Handle success
+
+      console.log("Profile updated successfully");
+      const data = await response.json();
+      const updatedToken = data.token;
+      localStorage.setItem("token", updatedToken);
+      router.push("/Hub/Profile");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password || !position || !description) {
+    if (!username || !position || !description) {
       alert("All fields must be filled out");
       return;
     }
@@ -86,7 +119,6 @@ function UpdateProfile() {
       body: JSON.stringify({
         userId,
         username,
-        password,
         position,
         description,
       }),
@@ -132,18 +164,7 @@ function UpdateProfile() {
             className="w-full h-full bg-transparent outline-none"
           />
         </div>
-        <div
-          className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded"
-          style={{ backgroundColor: "#d1d1d1" }}
-        >
-          <input
-            type="password"
-            placeholder="Change yor Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full h-full bg-transparent outline-none"
-          />
-        </div>
+
         <div
           className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded"
           style={{ backgroundColor: "#d1d1d1" }}
@@ -171,18 +192,21 @@ function UpdateProfile() {
             className="w-full h-90% bg-transparent outline-none"
           />
         </div>
-        <button
-          className="flex mx-auto text-white font-bold py-2 px-4 rounded"
-          style={{ backgroundColor: "#729560" }}
-          onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor = "#abcd99")
-          }
-          onMouseOut={(e) =>
-            (e.currentTarget.style.backgroundColor = "#729560")
-          }
-        >
-          Update Profile
-        </button>
+        <div className="flex flex-col items-center mt-4 gap-5">
+          <Button
+            className="bg-dark-green hover:bg-custom-green"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Update Profile
+          </Button>
+          <DialogChangePassword
+            password={password}
+            setPassword={setPassword}
+            handleUpdatePassword={handleUpdatePassword}
+            className="mt-2"
+          />
+        </div>
       </form>
       <Link
         href={"/Hub/Profile"}

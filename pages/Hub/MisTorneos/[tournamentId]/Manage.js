@@ -96,6 +96,18 @@ function manageTournament() {
   }, [tournamentId]);
 
   const handleInviteUser = () => {
+    // Get the current number of participants
+    const currentParticipants = tournament.allParticipants.length;
+
+    // Check if the maximum capacity has been reached
+    if (currentParticipants >= tournament.maxParticipants) {
+      alert(
+        "Maximum capacity has been reached. You cannot invite more participants."
+      );
+      return;
+    }
+
+    // If the maximum capacity has not been reached, invite the user
     if (userName) {
       inviteUserToTournament(userName, tournament.id);
     }

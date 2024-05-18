@@ -74,30 +74,53 @@ function Tournament() {
 
       <div className="relative flex flex-col items-center justify-center h-screen ">
         <h1 className="text-4xl font-bold mb-16">{tournamentName} Positions</h1>
-        <table className="table-auto">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">User</th>
-              <th className="px-4 py-2">Points</th>
-              <th className="px-4 py-2">Goals</th>
-              <th className="px-4 py-2">Assists</th>
-              <th className="px-4 py-2">Yellow Cards</th>
-              <th className="px-4 py-2">Red Cards</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedTournamentPositions.map((position, index) => (
-              <tr key={index} className={index % 2 === 0 ? "bg-gray-200" : ""}>
-                <td className="border px-4 py-2">{position.user.username}</td>
-                <td className="border px-4 py-2">{position.points}</td>
-                <td className="border px-4 py-2">{position.goals}</td>
-                <td className="border px-4 py-2">{position.assists}</td>
-                <td className="border px-4 py-2">{position.yellowCards}</td>
-                <td className="border px-4 py-2">{position.redCards}</td>
+        <div className="max-h-[493px] overflow-auto">
+          <table className="table-auto border-collapse border border-gray-800 max-h-500 overflow-auto">
+            <thead>
+              <tr className="bg-dark-green text-white">
+                <th className="px-4 py-2 border border-gray-800 justify-center items-center">#</th>
+                <th className="px-4 py-2 border border-gray-800">User</th>
+                <th className="px-4 py-2 border border-gray-800">Points</th>
+                <th className="px-4 py-2 border border-gray-800">Goals</th>
+                <th className="px-4 py-2 border border-gray-800">Assists</th>
+                <th className="px-4 py-2 border border-gray-800">
+                  Yellow Cards
+                </th>
+                <th className="px-4 py-2 border border-gray-800">Red Cards</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {sortedTournamentPositions.map((position, index) => (
+                <tr
+                  key={index}
+                  className={index % 2 === 0 ? "bg-gray-200" : ""}
+                >
+                  <td className="border px-4 py-2 border-gray-800">
+                    {index + 1}
+                  </td>
+                  <td className="border px-4 py-2 border-gray-800">
+                    {position.user.username}
+                  </td>
+                  <td className="border px-4 py-2 border-gray-800">
+                    {position.points}
+                  </td>
+                  <td className="border px-4 py-2 border-gray-800">
+                    {position.goals}
+                  </td>
+                  <td className="border px-4 py-2 border-gray-800">
+                    {position.assists}
+                  </td>
+                  <td className="border px-4 py-2 border-gray-800">
+                    {position.yellowCards}
+                  </td>
+                  <td className="border px-4 py-2 border-gray-800">
+                    {position.redCards}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -33,91 +33,105 @@ function MatchPage() {
   const allPlayers = [...team1Composition, ...team2Composition];
 
   const handleAddStats = () => {
-    if (parseInt(numberOfGoals) > 0 && selectedPlayer !== "") {
-      setGoals((prevGoals) => {
-        const playerIndex = prevGoals.findIndex(
-          (goal) => goal.player === selectedPlayer
-        );
-        if (playerIndex !== -1) {
-          const newGoals = [...prevGoals];
-          newGoals[playerIndex] = {
-            player: selectedPlayer,
-            stat: numberOfGoals,
-          };
-          return newGoals;
-        } else {
-          return [
-            ...prevGoals,
-            { player: selectedPlayer, stat: numberOfGoals },
-          ];
-        }
-      });
+    if (selectedPlayer !== "") {
+      if (parseInt(numberOfGoals) > 0) {
+        setGoals((prevGoals) => {
+          const playerIndex = prevGoals.findIndex(
+            (goal) => goal.player === selectedPlayer
+          );
+          if (playerIndex !== -1) {
+            const newGoals = [...prevGoals];
+            newGoals[playerIndex] = {
+              player: selectedPlayer,
+              stat: numberOfGoals,
+            };
+            return newGoals;
+          } else {
+            return [
+              ...prevGoals,
+              { player: selectedPlayer, stat: numberOfGoals },
+            ];
+          }
+        });
+      } else if (parseInt(numberOfGoals) === 0) {
+        setGoals((prevGoals) => prevGoals.filter((goal) => goal.player !== selectedPlayer));
+      }
+  
+      if (parseInt(numberOfAssists) > 0) {
+        setAssists((prevAssists) => {
+          const playerIndex = prevAssists.findIndex(
+            (assist) => assist.player === selectedPlayer
+          );
+          if (playerIndex !== -1) {
+            const newAssists = [...prevAssists];
+            newAssists[playerIndex] = {
+              player: selectedPlayer,
+              stat: numberOfAssists,
+            };
+            return newAssists;
+          } else {
+            return [
+              ...prevAssists,
+              { player: selectedPlayer, stat: numberOfAssists },
+            ];
+          }
+        });
+      } else if (parseInt(numberOfAssists) === 0) {
+        setAssists((prevAssists) => prevAssists.filter((assist) => assist.player !== selectedPlayer));
+      }
+  
+      if (parseInt(numberOfYellowCards) > 0) {
+        setYellowCards((prevCards) => {
+          const playerIndex = prevCards.findIndex(
+            (card) => card.player === selectedPlayer
+          );
+          if (playerIndex !== -1) {
+            const newCards = [...prevCards];
+            newCards[playerIndex] = {
+              player: selectedPlayer,
+              stat: numberOfYellowCards,
+            };
+            return newCards;
+          } else {
+            return [
+              ...prevCards,
+              { player: selectedPlayer, stat: numberOfYellowCards },
+            ];
+          }
+        });
+      } else if (parseInt(numberOfYellowCards) === 0) {
+        setYellowCards((prevCards) => prevCards.filter((card) => card.player !== selectedPlayer));
+      }
+  
+      if (parseInt(numberOfRedCards) > 0) {
+        setRedCards((prevCards) => {
+          const playerIndex = prevCards.findIndex(
+            (card) => card.player === selectedPlayer
+          );
+          if (playerIndex !== -1) {
+            const newCards = [...prevCards];
+            newCards[playerIndex] = {
+              player: selectedPlayer,
+              stat: numberOfRedCards,
+            };
+            return newCards;
+          } else {
+            return [
+              ...prevCards,
+              { player: selectedPlayer, stat: numberOfRedCards },
+            ];
+          }
+        });
+      } else if (parseInt(numberOfRedCards) === 0) {
+        setRedCards((prevCards) => prevCards.filter((card) => card.player !== selectedPlayer));
+      }
+  
+      setSelectedPlayer("");
+      setNumberOfGoals("");
+      setNumberOfAssists("");
+      setNumberOfYellowCards("");
+      setNumberOfRedCards("");
     }
-    if (parseInt(numberOfAssists) > 0 && selectedPlayer !== "") {
-      setAssists((prevAssists) => {
-        const playerIndex = prevAssists.findIndex(
-          (assist) => assist.player === selectedPlayer
-        );
-        if (playerIndex !== -1) {
-          const newAssists = [...prevAssists];
-          newAssists[playerIndex] = {
-            player: selectedPlayer,
-            stat: numberOfAssists,
-          };
-          return newAssists;
-        } else {
-          return [
-            ...prevAssists,
-            { player: selectedPlayer, stat: numberOfAssists },
-          ];
-        }
-      });
-    }
-    if (parseInt(numberOfYellowCards) > 0 && selectedPlayer !== "") {
-      setYellowCards((prevCards) => {
-        const playerIndex = prevCards.findIndex(
-          (card) => card.player === selectedPlayer
-        );
-        if (playerIndex !== -1) {
-          const newCards = [...prevCards];
-          newCards[playerIndex] = {
-            player: selectedPlayer,
-            stat: numberOfYellowCards,
-          };
-          return newCards;
-        } else {
-          return [
-            ...prevCards,
-            { player: selectedPlayer, stat: numberOfYellowCards },
-          ];
-        }
-      });
-    }
-    if (parseInt(numberOfRedCards) > 0 && selectedPlayer !== "") {
-      setRedCards((prevCards) => {
-        const playerIndex = prevCards.findIndex(
-          (card) => card.player === selectedPlayer
-        );
-        if (playerIndex !== -1) {
-          const newCards = [...prevCards];
-          newCards[playerIndex] = {
-            player: selectedPlayer,
-            stat: numberOfRedCards,
-          };
-          return newCards;
-        } else {
-          return [
-            ...prevCards,
-            { player: selectedPlayer, stat: numberOfRedCards },
-          ];
-        }
-      });
-    }
-    setSelectedPlayer("");
-    setNumberOfGoals("");
-    setNumberOfAssists("");
-    setNumberOfYellowCards("");
-    setNumberOfRedCards("");
   };
 
   useEffect(() => {

@@ -46,6 +46,7 @@ function MyInvitations() {
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
       ></div>
+
       <Link href={"/Hub"}>
         <img
           src="/assets/logo.png"
@@ -53,6 +54,7 @@ function MyInvitations() {
           className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
         />
       </Link>
+
       <Link
         href={"/Hub/MisTorneos"}
         className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
@@ -62,7 +64,7 @@ function MyInvitations() {
       >
         <img
           src="/assets/back-arrow.png"
-          alt="Return to Hub"
+          alt="Return to My Tournaments"
           className="w-8 h-8"
         />
       </Link>
@@ -109,7 +111,7 @@ function MyInvitations() {
                     Accept
                   </button>
                   <button
-                    className="bg-rejection-red hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-rejection-red hover:bg-red-950 text-white font-bold py-2 px-4 rounded"
                     onClick={async () => {
                       const response = await fetch(
                         `http://localhost:8080/invitations/reject-invitation/${invitation.id}`,
