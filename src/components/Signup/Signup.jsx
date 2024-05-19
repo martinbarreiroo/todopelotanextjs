@@ -149,7 +149,7 @@ export const Signup = () => {
       <img
         src="/assets/logo.png"
         alt="Logo"
-        className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
+        className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-10"
       />
       <div className={styles.container}>
         <div className={styles.header}></div>
