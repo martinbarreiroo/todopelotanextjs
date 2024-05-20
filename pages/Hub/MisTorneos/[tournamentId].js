@@ -15,7 +15,6 @@ function Tournament() {
   useEffect(() => {
     const fetchTournamentPositions = async () => {
       const token = localStorage.getItem("token");
-      setTournamentName(localStorage.getItem("tournamentName"));
       const response = await fetch(
         `http://localhost:8080/tournaments/positions/${tournamentId}`,
         {
@@ -29,7 +28,9 @@ function Tournament() {
 
       if (response.ok) {
         const data = await response.json();
-        setTournamentPositions(data);
+        localStorage.setItem("tournamentName", data.tournamentName); // Store the tournamentName in local storage
+        setTournamentPositions(data.positions);
+        setTournamentName(data.tournamentName);
       } else {
         console.error("Failed to fetch tournament positions");
       }
@@ -78,7 +79,9 @@ function Tournament() {
           <table className="table-auto border-collapse border border-gray-800 max-h-500 overflow-auto">
             <thead>
               <tr className="bg-dark-green text-white">
-                <th className="px-4 py-2 border border-gray-800 justify-center items-center">#</th>
+                <th className="px-4 py-2 border border-gray-800 justify-center items-center">
+                  #
+                </th>
                 <th className="px-4 py-2 border border-gray-800">User</th>
                 <th className="px-4 py-2 border border-gray-800">Points</th>
                 <th className="px-4 py-2 border border-gray-800">Goals</th>

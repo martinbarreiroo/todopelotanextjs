@@ -152,7 +152,8 @@ function UpdateProfile() {
           className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
         />
       </Link>
-      <form onSubmit={handleSubmit} className="space-y-10">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="font-bold">User</div>
         <div
           className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded"
           style={{ backgroundColor: "#d1d1d1" }}
@@ -164,6 +165,8 @@ function UpdateProfile() {
             className="w-full h-full bg-transparent outline-none"
           />
         </div>
+
+        <div className="font-bold">Position</div>
 
         <div
           className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded"
@@ -181,6 +184,7 @@ function UpdateProfile() {
             ))}
           </select>
         </div>
+        <div className="font-bold">Description</div>
         <div
           className="w-80 h-18 flex items-center justify-center mx-auto mt-32 mb-50 p-6 relative rounded"
           style={{ backgroundColor: "#d1d1d1" }}

@@ -81,7 +81,7 @@ function Matches() {
           className="w-8 h-8"
         />
       </Link>
-      <div className="w-full max-w-md p-4 bg-custom-green rounded shadow-md animate-fadeIn font-extrabold relative flex flex-col items-center justify-center mt-10 mb-10">
+      <div className="w-full max-w-[500px] p-4 bg-custom-green rounded shadow-md animate-fadeIn font-extrabold relative flex flex-col items-center justify-center mt-10 mb-10">
         <h3 style={{ fontSize: "2em" }}> {tournamentName}'s Matches </h3>
       </div>
       <div className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5">
@@ -93,7 +93,9 @@ function Matches() {
           </div>
         ) : (
           matches.map((match, index) => (
-            <Link href={`/Hub/MisTorneos/${tournamentId}/Manage/Matches/${match.id}`}>
+            <Link
+              href={`/Hub/MisTorneos/${tournamentId}/Manage/Matches/${match.id}`}
+            >
               <div
                 key={match.id || index}
                 className="p-7 border-b border-gray-200 transform transition duration-500 ease-in-out hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn flex justify-between"

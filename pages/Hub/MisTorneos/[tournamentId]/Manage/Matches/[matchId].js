@@ -370,7 +370,7 @@ function MatchPage() {
                     onChange={(e) => setNumberOfRedCards(e.target.value)}
                   />
                   <button
-                    className="w-full py-2 bg-dark-green text-white form-button rounded"
+                    className="w-full py-2 bg-dark-green text-white form-button rounded hover:bg-custom-green3"
                     onClick={handleAddStats}
                   >
                     Add Stats

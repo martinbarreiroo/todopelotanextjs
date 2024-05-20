@@ -80,8 +80,6 @@ function manageTournament() {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        localStorage.setItem("tournamentName", data.name); // Store the tournamentName in local storage
-        localStorage.setItem("tournamentId", data.id); // Store the tournamentId in local storage
         setTournament(data);
         setTournamentName(data.name);
         setTournamentDescription(data.description);
