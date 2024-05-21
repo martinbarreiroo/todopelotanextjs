@@ -10,6 +10,8 @@ function MisEstadisticas() {
   const [yellowCards, setYellowCards] = useState(0);
   const [redCards, setRedCards] = useState(0);
   const [position, setPosition] = useState("");
+  const [matches, setMatches] = useState(0);
+  const [points, setPoints] = useState(0);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -35,6 +37,8 @@ function MisEstadisticas() {
         setRedCards(user.totalRedCards);
         setPosition(user.position);
         setUserName(user.username);
+        setMatches(user.totalMatches);
+        setPoints(user.totalPoints);
       } else {
         console.error("Failed to fetch user");
       }
@@ -63,61 +67,79 @@ function MisEstadisticas() {
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
       >
-        <img src="/assets/hub.png" alt="Return to Hub" className="w-8 h-8 z-30" />
-      </Link>
-      <div className="relative">
         <img
-          src="/assets/green_fifa_card.png"
-          alt="Mis Estadisticas"
-          className="w-full h-full z-0"
+          src="/assets/hub.png"
+          alt="Return to Hub"
+          className="w-8 h-8 z-30"
         />
-        <div
-          style={{ top: "55%" }}
-          className="absolute left-0 w-full h-full flex items-start justify-center z-10"
-        >
-          <div className="text-white text-2xl font-bold">
-            <p>{userName}</p>
+      </Link>
+      <div className="relative flex flex-row items-center justify-center h-screen space-x-20 space-y-4 z-20">
+        <div className="relative">
+          <div style={{ width: "300px", height: "450px", overflow: "hidden" }}>
+            <img
+              src="/assets/green_fifa_card.png"
+              alt="Mis Estadisticas"
+              className="z-0 relative w-full h-full"
+            />
+          </div>
+          <div
+            style={{ top: "55%" }}
+            className="absolute left-0 w-full h-full flex items-start justify-center z-10"
+          >
+            <div className="text-white text-2xl font-bold">
+              <p>{userName}</p>
+            </div>
+          </div>
+          <div
+            style={{ top: "32.5%" }}
+            className="absolute left-[60px] w-full h-full items-start justify-center z-10"
+          >
+            <div className="text-white text-2xl font-bold">
+              <p>{position}</p>
+            </div>
+          </div>
+          <div
+            style={{ top: "65.5%" }}
+            className="absolute left-[100px] w-full h-full items-start justify-center z-10"
+          >
+            <div className="text-white text-2xl font-bold">
+              <p>{goals}</p>
+            </div>
+          </div>
+          <div
+            style={{ top: "75.5%" }}
+            className="absolute left-[100px] w-full h-full items-start justify-center z-10"
+          >
+            <div className="text-white text-2xl font-bold">
+              <p>{assists}</p>
+            </div>
+          </div>
+          <div
+            style={{ top: "65.5%" }}
+            className="absolute left-[230px] w-full h-full items-start justify-center z-10"
+          >
+            <div className="text-white text-2xl font-bold">
+              <p>{yellowCards}</p>
+            </div>
+          </div>
+          <div
+            style={{ top: "75.5%" }}
+            className="absolute left-[230px] w-full h-full items-start justify-center z-10"
+          >
+            <div className="text-white text-2xl font-bold">
+              <p>{redCards}</p>
+            </div>
           </div>
         </div>
-        <div
-          style={{ top: "32.5%" }}
-          className="absolute left-[69px] w-full h-full items-start justify-center z-10"
-        >
-          <div className="text-white text-2xl font-bold">
-            <p>{position}</p>
-          </div>
-        </div>
-        <div
-          style={{ top: "65.5%" }}
-          className="absolute left-[100px] w-full h-full items-start justify-center z-10"
-        >
-          <div className="text-white text-2xl font-bold">
-            <p>{goals}</p>
-          </div>
-        </div>
-        <div
-          style={{ top: "75.5%" }}
-          className="absolute left-[100px] w-full h-full items-start justify-center z-10"
-        >
-          <div className="text-white text-2xl font-bold">
-            <p>{assists}</p>
-          </div>
-        </div>
-        <div
-          style={{ top: "65.5%" }}
-          className="absolute left-[230px] w-full h-full items-start justify-center z-10"
-        >
-          <div className="text-white text-2xl font-bold">
-            <p>{yellowCards}</p>
-          </div>
-        </div>
-        <div
-          style={{ top: "75.5%" }}
-          className="absolute left-[230px] w-full h-full items-start justify-center z-10"
-        >
-          <div className="text-white text-2xl font-bold">
-            <p>{redCards}</p>
-          </div>
+        <div className="w-full max-w-md p-4 bg-custom-green rounded mt-9 shadow-md animate-fadeIn font-bold">
+          Total Matches:
+          <h1 className="text-2xl font-bold border-b mt-4 mb-4">
+            {matches}
+          </h1>
+          <p>
+            Points Ratio:{" "}
+            {matches !== 0 ? (points / matches).toFixed(2) : "N/A"}
+          </p>
         </div>
       </div>
     </div>
