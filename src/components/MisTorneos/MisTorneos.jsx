@@ -93,6 +93,7 @@ function MisTorneos() {
               <Link
                 href={`/Hub/MisTorneos/${tournament.id}`}
                 key={tournament.id || index}
+                onClick = {() => localStorage.setItem("tournamentId", tournament.id)}
               >
                 <div className="p-7 border-b border-gray-200 transform transition duration-500 hover:rounded-lg hover:scale-105 hover:bg-custom-green cursor-pointer animate-fadeIn">
                   <h2 className="text-xl font-bold">{tournament.name}</h2>

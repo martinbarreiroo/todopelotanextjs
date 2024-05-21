@@ -54,9 +54,11 @@ function MatchPage() {
           }
         });
       } else if (parseInt(numberOfGoals) === 0) {
-        setGoals((prevGoals) => prevGoals.filter((goal) => goal.player !== selectedPlayer));
+        setGoals((prevGoals) =>
+          prevGoals.filter((goal) => goal.player !== selectedPlayer)
+        );
       }
-  
+
       if (parseInt(numberOfAssists) > 0) {
         setAssists((prevAssists) => {
           const playerIndex = prevAssists.findIndex(
@@ -77,9 +79,11 @@ function MatchPage() {
           }
         });
       } else if (parseInt(numberOfAssists) === 0) {
-        setAssists((prevAssists) => prevAssists.filter((assist) => assist.player !== selectedPlayer));
+        setAssists((prevAssists) =>
+          prevAssists.filter((assist) => assist.player !== selectedPlayer)
+        );
       }
-  
+
       if (parseInt(numberOfYellowCards) > 0) {
         setYellowCards((prevCards) => {
           const playerIndex = prevCards.findIndex(
@@ -100,9 +104,11 @@ function MatchPage() {
           }
         });
       } else if (parseInt(numberOfYellowCards) === 0) {
-        setYellowCards((prevCards) => prevCards.filter((card) => card.player !== selectedPlayer));
+        setYellowCards((prevCards) =>
+          prevCards.filter((card) => card.player !== selectedPlayer)
+        );
       }
-  
+
       if (parseInt(numberOfRedCards) > 0) {
         setRedCards((prevCards) => {
           const playerIndex = prevCards.findIndex(
@@ -123,9 +129,11 @@ function MatchPage() {
           }
         });
       } else if (parseInt(numberOfRedCards) === 0) {
-        setRedCards((prevCards) => prevCards.filter((card) => card.player !== selectedPlayer));
+        setRedCards((prevCards) =>
+          prevCards.filter((card) => card.player !== selectedPlayer)
+        );
       }
-  
+
       setSelectedPlayer("");
       setNumberOfGoals("");
       setNumberOfAssists("");
