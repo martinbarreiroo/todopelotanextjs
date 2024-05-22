@@ -2,6 +2,7 @@ import React from "react";
 import withAuth from "@/components/withAuth/withAuth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { CircleProgressBar } from "../ui/CircleProgressBar";
 
 function MisEstadisticas() {
   const [userName, setUserName] = useState("");
@@ -12,6 +13,14 @@ function MisEstadisticas() {
   const [position, setPosition] = useState("");
   const [matches, setMatches] = useState(0);
   const [points, setPoints] = useState(0);
+  const [wins, setWins] = useState(0);
+  const [losses, setLosses] = useState(0);
+  const [draws, setDraws] = useState(0);
+  const [avg, setAvg] = useState(50);
+  const [winRatio, setWinRatio] = useState(0);
+  const [lossRatio, setLossRatio] = useState(0);
+  const [drawRatio, setDrawRatio] = useState(0);
+  const [pointsRatio, setPointsRatio] = useState(0);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -39,6 +48,15 @@ function MisEstadisticas() {
         setUserName(user.username);
         setMatches(user.totalMatches);
         setPoints(user.totalPoints);
+        setWins(user.totalWins);
+        setLosses(user.totalLosses);
+        setDraws(user.totalDraws);
+        if (user.totalMatches > 0) {
+          setPointsRatio((user.totalPoints / user.totalMatches).toFixed(2));
+          setWinRatio((user.totalWins / user.totalMatches).toFixed(2));
+          setLossRatio((user.totalLosses / user.totalMatches).toFixed(2));
+          setDrawRatio((user.totalDraws / user.totalMatches).toFixed(2));
+        }
       } else {
         console.error("Failed to fetch user");
       }
@@ -46,6 +64,18 @@ function MisEstadisticas() {
 
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    if (winRatio == 1) {
+      setAvg(99);
+    } else if (winRatio < 1 && winRatio >= 0.75) {
+      setAvg(85);
+    } else if (winRatio < 0.75 && winRatio >= 0.5) {
+      setAvg(70);
+    } else if (winRatio < 0.5 && winRatio > 0.25) {
+      setAvg(60);
+    }
+  }, [winRatio]);
 
   return (
     <div className="relative flex flex-col items-center justify-center h-screen space-y-4 z-20">
@@ -82,9 +112,18 @@ function MisEstadisticas() {
               className="z-0 relative w-full h-full"
             />
           </div>
+
+          <div
+            style={{ top: "22.5%" }}
+            className="absolute left-[64px] w-full h-full items-start justify-center z-10"
+          >
+            <div className="text-white text-2xl font-bold">
+              <p>{avg}</p>
+            </div>
+          </div>
           <div
             style={{ top: "55%" }}
-            className="absolute left-0 w-full h-full flex items-start justify-center z-10"
+            className="absolute w-full h-full flex items-start justify-center z-10"
           >
             <div className="text-white text-2xl font-bold">
               <p>{userName}</p>
@@ -131,15 +170,30 @@ function MisEstadisticas() {
             </div>
           </div>
         </div>
-        <div className="w-full max-w-md p-4 bg-custom-green rounded mt-9 shadow-md animate-fadeIn font-bold">
-          Total Matches:
-          <h1 className="text-2xl font-bold border-b mt-4 mb-4">
-            {matches}
-          </h1>
-          <p>
-            Points Ratio:{" "}
-            {matches !== 0 ? (points / matches).toFixed(2) : "N/A"}
-          </p>
+        <div className="w-full max-w-md p-4 bg-custom-green rounded mt-9 shadow-md font-bold">
+          <div className="text-xl font-bold underline">Total Matches:</div>
+          <h2 className="text-2xl font-bold border-b mt-4 mb-4">{matches}</h2>
+          <div className="text-xl font-bold underline">Wins:</div>
+          <h2 className="text-2xl font-bold border-b mt-4 mb-4">{wins}</h2>
+          <div className="text-xl font-bold underline">Losses:</div>
+          <h2 className="text-2xl font-bold border-b mt-4 mb-4">{losses}</h2>
+          <div className="text-xl font-bold underline">Draws:</div>
+          <h2 className="text-2xl font-bold border-b mt-4 mb-4">{draws}</h2>
+        </div>
+
+        <div className="w-full max-w-md p-4 bg-custom-green rounded mt-9 shadow-md font-bold">
+          <div className="mb-4">
+            Win Ratio
+            <CircleProgressBar ratio={winRatio} />
+          </div>
+          <div className="mb-4">
+            Loss Ratio
+            <CircleProgressBar ratio={lossRatio} />
+          </div>
+          <div>
+            Draw Ratio
+            <CircleProgressBar ratio={drawRatio} />
+          </div>
         </div>
       </div>
     </div>
