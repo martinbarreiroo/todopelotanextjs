@@ -34,6 +34,7 @@ async function createMatch(date, location, description, team1, team2, router) {
 
 function CreateMatch() {
   const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [tournamentId, setTournamentId] = useState("");
@@ -62,6 +63,10 @@ function CreateMatch() {
     return date !== "";
   };
 
+  const validateTime = (time) => {
+    return time !== "";
+  };
+
   const validateLocation = (location) => {
     return location !== "";
   };
@@ -71,8 +76,10 @@ function CreateMatch() {
   };
 
   const handleCreateMatch = () => {
+    let dateTimeString = `${date}T${time}:00.000Z`;
     if (
       !validateDate(date) ||
+      !validateTime(time) ||
       !validateLocation(location) ||
       !validateDescription(description) ||
       team1.length === 0 ||
@@ -81,7 +88,7 @@ function CreateMatch() {
       alert("Please fill in all fields correctly");
       return;
     } else {
-      createMatch(date, location, description, team1, team2, router);
+      createMatch(dateTimeString, location, description, team1, team2, router);
     }
   };
 
@@ -231,6 +238,14 @@ function CreateMatch() {
         <input
           type="date"
           onChange={(e) => setDate(e.target.value)}
+          className="w-full h-full bg-transparent outline-none"
+        />
+      </div>
+
+      <div className="w-160 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+        <input
+          type="time"
+          onChange={(e) => setTime(e.target.value)}
           className="w-full h-full bg-transparent outline-none"
         />
       </div>
