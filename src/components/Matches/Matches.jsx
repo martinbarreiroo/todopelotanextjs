@@ -3,12 +3,13 @@ import Link from "next/link";
 import withAuth from "../withAuth/withAuth";
 
 function formatDate(dateString) {
+  const time = new Date(dateString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
   const year = date.getFullYear();
 
-  return `${day}/${month}/${year}`;
+  return `${day}/${month}/${year}  ${time}`;
 }
 
 function Matches() {
