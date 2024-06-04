@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { SonnerDemo } from "@/components/ui/SonnerDemo";
 import { DialogViewTeams } from "@/components/ui/DialogViewTeams";
 import { DialogDeleteMatch } from "@/components/ui/DialogDeleteMatch";
+import { DialogChangeMatch } from "@/components/ui/DialogChangeMatch";
 
 function MatchPage() {
   const [match, setmatch] = useState([]);
@@ -20,6 +21,10 @@ function MatchPage() {
   const [team2Composition, setTeam2Composition] = useState([]);
   const [team1Points, setTeam1Points] = useState(0);
   const [team2Points, setTeam2Points] = useState(0);
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [description, setDescription] = useState("");
   const router = useRouter();
   const matchId = router.query.matchId;
   const tournamentId = router.query.tournamentId;
@@ -31,6 +36,22 @@ function MatchPage() {
   const [numberOfRedCards, setNumberOfRedCards] = useState("");
 
   const allPlayers = [...team1Composition, ...team2Composition];
+
+  const validateDate = (date) => {
+    return date !== "";
+  };
+
+  const validateTime = (time) => {
+    return time !== "";
+  };
+
+  const validateLocation = (location) => {
+    return location !== "";
+  };
+
+  const validateDescription = (description) => {
+    return description !== "";
+  };
 
   const handleAddStats = () => {
     if (selectedPlayer !== "") {
@@ -142,6 +163,48 @@ function MatchPage() {
     }
   };
 
+  const handleUpdateMatch = async () => {
+    const token = localStorage.getItem("token");
+    const matchId = localStorage.getItem("matchId");
+    let dateTimeString = `${date}T${time}:00.000Z`;
+    if (
+      !validateDate(date) ||
+      !validateTime(time) ||
+      !validateLocation(location) ||
+      !validateDescription(description)
+    ) {
+      alert("Please fill in all fields correctly");
+      return;
+    } else {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/matches/update/${matchId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              date: dateTimeString,
+              location: location,
+              description: description,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to update tournament");
+        } else {
+          router.reload();
+          console.log("Tournament updated successfully");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchMatch = async () => {
       const token = localStorage.getItem("token");
@@ -170,6 +233,17 @@ function MatchPage() {
         setAssists(data.assists);
         setTeam1Composition(data.team1);
         setTeam2Composition(data.team2);
+        let dateTime = new Date(data.date);
+
+        let date = dateTime.toISOString().split("T")[0]; // Extracts the date
+        let hours = dateTime.getUTCHours().toString().padStart(2, "0"); // get UTC hours and pad with 0 if necessary
+        let minutes = dateTime.getUTCMinutes().toString().padStart(2, "0"); // get UTC minutes and pad with 0 if necessary
+        let time = `${hours}:${minutes}`;
+
+        setDate(date);
+        setTime(time);
+        setLocation(data.location);
+        setDescription(data.description);
       } else {
         console.error("Failed to fetch match");
       }
@@ -407,6 +481,20 @@ function MatchPage() {
           <DialogViewTeams
             team1Composition={team1Composition}
             team2Composition={team2Composition}
+          />
+        </div>
+
+        <div className="absolute top-[170px] left-56">
+          <DialogChangeMatch
+            date={date}
+            setDate={setDate}
+            time={time}
+            setTime={setTime}
+            location={location}
+            setLocation={setLocation}
+            description={description}
+            setDescription={setDescription}
+            handleUpdateMatch={handleUpdateMatch}
           />
         </div>
       </div>

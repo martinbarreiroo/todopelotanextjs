@@ -77,6 +77,9 @@ function CreateMatch() {
 
   const handleCreateMatch = () => {
     let dateTimeString = `${date}T${time}:00.000Z`;
+    let dateTime = new Date(dateTimeString);
+    let utcDateTimeString = `${date}T${dateTime.getUTCHours()}:${dateTime.getUTCMinutes()}:00.000Z`;
+  
     if (
       !validateDate(date) ||
       !validateTime(time) ||
@@ -88,7 +91,7 @@ function CreateMatch() {
       alert("Please fill in all fields correctly");
       return;
     } else {
-      createMatch(dateTimeString, location, description, team1, team2, router);
+      createMatch(utcDateTimeString, location, description, team1, team2, router);
     }
   };
 

@@ -3,8 +3,10 @@ import Link from "next/link";
 import withAuth from "../withAuth/withAuth";
 
 function formatDate(dateString) {
-  const time = new Date(dateString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const date = new Date(dateString);
+  let date = new Date(dateString);
+  let hours = date.getUTCHours().toString().padStart(2, "0"); // get UTC hours and pad with 0 if necessary
+  let minutes = date.getUTCMinutes().toString().padStart(2, "0"); // get UTC minutes and pad with 0 if necessary
+  let time = `${hours}:${minutes}`;
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
   const year = date.getFullYear();
