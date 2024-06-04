@@ -9,7 +9,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 function DialogChangeTournament({
   tournamentName,
   setTournamentName,
@@ -52,15 +60,33 @@ function DialogChangeTournament({
               onChange={(e) => setTournamentDescription(e.target.value)}
               className="col-span-3"
             />
-             <Label htmlFor="Type" className="text-right">
+            <Label htmlFor="Type" className="text-right">
               Type
             </Label>
-            <Input
-              id="Type" 
-              value={tournamentType}
-              onChange={(e) => setTournamentType(e.target.value)}
-              className="col-span-3"
-            />
+            <div className="col-span-3">
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select a Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Select a Type</SelectLabel>
+                    <SelectItem value="apple">
+                      <p className="ml-3">
+                        F5
+                      </p>
+                      </SelectItem>
+                    <SelectItem value="banana"><p className="ml-3">
+                        F8
+                      </p>
+                      </SelectItem>
+                    <SelectItem value="blueberry"><p className="ml-3">
+                        F11
+                      </p></SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
             <Label htmlFor="Max Participants" className="text-right">
               Max Participants
             </Label>
@@ -70,7 +96,6 @@ function DialogChangeTournament({
               onChange={(e) => setTournamentMaxParticipants(e.target.value)}
               className="col-span-3"
             />
-
           </div>
         </div>
         <DialogFooter>

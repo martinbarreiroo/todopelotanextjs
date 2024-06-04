@@ -62,6 +62,8 @@ function manageTournament() {
   console.log(router.query.tournamentId);
   const tournamentId = router.query.tournamentId;
 
+
+
   useEffect(() => {
     setUserId(localStorage.getItem("userId")); // Get the userId from local storage
     const fetchTournament = async () => {
