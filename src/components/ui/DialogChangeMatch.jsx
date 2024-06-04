@@ -31,7 +31,7 @@ function DialogChangeMatch({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Change your Tournament Details</DialogTitle>
+          <DialogTitle>Change this Match's Details</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
