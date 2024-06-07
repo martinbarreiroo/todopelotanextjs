@@ -3,6 +3,28 @@ import withAuth from "@/components/withAuth/withAuth";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CircleProgressBar } from "../ui/CircleProgressBar";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import { Button } from "@/components/ui/button";
+
+function downloadPDF() {
+  const userName = localStorage.getItem("username");
+  const input = document.getElementById('stats');
+  html2canvas(input)
+    .then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');  // A4 size page of PDF
+      const imgWidth = pdf.internal.pageSize.getWidth();
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      pdf.text(userName + ' ' + 'stats', 20, 20);
+      pdf.save('download.pdf');
+    })
+    .catch(err => {
+      // Handle errors here
+      console.error('Error creating PDF', err);
+    });
+}
 
 function MisEstadisticas() {
   const [userName, setUserName] = useState("");
@@ -78,7 +100,18 @@ function MisEstadisticas() {
   }, [winRatio]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center h-screen space-y-4 z-20">
+    <div className="relative flex flex-col items-center justify-center h-screen  z-20">
+      
+      <div className="absolute top-36 right-6">
+
+        <Button
+          className="bg-dark-green hover:bg-custom-green3"
+          onClick={downloadPDF}
+        >
+          Download your Stats
+        </Button>
+      </div>
+
       <div
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
@@ -92,7 +125,7 @@ function MisEstadisticas() {
       </Link>
       <Link
         href={"/Hub"}
-        className="absolute top-4 right-4 font-bold py-3 px-3 rounded"
+        className="absolute top-4 right-4 font-bold py-3 px-3 mt-4 rounded"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
@@ -103,7 +136,7 @@ function MisEstadisticas() {
           className="w-8 h-8 z-30"
         />
       </Link>
-      <div className="relative flex flex-row items-center justify-center h-screen space-x-20 space-y-4 z-20">
+      <div id='stats' className="relative flex flex-row items-center justify-center h-screen space-x-20 space-y-4 z-20">
         <div className="relative">
           <div style={{ width: "300px", height: "450px", overflow: "hidden" }}>
             <img

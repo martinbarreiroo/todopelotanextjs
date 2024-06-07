@@ -2,6 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import withAuth from "@/components/withAuth/withAuth";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+import { Button } from "@/components/ui/button";
+
+function downloadPDF() {
+  const doc = new jsPDF();
+  const title = document.querySelector("h1").textContent;
+  doc.text(title, 10, 10);
+  const table = document.getElementById("my-table");
+  autoTable(doc, { html: table, startY: 20 });
+  doc.save(title + " " +  "table.pdf");
+}
 
 function Tournament() {
   const [tournamentPositions, setTournamentPositions] = useState([]);
@@ -73,10 +85,17 @@ function Tournament() {
         Manage Tournament
       </Link>
 
+      <div className="absolute top-36 right-6">
+        <Button className= "bg-dark-green hover:bg-custom-green3" onClick={downloadPDF}>Download Table</Button>
+      </div>
+
       <div className="relative flex flex-col items-center justify-center h-screen ">
         <h1 className="text-4xl font-bold mb-16">{tournamentName} Positions</h1>
         <div className="max-h-[493px] overflow-auto">
-          <table className="table-auto border-collapse border border-gray-800 max-h-500 overflow-auto">
+          <table
+            id="my-table"
+            className="table-auto border-collapse border border-gray-800 max-h-500 overflow-auto"
+          >
             <thead>
               <tr className="bg-dark-green text-white">
                 <th className="px-4 py-2 border border-gray-800 justify-center items-center">

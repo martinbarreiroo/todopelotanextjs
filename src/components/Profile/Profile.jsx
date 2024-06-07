@@ -72,8 +72,7 @@ function Profile() {
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center h-screen
-    "
+      className="relative flex flex-col items-center justify-center h-screen"
     >
       <div
         className="absolute top-0 left-0 w-full h-[12.5%]"
