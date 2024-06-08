@@ -18,7 +18,7 @@ function downloadPDF() {
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
       pdf.text(userName + ' ' + 'stats', 20, 20);
-      pdf.save('download.pdf');
+      pdf.save(userName + "'s" + ' ' + 'stats.pdf');
     })
     .catch(err => {
       // Handle errors here
