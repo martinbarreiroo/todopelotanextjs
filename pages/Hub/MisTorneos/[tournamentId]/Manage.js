@@ -62,8 +62,6 @@ function manageTournament() {
   console.log(router.query.tournamentId);
   const tournamentId = router.query.tournamentId;
 
-
-
   useEffect(() => {
     setUserId(localStorage.getItem("userId")); // Get the userId from local storage
     const fetchTournament = async () => {
@@ -244,16 +242,6 @@ function manageTournament() {
       </div>
 
       <Link
-        href={`/Hub/MisTorneos/${tournamentId}/Manage/CreateMatch`}
-        className=" font-bold py-3 px-3 rounded animate-fadeIn mt-2"
-        style={{ backgroundColor: "#729560" }}
-        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
-        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
-      >
-        Schedule a New Match
-      </Link>
-
-      <Link
         href={`/Hub/MisTorneos/${tournamentId}/Manage/Matches`}
         className="font-bold py-3 px-3 rounded mt-4 animate-fadeIn"
         style={{ backgroundColor: "#729560" }}
@@ -277,6 +265,21 @@ function manageTournament() {
             <DialogDeleteTournament
               handleDeleteTournament={handleDeleteTournament}
             />
+          </div>
+          <div className="absolute top-[167.5px] left-40">
+            <Link
+              href={`/Hub/MisTorneos/${tournamentId}/Manage/CreateMatch`}
+              className="py-2 px-2 rounded animate-fadeIn mt-2"
+              style={{ backgroundColor: "#729560" }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.backgroundColor = "#abcd99")
+              }
+              onMouseOut={(e) =>
+                (e.currentTarget.style.backgroundColor = "#729560")
+              }
+            >
+              Schedule a New Match
+            </Link>
           </div>
         </div>
       )}

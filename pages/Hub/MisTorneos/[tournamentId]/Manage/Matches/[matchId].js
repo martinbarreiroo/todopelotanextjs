@@ -8,6 +8,7 @@ import { SonnerDemo } from "@/components/ui/SonnerDemo";
 import { DialogViewTeams } from "@/components/ui/DialogViewTeams";
 import { DialogDeleteMatch } from "@/components/ui/DialogDeleteMatch";
 import { DialogChangeMatch } from "@/components/ui/DialogChangeMatch";
+import { DialogRescheduleMatch } from "@/components/ui/DialogRescheduleMatch";
 
 function MatchPage() {
   const [match, setmatch] = useState([]);
@@ -25,10 +26,12 @@ function MatchPage() {
   const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
+  const [tournamentAdminId, setTournamentAdminId] = useState("");
+  const [adminId, setAdminId] = useState("");
+  const [userId, setUserId] = useState("");
   const router = useRouter();
   const matchId = router.query.matchId;
   const tournamentId = router.query.tournamentId;
-
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [numberOfGoals, setNumberOfGoals] = useState("");
   const [numberOfAssists, setNumberOfAssists] = useState("");
@@ -163,6 +166,28 @@ function MatchPage() {
     }
   };
 
+  async function handleRescheduleMatch(matchId, userId){
+  try {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const response = await fetch(`http://localhost:8080/matches/rescheduleRequest/${matchId}/user/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+  } catch (error) {
+    console.error('Failed to reschedule match:', error);
+  }
+};
+
   const handleUpdateMatch = async () => {
     const token = localStorage.getItem("token");
     const matchId = localStorage.getItem("matchId");
@@ -224,6 +249,13 @@ function MatchPage() {
         console.log(data.id);
         console.log(data);
         localStorage.setItem("matchId", data.id);
+        if (data && data.tournament) {
+          setTournamentAdminId(data.tournament.adminId);
+          localStorage.setItem("tournamentAdminId", data.tournament.adminId);
+        } else {
+          console.error("Data or tournament is not defined");
+        }
+
         setmatch(data);
         setTeam1Score(data.result1);
         setTeam2Score(data.result2);
@@ -244,6 +276,8 @@ function MatchPage() {
         setTime(time);
         setLocation(data.location);
         setDescription(data.description);
+        setUserId(localStorage.getItem("userId"));
+        setAdminId(localStorage.getItem("tournamentAdminId"));
       } else {
         console.error("Failed to fetch match");
       }
@@ -399,6 +433,8 @@ function MatchPage() {
         </div>
 
         <div className="align-middle justify-center">
+        {userId === adminId && (
+          <>
           <div className="flex flex-col items-center justify-center w-96 h-[500px] bg-custom-green rounded-md shadow-md mt-40">
             <div className="text-black font-bold text-2xl mb-8">
               {" "}
@@ -461,47 +497,66 @@ function MatchPage() {
               </div>
             </div>
           </div>
+          </>
+        )}
         </div>
-      </div>
-      <SonnerDemo
-        team1Score={team1Score}
-        team2Score={team2Score}
-        yellowCards={yellowCards}
-        redCards={redCards}
-        goals={goals}
-        assists={assists}
-        team1Points={team1Points}
-        team2Points={team2Points}
-      >
-        <Button className="w-80"></Button>
-      </SonnerDemo>
 
-      <div>
         <div className="absolute top-40 left-10">
           <DialogViewTeams
             team1Composition={team1Composition}
             team2Composition={team2Composition}
           />
         </div>
-
-        <div className="absolute top-[170px] left-56">
-          <DialogChangeMatch
-            date={date}
-            setDate={setDate}
-            time={time}
-            setTime={setTime}
-            location={location}
-            setLocation={setLocation}
-            description={description}
-            setDescription={setDescription}
-            handleUpdateMatch={handleUpdateMatch}
-          />
-        </div>
       </div>
+
       <div>
-        <div className="absolute top-40 right-10">
-          <DialogDeleteMatch handleDeleteMatch={handleDeleteMatch} />
-        </div>
+        {userId != adminId && (
+          <>
+            <div className="absolute top-40 right-10">
+              <DialogRescheduleMatch
+                handleRescheduleMatch={handleRescheduleMatch}
+                matchId={matchId}
+                userId={userId}
+              />
+            </div>
+          </>
+        )}
+      </div>
+
+      <div>
+        {userId === adminId && (
+          <>
+            <SonnerDemo
+              team1Score={team1Score}
+              team2Score={team2Score}
+              yellowCards={yellowCards}
+              redCards={redCards}
+              goals={goals}
+              assists={assists}
+              team1Points={team1Points}
+              team2Points={team2Points}
+            >
+              <Button className="w-80"></Button>
+            </SonnerDemo>
+
+            <div className="absolute top-[170px] left-56">
+              <DialogChangeMatch
+                date={date}
+                setDate={setDate}
+                time={time}
+                setTime={setTime}
+                location={location}
+                setLocation={setLocation}
+                description={description}
+                setDescription={setDescription}
+                handleUpdateMatch={handleUpdateMatch}
+              />
+            </div>
+            <div className="absolute top-40 right-10">
+              <DialogDeleteMatch handleDeleteMatch={handleDeleteMatch} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

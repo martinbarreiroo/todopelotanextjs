@@ -60,22 +60,22 @@ export const Hub = () => {
 
       <div className={styles.home_menu}>
         <Link href={"/Hub/MisTorneos"} className={styles.home_button}>
-          Mis Torneos
+          Tournaments
           <img src="/assets/trofeo.png" alt="trofeo" />
         </Link>
 
         <Link href={"/Hub/MisEstadisticas"} className={styles.home_button}>
-          Mis Estadísticas
+          Stats
           <img src="/assets/estadistica.png" alt="estadistica" />
         </Link>
 
         <Link href={"/Hub/CrearTorneo"} className={styles.home_button}>
-          Crear Torneo
+          Create
           <img src="/assets/plus.png" alt="trofeo" />
         </Link>
 
         <Link href={"/Hub/Profile"} className={styles.home_button}>
-          Perfil
+          Profile
           <img src="/assets/person.png" alt="name" />
         </Link>
       </div>
