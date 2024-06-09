@@ -19,13 +19,17 @@ import { useEffect, useState } from "react";
 function Forum() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const tournamentAdminId = localStorage.getItem("tournamentAdminId");
-  const userId = localStorage.getItem("userId");
+  const [tournamentAdminId, setTournamentAdminId] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     const fetchTournamentMessages = async () => {
       const tournamentId = localStorage.getItem("tournamentId");
       const token = localStorage.getItem("token");
+      setUserId(localStorage.getItem("userId"));
+      setTournamentAdminId(localStorage.getItem("tournamentAdminId"));
+      console.log(userId);
+      console.log(tournamentAdminId);
       const response = await fetch(
         `http://localhost:8080/messages/get/${tournamentId}`,
         {
@@ -46,6 +50,11 @@ function Forum() {
     };
 
     fetchTournamentMessages(); // Call the fetchTournamentPositions function
+    // Then call it every second
+    const intervalId = setInterval(fetchTournamentMessages, 1000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleSubmit = async (event) => {
