@@ -38,6 +38,7 @@ function MisEstadisticas() {
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
   const [draws, setDraws] = useState(0);
+  const [totalTournaments, setTotalTournaments] = useState(0);
   const [avg, setAvg] = useState(50);
   const [winRatio, setWinRatio] = useState(0);
   const [lossRatio, setLossRatio] = useState(0);
@@ -73,6 +74,7 @@ function MisEstadisticas() {
         setWins(user.totalWins);
         setLosses(user.totalLosses);
         setDraws(user.totalDraws);
+        setTotalTournaments(user.createdTournaments.length + user.joinedTournaments.length);
         if (user.totalMatches > 0) {
           setPointsRatio((user.totalPoints / user.totalMatches).toFixed(2));
           setWinRatio((user.totalWins / user.totalMatches).toFixed(2));
@@ -212,6 +214,8 @@ function MisEstadisticas() {
           <h2 className="text-2xl font-bold border-b mt-4 mb-4">{losses}</h2>
           <div className="text-xl font-bold underline">Draws:</div>
           <h2 className="text-2xl font-bold border-b mt-4 mb-4">{draws}</h2>
+          <div className="text-xl font-bold underline">Current Tournaments:</div>
+          <h2 className="text-2xl font-bold border-b mt-4 mb-4">{totalTournaments}</h2>
         </div>
 
         <div className="w-full max-w-md p-4 bg-custom-green rounded mt-9 shadow-md font-bold">

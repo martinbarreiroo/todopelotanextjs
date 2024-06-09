@@ -5,6 +5,7 @@ import withAuth from "@/components/withAuth/withAuth";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { Button } from "@/components/ui/button";
+import { Forum } from "@/components/ui/forum";
 
 function downloadPDF() {
   const doc = new jsPDF();
@@ -41,6 +42,7 @@ function Tournament() {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("tournamentName", data.tournamentName); // Store the tournamentName in local storage
+        localStorage.setItem("tournamentAdminId", data.positions[0].tournament.adminId); // Store the adminId in local storage
         setTournamentPositions(data.positions);
         setTournamentName(data.tournamentName);
       } else {
@@ -86,7 +88,12 @@ function Tournament() {
       </Link>
 
       <div className="absolute top-36 right-6">
-        <Button className= "bg-dark-green hover:bg-custom-green3" onClick={downloadPDF}>Download Table</Button>
+        <Button className= "bg-dark-green hover:bg-custom-green text-black" onClick={downloadPDF}>Download Table</Button>
+      </div>
+
+      <div className="absolute top-36 left-6">
+        <Forum 
+        />
       </div>
 
       <div className="relative flex flex-col items-center justify-center h-screen ">

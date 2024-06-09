@@ -5,6 +5,7 @@ import Link from "next/link";
 import { DialogDemo } from "@/components/ui/DialogDemo";
 import { DialogDeleteTournament } from "@/components/ui/DialogDeleteTournament";
 import { DialogChangeTournament } from "@/components/ui/DialogChangeTournament";
+import { Button } from "@/components/ui/button";
 
 async function inviteUserToTournament(userName, tournamentId) {
   try {
@@ -266,21 +267,13 @@ function manageTournament() {
               handleDeleteTournament={handleDeleteTournament}
             />
           </div>
-          <div className="absolute top-[167.5px] left-40">
+          <Button className="absolute top-40 left-40 bg-dark-green hover:bg-custom-green text-balck">
             <Link
               href={`/Hub/MisTorneos/${tournamentId}/Manage/CreateMatch`}
-              className="py-2 px-2 rounded animate-fadeIn mt-2"
-              style={{ backgroundColor: "#729560" }}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.backgroundColor = "#abcd99")
-              }
-              onMouseOut={(e) =>
-                (e.currentTarget.style.backgroundColor = "#729560")
-              }
             >
               Schedule a New Match
             </Link>
-          </div>
+          </Button>
         </div>
       )}
     </div>
