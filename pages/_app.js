@@ -1,4 +1,5 @@
 import { Toaster } from 'sonner';
+import { ToastContainer } from 'react-toastify';
 import '../styles/global.css'
 import Head from 'next/head';
 
@@ -12,6 +13,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <Component {...pageProps} />
       <Toaster />
+      <ToastContainer />
     </div>
   )
 }

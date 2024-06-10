@@ -6,6 +6,8 @@ import { DialogDemo } from "@/components/ui/DialogDemo";
 import { DialogDeleteTournament } from "@/components/ui/DialogDeleteTournament";
 import { DialogChangeTournament } from "@/components/ui/DialogChangeTournament";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 async function inviteUserToTournament(userName, tournamentId) {
   try {
@@ -34,12 +36,13 @@ async function inviteUserToTournament(userName, tournamentId) {
     const data = await response.json();
 
     if (data.id) {
-      alert("User invited successfully!");
+      toast.success("User invited successfully");
     } else {
-      alert("Failed to invite user.");
+      toast.error("Failed to invite user");
     }
   } catch (error) {
     console.error("Error:", error);
+    toast.error("An error ocurred.")
   }
 }
 

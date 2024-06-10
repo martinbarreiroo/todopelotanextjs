@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { DialogChangePassword } from "../ui/DialogChangePassword";
 import { Button } from "../ui/button";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function UpdateProfile() {
   const positions = [
@@ -103,7 +105,7 @@ function UpdateProfile() {
     e.preventDefault();
 
     if (!username || !position || !description) {
-      alert("All fields must be filled out");
+      toast.error("Please fill in all fields");
       return;
     }
 
@@ -127,9 +129,10 @@ function UpdateProfile() {
     if (!response.ok) {
       // Handle error
       console.error("Failed to update profile");
+      toast.error("Failed to update profile");
     } else {
       // Handle success
-
+      toast.success("Profile updated successfully");
       console.log("Profile updated successfully");
       const data = await response.json();
       const updatedToken = data.token;

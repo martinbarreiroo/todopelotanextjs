@@ -82,7 +82,7 @@ async function handleSignup(
       router.push("/Hub"); // navigate to /hub route if login is successful
     } else {
       const data = await response.json();
-      alert(data.message);
+      
     }
   } catch (error) {
     console.error(error);
