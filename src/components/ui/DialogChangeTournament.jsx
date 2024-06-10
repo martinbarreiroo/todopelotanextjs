@@ -91,6 +91,7 @@ function DialogChangeTournament({
               Max Participants
             </Label>
             <Input
+              type = "number"
               id="Max Participants"
               value={tournamentMaxParticipants}
               onChange={(e) => setTournamentMaxParticipants(e.target.value)}
