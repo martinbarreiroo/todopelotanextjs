@@ -102,7 +102,7 @@ function Forum() {
         },
       }
     );
-
+  
     if (response.ok) {
       // remove the message from the local state
       setMessages(messages.filter((message) => message.id !== messageId));
@@ -130,39 +130,36 @@ function Forum() {
           </SheetDescription>
         </SheetHeader>
         <div className="flex-grow overflow-auto">
-          {messages
-            .slice()
-            .reverse()
-            .map((message, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-[auto_1fr] items-start gap-4 mb-6"
-              >
-                <div className="grid gap-1">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <div className="bg-dark-green text-white rounded-full w-8 h-8 flex items-center justify-center">
-                        {message.authorUsername[0].toUpperCase()}
-                      </div>
-                      <p className="ml-2 text-sm font-medium">
-                        {message.authorUsername}
-                      </p>
+          {messages.slice().reverse().map((message) => (
+            <div
+              key={message.id}
+              className="grid grid-cols-[auto_1fr] items-start gap-4 mb-6"
+            >
+              <div className="grid gap-1">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <div className="bg-dark-green text-white rounded-full w-8 h-8 flex items-center justify-center">
+                      {message.authorUsername[0].toUpperCase()}
                     </div>
-                    {tournamentAdminId === userId && (
-                      <DialogDeleteMessage
-                        handleDeleteMessage={() => handleDelete(message.id)}
-                      />
-                    )}
+                    <p className="ml-2 text-sm font-medium">
+                      {message.authorUsername}
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {message.content}
-                  </p>
-                  <p className="text-xs text-gray-400">
-                    {new Date(message.timestamp).toLocaleString()}
-                  </p>
+                  {tournamentAdminId === userId && (
+                    <DialogDeleteMessage
+                      handleDeleteMessage={() => handleDelete(message.id)}
+                    />
+                  )}
                 </div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {message.content}
+                </p>
+                <p className="text-xs text-gray-400">
+                  {new Date(message.timestamp).toLocaleString()}
+                </p>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
 
         {tournamentAdminId === userId && (
