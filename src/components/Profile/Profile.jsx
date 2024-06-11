@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import withAuth from "@/components/withAuth/withAuth";
 import Link from "next/link";
-import { DialogDeleteUser } from "../ui/DialogDeleteUser";
+import { DialogDeleteUser } from "@/components/ui/DialogDeleteUser";
 
 function Profile() {
   const [user, setUser] = useState({
