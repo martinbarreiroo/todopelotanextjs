@@ -3,6 +3,8 @@ import withAuth from "@/components/withAuth/withAuth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 async function createMatch(date, location, description, team1, team2, router) {
   try {
@@ -88,7 +90,7 @@ function CreateMatch() {
       team1.length === 0 ||
       team2.length === 0
     ) {
-      alert("Please fill in all fields correctly");
+      toast.error("Please fill all fields");
       return;
     } else {
       createMatch(utcDateTimeString, location, description, team1, team2, router);

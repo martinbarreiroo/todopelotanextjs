@@ -107,7 +107,7 @@ function MisEstadisticas() {
       <div className="absolute top-36 right-6">
 
         <Button
-          className="bg-dark-green hover:bg-custom-green3"
+          className="bg-dark-green hover:bg-custom-green"
           onClick={downloadPDF}
         >
           Download your Stats
