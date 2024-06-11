@@ -3,6 +3,8 @@ import { useState } from "react";
 import withAuth from "@/components/withAuth/withAuth";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const types = [
   {
@@ -74,10 +76,11 @@ function CrearTorneo() {
       !validateType(type) ||
       !validateDescription(description)
     ) {
-      alert("Please fill in all fields correctly");
+      toast.error("Please fill all the fields");
       return;
     } else {
       create(name, players, type, description, router);
+      toast.success("Tournament created successfully");
     }
   };
 

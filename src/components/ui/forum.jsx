@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
+import { DialogDeleteMessage } from "./DialogDeleteMessage";
 
 function Forum() {
   const [messages, setMessages] = useState([]);
@@ -90,26 +91,24 @@ function Forum() {
   };
 
   const handleDelete = async (messageId) => {
-    if (window.confirm("Do you want to delete this message?")) {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://localhost:8080/messages/delete/${messageId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // replace with your token
-          },
-        }
-      );
-
-      if (response.ok) {
-        // remove the message from the local state
-        setMessages(messages.filter((message) => message.id !== messageId));
-      } else {
-        // handle error
-        console.error("Failed to delete message");
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `http://localhost:8080/messages/delete/${messageId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // replace with your token
+        },
       }
+    );
+  
+    if (response.ok) {
+      // remove the message from the local state
+      setMessages(messages.filter((message) => message.id !== messageId));
+    } else {
+      // handle error
+      console.error("Failed to delete message");
     }
   };
 
@@ -147,25 +146,9 @@ function Forum() {
                     </p>
                   </div>
                   {tournamentAdminId === userId && (
-                    <button
-                      className="text-red-500"
-                      onClick={() => handleDelete(message.id)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        className="h-6 w-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
+                    <DialogDeleteMessage
+                      handleDeleteMessage={() => handleDelete(message.id)}
+                    />
                   )}
                 </div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">

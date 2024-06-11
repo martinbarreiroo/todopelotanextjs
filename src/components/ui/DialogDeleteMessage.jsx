@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,17 +13,17 @@ function DialogDeleteMessage({ handleDeleteMessage }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className='text-red-500'>X</button>
+        <button className='text-red-500 bg-white'>X</button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>X</DialogTitle>
+          <DialogTitle>Delete Message</DialogTitle>
           <DialogDescription>
             This action cannot be undone. This will permanently delete this message.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <button className='bg-rejection-red hover:bg-red-400' type="button" onClick={handleDeleteMessage}>DELETE</button>
+          <Button className='bg-rejection-red hover:bg-red-400' type="submit" onClick={handleDeleteMessage}>DELETE</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
