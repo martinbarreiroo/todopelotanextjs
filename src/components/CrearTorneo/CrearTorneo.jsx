@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import withAuth from "@/components/withAuth/withAuth";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -84,6 +84,17 @@ function CrearTorneo() {
     }
   };
 
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUsername = localStorage.getItem("username");
+      if (storedUsername) {
+        setUsername(storedUsername);
+      }
+    }
+  }, []);
+
   return (
     <div className="relative flex flex-col items-center justify-center h-screen">
       <div
@@ -107,6 +118,9 @@ function CrearTorneo() {
       >
         <img src="/assets/hub.png" alt="Return to Hub" className="w-8 h-8" />
       </Link>
+      <span className="absolute top-10 right-40 p-2 underline text-black font-extrabold">
+        Logged in as {username}
+      </span>
 
       <div className="w-full flex flex-col items-center justify-between mt-24">
         <h1 className="text-2xl font-bold">Create a Tournament</h1>

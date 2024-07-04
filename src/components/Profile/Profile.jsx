@@ -70,10 +70,19 @@ function Profile() {
     }
   };
 
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUsername = localStorage.getItem("username");
+      if (storedUsername) {
+        setUsername(storedUsername);
+      }
+    }
+  }, []);
+
   return (
-    <div
-      className="relative flex flex-col items-center justify-center h-screen"
-    >
+    <div className="relative flex flex-col items-center justify-center h-screen">
       <div
         className="absolute top-0 left-0 w-full h-[12.5%]"
         style={{ backgroundColor: "#729560" }}
@@ -94,6 +103,9 @@ function Profile() {
       >
         <img src="/assets/hub.png" alt="Return to Hub" className="w-8 h-8" />
       </Link>
+      <span className="absolute top-10 right-40 p-2 underline text-black font-extrabold">
+        Logged in as {username}
+      </span>
       <div className="w-full max-w-md p-4 bg-custom-green rounded mt-9 shadow-md animate-fadeIn font-bold">
         User:
         <h1 className="text-2xl font-bold border-b mt-4 mb-4">

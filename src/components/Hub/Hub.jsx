@@ -54,8 +54,8 @@ export const Hub = () => {
         </div>
       </Link>
 
-      <span className={styles.username_display}>
-        Logged in as <span className={styles.username}>'{username}'</span>
+      <span className="absolute top-4 right-96 p-2 underline text-black font-extrabold">
+        Logged in as {username}
       </span>
 
       <div className={styles.home_menu}>

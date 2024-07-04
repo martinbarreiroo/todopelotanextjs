@@ -43,6 +43,17 @@ function MisTorneos() {
     fetchTournaments();
   }, []);
 
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUsername = localStorage.getItem("username");
+      if (storedUsername) {
+        setUsername(storedUsername);
+      }
+    }
+  }, []);
+
   return (
     <div className="relative flex flex-col items-center justify-center h-screen">
       <div
@@ -75,6 +86,10 @@ function MisTorneos() {
       >
         My Invitations
       </Link>
+
+      <span className="absolute top-10 right-40 p-2 underline text-black font-extrabold">
+        Logged in as {username}
+      </span>
 
       <div className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5">
         {tournaments.length === 0 && showMessage ? (

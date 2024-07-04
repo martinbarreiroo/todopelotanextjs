@@ -138,6 +138,9 @@ function MisEstadisticas() {
           className="w-8 h-8 z-30"
         />
       </Link>
+      <span className="absolute top-10 right-40 p-2 underline text-black font-extrabold z-30">
+        Logged in as {userName}
+      </span>
       <div id='stats' className="relative flex flex-row items-center justify-center h-screen space-x-20 space-y-4 z-20">
         <div className="relative">
           <div style={{ width: "300px", height: "450px", overflow: "hidden" }}>
