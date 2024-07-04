@@ -120,7 +120,8 @@ function CrearTorneo() {
         </div>
         <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
           <input
-            type="text"
+            type="number"
+            min={0}
             placeholder="Number of Players"
             onChange={(e) => setPlayers(e.target.value)}
             className="w-full h-full bg-transparent outline-none"

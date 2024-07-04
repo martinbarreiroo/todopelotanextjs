@@ -64,23 +64,23 @@ function DialogChangeTournament({
               Type
             </Label>
             <div className="col-span-3">
-              <Select>
+              <Select onValueChange={(val) => setTournamentType(val)}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a Type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Select a Type</SelectLabel>
-                    <SelectItem value="apple">
+                    <SelectItem value="F5">
                       <p className="ml-3">
                         F5
                       </p>
                       </SelectItem>
-                    <SelectItem value="banana"><p className="ml-3">
+                    <SelectItem value="F8"><p className="ml-3">
                         F8
                       </p>
                       </SelectItem>
-                    <SelectItem value="blueberry"><p className="ml-3">
+                    <SelectItem value="F11"><p className="ml-3">
                         F11
                       </p></SelectItem>
                   </SelectGroup>
