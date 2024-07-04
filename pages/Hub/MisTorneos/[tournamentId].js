@@ -13,7 +13,7 @@ function downloadPDF() {
   doc.text(title, 10, 10);
   const table = document.getElementById("my-table");
   autoTable(doc, { html: table, startY: 20 });
-  doc.save(title + " " +  "table.pdf");
+  doc.save(title + " " + "table.pdf");
 }
 
 function Tournament() {
@@ -42,7 +42,10 @@ function Tournament() {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("tournamentName", data.tournamentName); // Store the tournamentName in local storage
-        localStorage.setItem("tournamentAdminId", data.positions[0].tournament.adminId); // Store the adminId in local storage
+        localStorage.setItem(
+          "tournamentAdminId",
+          data.positions[0].tournament.adminId
+        ); // Store the adminId in local storage
         setTournamentPositions(data.positions);
         setTournamentName(data.tournamentName);
       } else {
@@ -88,12 +91,16 @@ function Tournament() {
       </Link>
 
       <div className="absolute top-36 right-6">
-        <Button className= "bg-dark-green hover:bg-custom-green text-black" onClick={downloadPDF}>Download Table</Button>
+        <Button
+          className="bg-dark-green hover:bg-custom-green text-black"
+          onClick={downloadPDF}
+        >
+          Download Table
+        </Button>
       </div>
 
       <div className="absolute top-36 left-6">
-        <Forum 
-        />
+        <Forum />
       </div>
 
       <div className="relative flex flex-col items-center justify-center h-screen ">
@@ -128,7 +135,12 @@ function Tournament() {
                     {index + 1}
                   </td>
                   <td className="border px-4 py-2 border-gray-800">
-                    {position.user.username}
+                    <Link
+                      href={`/Hub/MisTorneos/${tournamentId}/player-stats/${position.user.id}`}
+                      className="font-bold text-custom-green3 hover:underline"
+                    >
+                      {position.user.username}
+                    </Link>
                   </td>
                   <td className="border px-4 py-2 border-gray-800">
                     {position.points}
