@@ -219,10 +219,10 @@ function MatchPage() {
         );
 
         if (!response.ok) {
-          throw new Error("Failed to update tournament");
+          throw new Error("Failed to update match");
         } else {
           router.reload();
-          console.log("Tournament updated successfully");
+          console.log("match updated successfully");
         }
       } catch (error) {
         console.error(error);

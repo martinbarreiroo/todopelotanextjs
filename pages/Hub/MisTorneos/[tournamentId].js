@@ -18,9 +18,15 @@ function downloadPDF() {
 
 function Tournament() {
   const [tournamentPositions, setTournamentPositions] = useState([]);
-  const sortedTournamentPositions = [...tournamentPositions].sort(
-    (a, b) => b.points - a.points
-  );
+  const sortedTournamentPositions = tournamentPositions.sort((a, b) => {
+    if (a.points !== b.points) {
+      return b.points - a.points; // Sort by points in descending order
+    } else if (a.goals !== b.goals) {
+      return b.goals - a.goals; // If points are equal, sort by goals in descending order
+    } else {
+      return b.assists - a.assists; // If goals are also equal, sort by assists in descending order
+    }
+  });
   const router = useRouter();
   const tournamentId = router.query.tournamentId;
   const [tournamentName, setTournamentName] = useState("");

@@ -25,6 +25,7 @@ function PlayerStats() {
   const [lossRatio, setLossRatio] = useState(0);
   const [drawRatio, setDrawRatio] = useState(0);
   const [pointsRatio, setPointsRatio] = useState(0);
+  const [tournamentId, setTournamentId] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -43,6 +44,7 @@ function PlayerStats() {
 
       if (response.ok) {
         const user = await response.json();
+        setTournamentId(localStorage.getItem("tournamentId"))
         setGoals(user.totalGoals);
         setAssists(user.totalAssists);
         setYellowCards(user.totalYellowCards);
@@ -97,16 +99,16 @@ function PlayerStats() {
         />
       </Link>
       <Link
-        href={"/Hub"}
+        href={`/Hub/MisTorneos/${tournamentId}`}
         className="absolute top-4 right-4 font-bold py-3 px-3 mt-4 rounded"
         style={{ backgroundColor: "#729560" }}
         onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#abcd99")}
         onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#729560")}
       >
         <img
-          src="/assets/hub.png"
+          src="/assets/back-arrow.png"
           alt="Return to Hub"
-          className="w-8 h-8 z-30"
+          className="w-8 h-8"
         />
       </Link>
 
