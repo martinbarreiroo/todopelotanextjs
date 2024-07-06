@@ -5,9 +5,10 @@ import Link from "next/link";
 import { DialogDemo } from "@/components/ui/DialogDemo";
 import { DialogDeleteTournament } from "@/components/ui/DialogDeleteTournament";
 import { DialogChangeTournament } from "@/components/ui/DialogChangeTournament";
+import { DialogFixture } from "@/components/ui/DialogFixture";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 async function inviteUserToTournament(userName, tournamentId) {
   try {
@@ -42,7 +43,7 @@ async function inviteUserToTournament(userName, tournamentId) {
     }
   } catch (error) {
     console.error("Error:", error);
-    toast.error("An error ocurred.")
+    toast.error("Failed to invite user");
   }
 }
 
@@ -62,6 +63,7 @@ function manageTournament() {
   const [tournamentMaxParticipants, setTournamentMaxParticipants] =
     useState("");
   const [tournamentType, setTournamentType] = useState("");
+  const [numOfMatches, setNumOfMatches] = useState(0);
   const router = useRouter();
   console.log(router.query.tournamentId);
   const tournamentId = router.query.tournamentId;
@@ -175,6 +177,33 @@ function manageTournament() {
     }
   };
 
+  const handleFixture = async () => {
+    const token = localStorage.getItem("token");
+    const tournamentId = localStorage.getItem("tournamentId");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/matches/createFixture/${tournamentId}/${numOfMatches}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to create fixture");
+      } else {
+        
+        toast.success("Fixture created successfully");
+      }
+    } catch (error) {
+      toast.error("Failed to create fixture");
+    }
+  };
+
   return (
     <div className="relative flex flex-col items-center justify-center h-screen ">
       <div
@@ -271,12 +300,16 @@ function manageTournament() {
             />
           </div>
           <Button className="absolute top-40 left-40 bg-dark-green hover:bg-custom-green text-balck">
-            <Link
-              href={`/Hub/MisTorneos/${tournamentId}/Manage/CreateMatch`}
-            >
+            <Link href={`/Hub/MisTorneos/${tournamentId}/Manage/CreateMatch`}>
               Schedule a New Match
             </Link>
           </Button>
+
+          <DialogFixture
+              numOfMatches={numOfMatches}
+              setNumOfMatches={setNumOfMatches}
+              handleFixture={handleFixture}
+            />
         </div>
       )}
     </div>
