@@ -27,7 +27,7 @@ function DialogFixture({
         <DialogHeader>
           <DialogTitle>Create a Pre-set Fixture</DialogTitle>
           <DialogDescription>
-            This actions creates a Fixture with the number of matches you specify. Then you´ll have to set Location and Description, and your desired Date and Time for each match.
+            This actions creates a Fixture with the number of matches you specify. Then you´ll have to set Location and Description, and your desired Date and Time for each match. Can be done only once.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -38,6 +38,7 @@ function DialogFixture({
             <Input
               id="number"
               type="number"
+              min = {1}
               value={numOfMatches}
               onChange={(e) => setNumOfMatches(e.target.value)}
               className="col-span-3"

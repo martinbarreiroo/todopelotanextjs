@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import withAuth from "../withAuth/withAuth";
+import { DialogCalendar } from "../ui/DialogCalendar";
 
 function formatDate(dateString) {
   let date = new Date(dateString);
@@ -45,6 +46,7 @@ function Matches() {
         });
 
         setMatches(data);
+        console.log(matches);
       } else {
         console.error("Failed to fetch matches");
       }
@@ -84,10 +86,15 @@ function Matches() {
           className="w-8 h-8"
         />
       </Link>
+
       <div className="w-full max-w-[500px] p-4 bg-custom-green rounded shadow-md animate-fadeIn font-extrabold relative flex flex-col items-center justify-center mt-10 mb-10">
         <h3 style={{ fontSize: "2em" }}> {tournamentName}'s Matches </h3>
       </div>
+
       <div className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5">
+        <div className="absolute top-40 left-10">
+          <DialogCalendar matches={matches} />
+        </div>
         {matches.length === 0 ? (
           <div className="p-10">
             <h2 className="text-3xl font-serif font-extrabold antialiased text-center animate-fadeIn">
