@@ -200,7 +200,7 @@ function manageTournament() {
         toast.success("Fixture created successfully");
       }
     } catch (error) {
-      toast.error("Fixture already created");
+      toast.error("Unable to create fixture");
     }
   };
 
