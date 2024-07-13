@@ -89,6 +89,7 @@ function UpdateProfile() {
     );
     if (!response.ok) {
       // Handle error
+      toast.error("Please fill in all fields");
       console.error("Failed to update profile");
     } else {
       // Handle success
@@ -129,7 +130,7 @@ function UpdateProfile() {
     if (!response.ok) {
       // Handle error
       console.error("Failed to update profile");
-      toast.error("Failed to update profile");
+      
     } else {
       // Handle success
       toast.success("Profile updated successfully");

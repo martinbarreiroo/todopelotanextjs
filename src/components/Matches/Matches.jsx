@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import withAuth from "../withAuth/withAuth";
 import { DialogCalendar } from "../ui/DialogCalendar";
+import { Button } from "../ui/button";
+import MatchesPDF from "./MatchesPDF";
+import ReactDOM from "react-dom";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 function formatDate(dateString) {
   let date = new Date(dateString);
@@ -55,10 +60,62 @@ function Matches() {
     fetchMatches();
   }, []);
 
-  useEffect(() => {
-    const id = localStorage.getItem("tournamentId");
-    setTournamentId(id);
-  }, []);
+  function downloadPDF() {
+    // Render MatchesPDF off-screen
+    const tournamentName = localStorage.getItem("tournamentName");
+    const offScreen = document.createElement("div");
+    offScreen.style.position = "absolute";
+    offScreen.style.left = "-9999px";
+    document.body.appendChild(offScreen);
+
+    const root = ReactDOM.createRoot(offScreen);
+    root.render(<MatchesPDF matches={matches} />);
+
+    setTimeout(() => {
+      html2canvas(offScreen)
+        .then((canvas) => {
+          const imgData = canvas.toDataURL("image/png");
+          const pdf = new jsPDF("p", "mm", "a4");
+
+          // Add title
+          const title = tournamentName + "'s" + " " + "Matches";
+          const titleX = pdf.internal.pageSize.getWidth() / 2;
+          pdf.setFontSize(20);
+          pdf.text(title, titleX, 20, { align: "center" });
+
+          // Calculate scale factor
+          const scaleFactor = 0.2; // Adjust this value to change the scale
+
+          let imgWidth = canvas.width * scaleFactor;
+          let imgHeight = canvas.height * scaleFactor;
+
+          // Calculate x coordinate to center the image
+          let x = (pdf.internal.pageSize.getWidth() - imgWidth) / 2;
+
+          let heightLeft = imgHeight;
+          let position = 30; // Start position below the title
+
+          pdf.addImage(imgData, "PNG", x, position, imgWidth, imgHeight);
+          heightLeft -= (pdf.internal.pageSize.getHeight() - 30); // Subtract title space from page height
+
+          while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, "PNG", x, position, imgWidth, imgHeight);
+            heightLeft -= pdf.internal.pageSize.getHeight();
+          }
+
+          pdf.save(tournamentName + "_matches.pdf");
+
+          // Unmount MatchesPDF and remove the off-screen div
+          root.unmount();
+          document.body.removeChild(offScreen);
+        })
+        .catch((err) => {
+          console.error("Error creating PDF", err);
+        });
+    }, 0);
+  }
 
   return (
     <div className="relative flex flex-col items-center justify-center h-screen">
@@ -94,6 +151,14 @@ function Matches() {
       <div className="max-h-[400px] w-[550px] overflow-y-scroll overflow-hidden bg-[#729560] rounded-lg mt-5">
         <div className="absolute top-40 left-10">
           <DialogCalendar matches={matches} />
+        </div>
+        <div className="absolute top-40 right-10">
+          <Button
+            className="bg-dark-green hover:bg-custom-green"
+            onClick={downloadPDF}
+          >
+            Download Fixture
+          </Button>
         </div>
         {matches.length === 0 ? (
           <div className="p-10">

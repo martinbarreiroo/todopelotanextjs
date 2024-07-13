@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function DialogChangePassword({ password, setPassword, handleUpdatePassword }) {
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,9 +23,9 @@ function DialogChangePassword({ password, setPassword, handleUpdatePassword }) {
     ) {
       handleUpdatePassword();
     } else if (password === "" || confirmPassword === "") {
-      alert("Please fill in all the fields!");
+      toast.error("Please fill in all fields");
     } else {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match");
     }
   };
   return (
