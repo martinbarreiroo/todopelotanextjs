@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 const withAuth = (WrappedComponent) => {
-    return (props) => {
-        if (typeof window !== 'undefined') {
-            const router = useRouter();
+  return (props) => {
+    const [isClient, setIsClient] = useState(false);
+    const router = useRouter();
 
-            const token = localStorage.getItem('token');
+    useEffect(() => {
+      setIsClient(true); // Once the component mounts, we know it's client-side
 
-            // If there's no token, redirect to login page.
-            if (!token) {
-                router.replace('/');
-                return null;
-            }
+      const token = localStorage.getItem('token');
 
-            // If there is a token, render the wrapped component.
-            return <WrappedComponent {...props} />;
-        }
+      // If there's no token, redirect to login page.
+      if (!token) {
+        router.replace('/'); // Make sure this is the path to your login page
+      }
+    }, []);
 
-        // If we're on server side, just render the component.
-        return <WrappedComponent {...props} />;
-    };
+    // While checking the token, you can render a loading state or null to match the server render
+    if (!isClient) {
+      return null; // or a loading spinner, etc.
+    }
+
+    // If there is a token or we're still waiting to check, render the wrapped component
+    return <WrappedComponent {...props} />;
+  };
 };
 
 export default withAuth;
