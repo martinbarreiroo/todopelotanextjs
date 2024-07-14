@@ -7,17 +7,21 @@ import autoTable from "jspdf-autotable";
 import { Button } from "@/components/ui/button";
 import { Forum } from "@/components/ui/forum";
 
-function downloadPDF() {
-  const doc = new jsPDF();
-  const title = document.querySelector("h1").textContent;
-  doc.text(title, 10, 10);
-  const table = document.getElementById("my-table");
-  autoTable(doc, { html: table, startY: 20 });
-  doc.save(title + " " + "table.pdf");
+function formatDate(dateString) {
+  let date = new Date(dateString);
+  let hours = date.getUTCHours().toString().padStart(2, "0"); // get UTC hours and pad with 0 if necessary
+  let minutes = date.getUTCMinutes().toString().padStart(2, "0"); // get UTC minutes and pad with 0 if necessary
+  let time = `${hours}:${minutes}`;
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}  ${time}`;
 }
 
 function Tournament() {
   const [tournamentPositions, setTournamentPositions] = useState([]);
+  const [tournamentMatches, setTournamentMatches] = useState([]);
   const sortedTournamentPositions = tournamentPositions.sort((a, b) => {
     if (a.points !== b.points) {
       return b.points - a.points; // Sort by points in descending order
@@ -61,6 +65,81 @@ function Tournament() {
 
     fetchTournamentPositions(); // Call the fetchTournamentPositions function
   }, [tournamentId]);
+
+  useEffect(() => {
+    const fetchTournamentMatches = async () => {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:8080/tournaments/getMatches/${tournamentId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setTournamentMatches(data);
+      } else {
+        console.error("Failed to fetch tournament matches");
+      }
+    };
+
+    fetchTournamentMatches(); // Call the fetchTournamentPositions function
+  }, [tournamentId]);
+
+  function downloadPDF() {
+    const doc = new jsPDF();
+    const title = document.querySelector("h1").textContent;
+    doc.text(title, 10, 10);
+
+    // Positions table
+    const positionsTable = document.getElementById("my-table");
+    autoTable(doc, { html: positionsTable, startY: 20 });
+
+    // Calculate start position for matches table
+    doc.text("Played Matches", 15, doc.autoTable.previous.finalY + 15);
+    let startY = doc.autoTable.previous.finalY + 20; // 10 is the margin
+
+    // Create a table for the match
+    const matchTable = document.createElement("table");
+
+    // Create a header row and add cells with the titles
+    const headerRow = matchTable.insertRow();
+    headerRow.insertCell().textContent = "Match Number";
+    headerRow.insertCell().textContent = "Date";
+    headerRow.insertCell().textContent = "Location";
+    headerRow.insertCell().textContent = "Result";
+    headerRow.insertCell().textContent = "Scorers";
+
+    tournamentMatches.forEach((match, index) => {
+      // Add rows and cells to the table based on the match data
+      const row = matchTable.insertRow();
+      row.insertCell().textContent = index + 1; // Match number
+      row.insertCell().textContent = formatDate(match.date);
+      row.insertCell().textContent = match.location;
+      row.insertCell().textContent = match.result1 + " - " + match.result2;
+
+      // Create a string that contains all scorers and their goals
+      let scorers = match.goals
+        .map((goal) => `${goal.player} (${goal.stat})`)
+        .join(", ");
+
+      // Add a cell for the scorers
+      const cell = row.insertCell();
+      cell.textContent = scorers;
+    });
+
+    // Add the table to the PDF
+    autoTable(doc, { html: matchTable, startY: startY });
+    // Update start position for the next table
+    startY = doc.autoTable.previous.finalY + 10; // 10 is the margin
+
+    doc.save(title + " " + "table.pdf");
+  }
 
   return (
     <div className="relative flex flex-col items-center justify-center h-screen ">

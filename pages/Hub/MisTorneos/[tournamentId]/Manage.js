@@ -105,7 +105,7 @@ function manageTournament() {
 
     // Check if the maximum capacity has been reached
     if (currentParticipants >= tournament.maxParticipants) {
-      alert(
+      toast.error(
         "Maximum capacity has been reached. You cannot invite more participants."
       );
       return;

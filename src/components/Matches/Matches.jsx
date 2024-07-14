@@ -3,7 +3,7 @@ import Link from "next/link";
 import withAuth from "../withAuth/withAuth";
 import { DialogCalendar } from "../ui/DialogCalendar";
 import { Button } from "../ui/button";
-import MatchesPDF from "./MatchesPDF";
+import MatchesPDF from "../ui/MatchesPDF";
 import ReactDOM from "react-dom";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -28,7 +28,7 @@ function Matches() {
   useEffect(() => {
     const fetchMatches = async () => {
       const token = localStorage.getItem("token");
-      const tournamentId = localStorage.getItem("tournamentId");
+      setTournamentId(localStorage.getItem("tournamentId"));
       setTournamentName(localStorage.getItem("tournamentName"));
       const response = await fetch(
         `http://localhost:8080/matches/get/${tournamentId}`,
@@ -58,7 +58,7 @@ function Matches() {
     };
 
     fetchMatches();
-  }, []);
+  }, [tournamentId]);
 
   function downloadPDF() {
     // Render MatchesPDF off-screen
@@ -84,7 +84,7 @@ function Matches() {
           pdf.text(title, titleX, 20, { align: "center" });
 
           // Calculate scale factor
-          const scaleFactor = 0.2; // Adjust this value to change the scale
+          const scaleFactor = 0.1; // Adjust this value to change the scale
 
           let imgWidth = canvas.width * scaleFactor;
           let imgHeight = canvas.height * scaleFactor;
