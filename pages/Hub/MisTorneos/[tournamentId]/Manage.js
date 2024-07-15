@@ -68,6 +68,7 @@ function manageTournament() {
   console.log(router.query.tournamentId);
   const tournamentId = router.query.tournamentId;
   const [username, setUsername] = useState("");
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -193,7 +194,7 @@ function manageTournament() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/matches/createFixture/${tournamentId}/${numOfMatches}`,
+        `http://localhost:8080/matches/createFixture/${tournamentId}/${numOfMatches}/${date}`,
         {
           method: "POST",
           headers: {
@@ -319,6 +320,8 @@ function manageTournament() {
           </Button>
 
           <DialogFixture
+              date = {date}
+              setDate = {setDate}
               numOfMatches={numOfMatches}
               setNumOfMatches={setNumOfMatches}
               handleFixture={handleFixture}

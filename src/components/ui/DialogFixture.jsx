@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 function DialogFixture({
+  date,
+  setDate,
   numOfMatches,
   setNumOfMatches,
   handleFixture,
@@ -41,6 +43,16 @@ function DialogFixture({
               min = {1}
               value={numOfMatches}
               onChange={(e) => setNumOfMatches(e.target.value)}
+              className="col-span-3"
+            />
+            <Label htmlFor="Date" className="text-right">
+              Date
+            </Label>
+            <Input
+              id="date"
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               className="col-span-3"
             />
             
