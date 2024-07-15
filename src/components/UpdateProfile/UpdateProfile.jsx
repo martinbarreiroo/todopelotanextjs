@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { DialogChangePassword } from "../ui/DialogChangePassword";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 function UpdateProfile() {
   const positions = [
@@ -130,7 +130,6 @@ function UpdateProfile() {
     if (!response.ok) {
       // Handle error
       console.error("Failed to update profile");
-      
     } else {
       // Handle success
       toast.success("Profile updated successfully");
@@ -156,6 +155,9 @@ function UpdateProfile() {
           className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2"
         />
       </Link>
+      <span className="absolute top-4 right-96 p-2 underline text-black font-extrabold">
+        Logged in as {username}
+      </span>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="font-bold">User</div>
         <div

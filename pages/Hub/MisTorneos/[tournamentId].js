@@ -34,6 +34,16 @@ function Tournament() {
   const router = useRouter();
   const tournamentId = router.query.tournamentId;
   const [tournamentName, setTournamentName] = useState("");
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedUsername = localStorage.getItem("username");
+      if (storedUsername) {
+        setUsername(storedUsername);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const fetchTournamentPositions = async () => {
@@ -154,6 +164,9 @@ function Tournament() {
           className="w-24 h-24 flex justify-center mt-4 mb-10 absolute top-[10.5%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-10"
         />
       </Link>
+      <span className="absolute top-4 right-96 p-2 underline text-black font-extrabold">
+        Logged in as {username}
+      </span>
       <Link
         href={"/Hub/MisTorneos"}
         className="absolute top-4 right-4 font-bold py-3 px-3 mt-4 rounded"
