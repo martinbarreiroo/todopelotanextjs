@@ -245,7 +245,7 @@ function manageTournament() {
       </Link>
 
       <div
-        className="w-full max-w-md px-4 py-4 relative bg-custom-green rounded shadow-md animate-fadeIn mb-5 font-bold"
+        className="w-full max-w-md px-4 py-4 relative bg-custom-green overflow-y-scroll overflow-hidden rounded shadow-md animate-fadeIn mb-5 font-bold"
         style={{ marginTop: "150px", maxHeight: "500px" }}
       >
         {tournament.adminId == userId && (
