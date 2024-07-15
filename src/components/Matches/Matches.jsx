@@ -94,7 +94,7 @@ function Matches() {
           pdf.text(title, titleX, 20, { align: "center" });
 
           // Calculate scale factor
-          const scaleFactor = 0.19; // Adjust this value to change the scale
+          const scaleFactor = 0.17; // Adjust this value to change the scale
 
           let imgWidth = canvas.width * scaleFactor;
           let imgHeight = canvas.height * scaleFactor;
