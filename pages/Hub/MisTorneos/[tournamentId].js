@@ -202,7 +202,7 @@ function Tournament() {
       </div>
 
       <div className="relative flex flex-col items-center justify-center h-screen ">
-        <h1 className="text-4xl font-bold mb-16">{tournamentName} Positions</h1>
+        <h1 className="text-4xl font-bold mt-14 mb-16">{tournamentName} Positions</h1>
         <div className="max-h-[493px] overflow-auto">
           <table
             id="my-table"

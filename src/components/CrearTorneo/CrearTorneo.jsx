@@ -123,43 +123,55 @@ function CrearTorneo() {
       </span>
 
       <div className="w-full flex flex-col items-center justify-between mt-24">
-        <h1 className="text-2xl font-bold">Create a Tournament</h1>
-        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
-          <input
-            type="text"
-            placeholder="Name"
-            onChange={(e) => setName(e.target.value)}
-            className="w-full h-full bg-transparent outline-none"
-          />
+        <h1 className="text-3xl font-bold mb-14">Create a Tournament</h1>
+        <div className="flex flex-col items-start mb-5">
+          <h3 className="text-xl font-bold mb-2">Name</h3>
+          <div className="w-80 h-18 flex items-center justify-center mx-auto p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+            <input
+              type="text"
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+              className="w-full h-full bg-transparent outline-none"
+            />
+          </div>
         </div>
-        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
-          <input
-            type="number"
-            min={0}
-            placeholder="Number of Players"
-            onChange={(e) => setPlayers(e.target.value)}
-            className="w-full h-full bg-transparent outline-none"
-          />
+        <div className="flex flex-col items-start mb-5">
+          <h3 className="text-xl font-bold mb-2">Number of Players</h3>
+          <div className="w-80 h-18 flex items-center justify-center mx-auto p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+            <input
+              type="number"
+              min={1}
+              placeholder="Number of Players"
+              onChange={(e) => setPlayers(e.target.value)}
+              className="w-full h-full bg-transparent outline-none"
+            />
+          </div>
         </div>
-        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
-          <select
-            className="w-full h-90% bg-transparent outline-none"
-            onChange={(e) => setType(e.target.value)}
-          >
-            {types.map((type) => (
-              <option key={type.id} value={type.id}>
-                {type.name}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-col items-start mb-5">
+          <h3 className="text-xl font-bold mb-2">Type</h3>
+          <div className="w-80 h-18 flex items-center justify-center mx-auto p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+            <select
+              className="w-full h-90% bg-transparent outline-none"
+              onChange={(e) => setType(e.target.value)}
+            >
+              {types.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className="w-80 h-18 flex items-center justify-center mx-auto mt-5 mb-5 p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray hover:scale-105">
-          <input
-            type="text"
-            placeholder="Brief description"
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full h-90% bg-transparent outline-none"
-          />
+        <div className="flex flex-col items-start mb-5">
+          <h3 className="text-xl font-bold mb-2">Brief Description</h3>
+          <div className="w-80 h-18 flex items-center justify-center mx-auto p-6 relative rounded transition-colors duration-500 ease-in-out bg-input-gray hover:bg-custom-gray transform hover:scale-105">
+            <input
+              type="text"
+              placeholder="Brief description"
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full h-90% bg-transparent outline-none"
+            />
+          </div>
         </div>
         <button
           className="text-white font-bold py-2 px-4 rounded"
