@@ -90,7 +90,7 @@ function CreateMatch() {
   const handleCreateMatch = () => {
     let dateTimeString = `${date}T${time}:00.000Z`;
     let dateTime = new Date(dateTimeString);
-    let utcDateTimeString = `${date}T${dateTime.getUTCHours()}:${dateTime.getUTCMinutes()}:00.000Z`;
+    let utcDateTimeString = `${date}T${dateTime.getUTCHours()}:${String(dateTime.getUTCMinutes()).padStart(2, '0')}:00.000Z`;
 
     if (
       !validateDate(date) ||
